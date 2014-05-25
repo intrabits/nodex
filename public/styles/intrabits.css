@@ -1,0 +1,8 @@
+/*-------------------------------Dashboard--------------------------------------------*/
+.dash-item a{
+	text-decoration: none;
+}
+.mini-box:hover{
+	background-color:#333;
+	color: #ddd;
+}

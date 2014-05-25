@@ -1,0 +1,83 @@
+<div class="modal-header" ng-controller="menu">
+    <h3><span data-i18n="Crear una página nueva"></span> </h3>
+</div>
+<form class="form-horizontal" role="form" ng-submit="processForm()">
+<div class="modal-body" ng-controller="algo">
+                
+            
+            <div class="vertical" data-ui-wizard-form>
+                <h3>Escoge un estilo</h3>
+                <div>                    
+                    <div class="row">                                                
+                        <div class="col-md-6">
+                          <label><input type="radio" name="estilo" ng-model="FormData.pagina_template_id" value="1"><img src="http://bootswatch.com/slate/thumbnail.png" width="100%"></label></div>
+                        <div class="col-md-6">
+                          <label><input type="radio" name="estilo" ng-model="FormData.pagina_template_id" value="2"><img src="http://bootswatch.com/cerulean/thumbnail.png" width="100%"></label></div>
+                    </div>
+                    <hr>
+                    <div class="row">                        
+                        <!-- <div class="col-md-4"><img src="http://bootswatch.com/flatly/thumbnail.png" width="100%"></div>
+                        <div class="col-md-4"><img src="http://bootswatch.com/cyborg/thumbnail.png" width="100%"></div>
+                        <div class="col-md-4"><img src="http://bootswatch.com/amelabela/thumbnail.png" width="100%"></div> -->
+                    </div>
+                </div>
+
+                <h3>Información general</h3>
+                <div>                    
+                      <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-4 control-label">Nombre de la página</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormData.pagina_nombre">                          
+                        </div>
+                      </div>                      
+                      <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Dominio deseado</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="inputPassword3" placeholder="ejemplo.com" ng-model="FormData.pagina_dominio">
+                          <p class="help-block">Nosotros verificaremos la disponibilidad de ese dominio</p>
+                        </div>
+                      </div>
+                       <!-- <input type="submit" class="btn btn-lg btn-success" value="Aceptar">  -->
+                                                             
+                                    
+                </div>              
+            </div>
+          
+        
+    
+    
+</div>
+<div class="modal-footer">
+    <!-- <button class="btn btn-primary" ng-click="ok()">OK</button> -->
+     <input type="submit" value="Ok" class="btn btn-primary">
+    <button class="btn" ng-click="cancel()">Cancel</button>
+</div>
+</form>
+
+<div class="page">
+<style type="text/css">
+:checked + img {
+    font-weight: bold;
+    width: 80%;
+    height:1;
+    background: #222;
+}
+
+/* Optional other stuff just to make it look better */
+label img{
+    display: inline-block;
+    width: 60%;
+    padding: 5px;
+}
+img:hover {
+    background:#eee;
+    cursor:pointer;
+    border: 1px solid #aaa;
+    padding: 4px;
+}
+</style>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
+
+
+</div>

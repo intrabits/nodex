@@ -1,0 +1,19 @@
+{
+  "name": "passport-facebook-examples-login",
+  "version": "0.0.0",
+  "dependencies": {
+    "bcrypt": "^0.7.8",
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "express": "4.x",
+    "express-session": "~1.0.0",
+    "jade": "latest",
+    "method-override": "~1.0.0",
+    "mongodb": "*",
+    "morgan": "~1.0.0",
+    "mysql": "^2.3.0",
+    "passport": ">= 0.0.0",
+    "passport-facebook": ">= 0.0.0",
+    "passport-local": "^1.0.0"
+  }
+}

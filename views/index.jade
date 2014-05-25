@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	h1=	bartrunch
+	if	user
+		h2=	user.username
+	else
+		h2	Yo biatch
+		p	Inicia sesión
+		a(href="/auth/facebook")
+			img(src='login-with-facebook.png')

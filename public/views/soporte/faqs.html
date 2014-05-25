@@ -1,0 +1,72 @@
+
+<div class="page" ng-controller="faqs">
+    <div class="row">
+        <div class="col-sm-3">
+            <section class="panel panel-default mail-categories">
+                <div class="panel-heading">
+                    <a href="#/mail/compose" class="btn btn-block btn-lg btn-primary">Agregar pregunta</a>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="cat in categorias">                        
+                        <a ng-click="getPreguntas(cat.categoria_id,cat.categoria_nombre)">
+                        <i class="fa fa-star"></i> {{ cat.categoria_nombre }}                        
+                        <span ng-if="cat.categoria_cantidad>0" class="badge badge-info pull-right">{{ cat.categoria_cantidad }}</span>                        
+                    </a></li>                   
+                </ul>
+            </section>
+            
+        </div>
+        <div class="col-sm-9">
+            <section class="panel panel-default mail-container"  ng-if="categoria_seleccionada!=''">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> {{ categoria_titulo }}</strong></div>
+                
+                <table class="table table-hover">
+                    <tr ng-repeat="faq in faqs">                        
+                        <td>{{ faq.faq_pregunta }}</td>
+                        <td>{{ faq.faq_respuesta | limitTo: 20 }}</td>
+                        <td><a href="javascript:;" ng-click="getFaq(faq.faq_id)" class="btn btn-danger">Ver respuesta</a></td>
+                    </tr>
+                   
+                </table>
+            </section>
+            <section class="panel panel-default mail-container" ng-if="faq_seleccionada!=''">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Respuesta</strong></div>
+                <div class="panel-body">
+                    <div class="mail-header row">
+                        <div class="col-md-8">
+                            <h3>{{ faq.faq_pregunta }}</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="pull-right">
+                                <a href="#/mail/compose" class="btn btn-sm btn-primary">Reply <i class="fa fa-mail-reply"></i></a>
+                                <a href="javascript:;" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
+                                <a href="javascript:;" class="btn btn-sm btn-default"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mail-info">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <strong>Jane Swift</strong> (jane@swift.com) to
+                                <strong>me</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="pull-right">
+                                    2/11/14 2:11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mail-content" ng-bind-html="faq.faq_respuesta">
+                        
+                       
+                    </div>                   
+                    <div class="mail-actions">
+                        <a href="#/mail/compose" class="btn btn-sm btn-primary">Comentar <i class="fa fa-mail-reply"></i></a>
+                        <a href="#/mail/compose" class="btn btn-sm btn-default">Forward <i class="fa fa-mail-forward"></i></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

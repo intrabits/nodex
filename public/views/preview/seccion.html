@@ -1,0 +1,16 @@
+
+<div class="bloque">
+
+	<div class="row">
+		<div ng-repeat="bloque in bloques  track by $index">
+			<div class="col-md-{{ bloque.bloque_cols }}">
+				<div class="well" ng-if="bloque.bloque_titulo">
+					<h1>{{ bloque.bloque_titulo }}</h1>
+					<div class="interior"  ng-bind-html="bloque.bloque_contenido"></div>
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-info btn-lg pull-right"><i class="fa fa-plus fa-4x"></i><br>Agregar contenido</button>
+	</div>
+	
+</div>

@@ -1,0 +1,91 @@
+<html ng-controller="MainCtrl" class="bg"   ng-app=app>
+<head>
+    <title></title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/preview.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js    "></script>
+    <style type="text/css">
+    .bg{
+        background-image:url({{ settings.pagina_fondo }});
+        background-attachment: fixed;
+        background-size: 100%;
+    }
+    </style>
+    
+</head>
+<body >
+
+    <!-- 
+
+AngularJS - Multiple inline ng-view Example with Services
+
+Features :
+
+* 2 Services manage the domain model :
+- Page : store the page title and broadcasts an changedPageTitle event which the MainCtrl controller listens for and updates the DOM
+- Model : a simple in-memory indexed record store with getter methods (and an add and delete method that is not used yet
+
+* multiple ng-views with inline templates (partials). These use the `<script type=text/ng-template id=home.html>` syntax which mean we dont have to have partials in seperate files (good for single file examples like JSFiddles
+
+PROBLEMS
+
+1) I dont like that my Page service has to broadcast an event that the pageTitle has changed. Is there a better way to do this (is this a use case for a $watch ?
+
+-->
+
+<div >
+ <div class="navbar navbar-default navbar-fixed-top"  ng-controller="MenuCtrl">
+    <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">{{ settings.pagina_nombre }} </a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">                    
+          <ul class="nav navbar-nav navbar-right" style="color:#fff;">
+            <li class="btn-info"><a href="/algo" style="color:#fff"><i class="fa fa-plus"></i> Agregar sección</a></li>
+            <li><a href="#/estilo"><i class="fa fa-pencil"></i> Editar estilo</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" ng-repeat="seccion in ContenidoSecciones">
+            <li><a href="#/seccion/{{ seccion.seccion_id }}">{{ seccion.seccion_nombre }}</a></li>
+          </ul>
+
+
+        </div>      
+    </div>
+</div>
+
+<!-- <section data-ng-include=" 'views/preview/header.html' " id="header" class="top-header"></section> -->
+
+<div class="container contenido">
+    <!-- <div data-ng-include=" 'views/preview/contenido.html'"></div> -->
+    <hr>
+    <h1>{{page.title()}}</h1>
+
+
+    <hr>
+
+        <ng-view>Loading...</ng-view>
+    <hr>
+</div>
+
+<script src="scripts/vendor.js"></script>
+<script src="https://code.angularjs.org/1.0.1/angular-sanitize-1.0.1.js"></script>
+<script src="scripts/preview/controladores.js"></script>
+<script src="scripts/preview/services.js"></script>
+
+
+<!-- Inline Templates (Partials) -->
+    
+
+
+</div>
+
+
+</body>
+</html>

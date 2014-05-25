@@ -1,0 +1,19 @@
+extends layout
+
+block content
+	p ID: #{user.id}
+	p Nick: #{user.username}
+	p Nombre: #{user.displayName}
+
+	table(class='table table-striped')
+		tr
+			th	ID
+			td	#{user.id}
+		tr
+			th	Nick
+			td	#{user.username}
+		tr
+			th Nombre
+			td	#{user.displayName}
+
+	p	Hola
