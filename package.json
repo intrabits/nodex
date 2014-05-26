@@ -10,6 +10,8 @@
     "jade": "latest",
     "method-override": "~1.0.0",
     "mongodb": "*",
+    "mongojs": "^0.13.0",
+    "mongoose": "^3.8.11",
     "morgan": "~1.0.0",
     "mysql": "^2.3.0",
     "passport": ">= 0.0.0",
