@@ -9,29 +9,30 @@ angular.module('app.paginas.ctrl', []).controller('algo', [
     $scope.FormData = {};
     $scope.FormPagina = {};
 
+    if (pagina_id) {
+      $http.get('/api/pagina/'+pagina_id+'/secciones').success(function (data,status,headers,config) {
+         $scope.secciones = data;
+       });
 
-    $http.get('/api/pagina/'+pagina_id+'/secciones').success(function (data,status,headers,config) {
-       $scope.secciones = data;
-     });
-
-    $http.get('/api/pagina/'+pagina_id).success(function (data,status,headers,config) {
-       $scope.FormPagina = data[0];      
-     });
+      $http.get('/api/pagina/'+pagina_id).success(function (data,status,headers,config) {
+         $scope.FormPagina = data;      
+       });  
+    };
+    
 
     
 
     $scope.processForm = function() {
       var datos;
+      alert(datos)
       datos = $scope.FormData
-      console.log(datos);
-      alert('llegó aqui');
-    $http({
+      console.log(datos);      
+      $http({
           method  : 'POST',
           url     : '/api/pagina',
           data    :  datos,  // pass in data as string        
       })
-        .success(function(data) {
-            console.log(data);
+        .success(function(data) {            
                         
                 // $scope.message = data.message;
                 // $window.location.href="/pagina/";

@@ -1,0 +1,31 @@
+<div ng-controller="MenuCtrl">
+ <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+          <a href="/preview/#/pagina/{{ settings._id }}" class="navbar-brand">{{ settings.pagina_nombre }}</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">                    
+          <ul class="nav navbar-nav navbar-right" style="color:#fff;">
+            <li class="btn-info"><a href="/preview/#/pagina/{{ settings._id }}/agregar" style="color:#fff"><i class="fa fa-plus"></i> Agregar sección</a></li>
+            <li><a href="/preview/#/pagina/{{ settings._id }}/estilo"><i class="fa fa-pencil"></i> Editar estilo</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right"  ng-repeat="seccion in settings.secciones">
+            <li><a href="/preview/#/{{ settings._id }}/seccion/{{ seccion.id }}"><i class="{{ seccion.seccion_icono }}"></i> {{ seccion.seccion_nombre }}</a></li>
+          </ul>
+
+
+        </div>              
+    </div>
+<style type="text/css">
+    .bg{
+        background-image:url({{ settings.pagina_fondo }});
+        background-color: {{ settings.pagina_fondo_color }} ;
+        color: {{ settings.pagina_texto_color }}
+    }
+</style>
+</div>

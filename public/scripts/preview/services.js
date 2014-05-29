@@ -1,8 +1,7 @@
 
-
 /* Services */
 
-angular.module('appServices', [])
+angular.module('appServices',  ['ngRoute'])
         //esto se queda, pero solo como adorno para futuras referencias
         .factory('Page', function($rootScope){
             var pageTitle = "Untitled";
@@ -15,6 +14,7 @@ angular.module('appServices', [])
                 }
             }
         })
+
 
         .factory ('Model', ['$http',function ($http) {           
             var data = [
@@ -51,10 +51,10 @@ angular.module('appServices', [])
 }]).factory ('Seccion', ['$http',function ($http) {                       
             var secciones = [];
             
-            return {
-                secciones:function (pagina_id,callback) {
-                    $http.get('/api/pagina/'+pagina_id+'/secciones').success(function (data,status,headers,config) {
-                        // return data;
+            return {                
+                secciones:function (parametros,callback) {
+                    $http.get('/api/pagina/'+parametros).success(function (data,status,headers,config) {
+                        // console.log(pagina_id + " : " +data);
                         callback(null,data);
                      });
                 },
@@ -82,31 +82,39 @@ angular.module('appServices', [])
                     });
                 }
             }
-}]).factory ('Pagina', ['$http',function ($http) {                       
-            var secciones = [];
+}]).factory ('Pagina', ['$http','$routeParams',function ($http,$routeParams) {                                   
             
             return {
+
                 settings:function (pagina_id,callback) {
-                    $http.get('/api/pagina/'+pagina_id).success(function (data,status,headers,config) {
+                    $http.get('/api/pagina/'+ pagina_id ).success(function (data,status,headers,config) {
                         // return data;
                         callback(null,data);
                      });
                 },
-                get:function(id){
-                  return data[id];
+                edit:function (mongo, datos, callback) {
+                    $http({
+                          method  : 'PUT',
+                          url     : '/api/pagina/'+mongo,
+                          data    :  datos,  // pass in data as string        
+                      })
+                        .success(function(data) {
+                            callback(null,'Ok');
+                        }).error(function(err){
+                            callback('Hubo un error',null);
+                        });
                 },
-                add:function (note) {
-                    var currentIndex = data.length;
-                    data.push({
-                        id:currentIndex, title:note.title, detail:note.detail
-                    });
-                },
-                delete:function (id) {
-                    var oldNotes = data;
-                    data = [];
-                    angular.forEach(oldNotes, function (note) {
-                        if (note.id !== id) data.push(note);
-                    });
+                addSeccion:function (mongo, datos, callback) {
+                    $http({
+                          method  : 'POST',
+                          url     : '/api/pagina/'+mongo,
+                          data    :  datos,  // pass in data as string        
+                      })
+                        .success(function(data) {
+                            callback(null,'Ok');
+                        }).error(function(err){
+                            callback('Hubo un error',null);
+                        });
                 }
             }
 }]);

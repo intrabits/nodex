@@ -1,0 +1,58 @@
+<div data-ng-include=" 'views/preview/menu.html'"></div>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="well">			
+			<p class="lead">
+				Las secciones son cada uno de los elementos que aparecerán en el menú principal, a continuación te ponemos ejemplos de secciones.
+				<ul class="lead">
+				    <li>Inicio</li>
+				    <li>Acerca de</li>
+				    <li>Servicios</li>
+				    <li>Productos</li>
+				</ul>
+			</p>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="well">
+			<h3>Agregar sección</h3>
+			<form class="form-horizontal" ng-submit="addSeccion()" role="form">
+				<div class="vertical">	                	                
+	                <div id="result"></div>                
+	                <div>                    
+	                      <div class="form-group">
+	                        <label for="inputEmail3" class="col-sm-4 control-label">Nombre de la sección</label>
+	                        <div class="col-sm-8">
+	                          <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormAddSeccion.seccion_nombre">
+	                        </div>
+	                      </div>                      
+	                      <div class="form-group">
+	                        <label for="inputPassword3" class="col-sm-4 control-label">Ícono</label>
+	                        <div class="col-sm-8">
+	                          <input type="text" class="form-control" ng-model="FormAddSeccion.seccion_icono">
+	                        </div>
+	                      </div>
+	                      <div class="form-group">
+	                        <label for="inputPassword3" class="col-sm-4 control-label">Orden</label>
+	                        <div class="col-sm-8">
+	                          <input type="text" class="form-control" id="inputPassword3" ng-model="FormAddSeccion.seccion_orden">	                          
+	                        </div>
+	                      </div>
+	                      <!-- <div class="form-group">
+	                        <label for="inputPassword3" class="col-sm-4 control-label">Tipo de letra</label>
+	                        <div class="col-sm-8">
+	                          <input type="text" class="form-control" id="inputPassword3" ng-model="FormAddSeccion.pagina_fondo">
+	                        </div>
+	                      </div> -->
+	                      <p align="right">
+	                      	<input type="submit" class="btn btn-lg btn-success" value="Aceptar"> 
+	                      </p>	                       
+	                                                             
+	                                    
+	                </div>              
+	            </div>
+			</form>
+		</div>
+	</div>
+</div>

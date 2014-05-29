@@ -1,8 +1,8 @@
 <div class="modal-header" ng-controller="menu">
     <h3><span data-i18n="Crear una página nueva"></span> </h3>
 </div>
-<form class="form-horizontal" role="form" ng-submit="processForm()">
-<div class="modal-body" ng-controller="algo">
+<form ng-controller="algo" class="form-horizontal" role="form" ng-submit="processForm()">
+<div class="modal-body" >
                 
             
             <div class="vertical" data-ui-wizard-form>
@@ -49,7 +49,7 @@
 </div>
 <div class="modal-footer">
     <!-- <button class="btn btn-primary" ng-click="ok()">OK</button> -->
-     <input type="submit" value="Ok" class="btn btn-primary">
+    <input type="submit" value="Ok" class="btn btn-primary">
     <button class="btn" ng-click="cancel()">Cancel</button>
 </div>
 </form>

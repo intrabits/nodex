@@ -8,20 +8,15 @@ var passport        = auth.passport;
 ensureAuthenticated = auth.ensureAuthenticated;
 connection          = config.connection;
 
-//var MongoClient = require('mongodb').MongoClient
-    // , format = require('util').format;
-
-
-
-router.get('/account', ensureAuthenticated, function(req, res){res.render('account', { user: req.user });  });
 
 router.get('/cuenta', ensureAuthenticated, function(req, res){res.json(req.user);  });
 
 router.get('/', ensureAuthenticated, function(req, res){  res.render('app', { user: req.user , avatar:req.user.username}); });
 
-router.get('/preview', ensureAuthenticated, function(req, res){  res.sendfile('public/pagina.html');  });
+router.get('/preview/', function(req, res){  
+    res.sendfile('public/pagina.html');  
+});
 
-router.get('/test', function(req, res){  res.send('hoala bartunches sooopasa');  });
 
 router.get('/login', function(req, res){  res.sendfile('public/start.html');  });
 

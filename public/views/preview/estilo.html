@@ -1,16 +1,18 @@
+<div data-ng-include=" 'views/preview/menu.html'"></div>
+
 <div class="bloque">
 
 <div class="row">
 	<div class="col-md-6">
-		<form class="form-horizontal">
-			<div class="vertical" data-ui-wizard-form>
+		<form class="form-horizontal" ng-submit="editPagina()" role="form">
+			<div class="vertical well" data-ui-wizard-form>
                 <h3>Escoge un estilo</h3>
                 <div>                    
                     <div class="row">                                                
                         <div class="col-md-6">
-                          <label><input type="radio" name="estilo" ng-model="FormData.pagina_template_id" value="1"><img src="http://bootswatch.com/slate/thumbnail.png" width="100%"></label></div>
+                          <label><input type="radio" name="estilo" ng-model="FormData.pagina_template_id" value="1"><img src="http://bootswatch.com/slate/thumbnail.png" width="80%"></label></div>
                         <div class="col-md-6">
-                          <label><input type="radio" name="estilo" ng-model="FormData.pagina_template_id" value="2"><img src="http://bootswatch.com/cerulean/thumbnail.png" width="100%"></label></div>
+                          <label><input type="radio" name="estilo" ng-model="FormData.pagina_template_id" value="2"><img src="http://bootswatch.com/cerulean/thumbnail.png" width="80%"></label></div>
                     </div>
                     <hr>
                     <div class="row">                        
@@ -19,23 +21,40 @@
                         <div class="col-md-4"><img src="http://bootswatch.com/amelabela/thumbnail.png" width="100%"></div> -->
                     </div>
                 </div>
-
-                <h3>Información general</h3>
+                <div id="result"></div>                
                 <div>                    
                       <div class="form-group">
                         <label for="inputEmail3" class="col-sm-4 control-label">Nombre de la página</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormData.pagina_nombre">                          
+                          <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormData.pagina_nombre" value="FormData.pagina_nombre">               
                         </div>
                       </div>                      
                       <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-4 control-label">Dominio deseado</label>
+                        <label for="inputPassword3" class="col-sm-4 control-label">Imágen de fondo</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" id="inputPassword3" placeholder="ejemplo.com" ng-model="FormData.pagina_dominio">
-                          <p class="help-block">Nosotros verificaremos la disponibilidad de ese dominio</p>
+                          <input type="text" class="form-control" id="inputPassword3" ng-model="FormData.pagina_fondo">
                         </div>
                       </div>
-                       <!-- <input type="submit" class="btn btn-lg btn-success" value="Aceptar">  -->
+                      <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Color de fondo</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="inputPassword3" ng-model="FormData.pagina_fondo_color">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Color del texto</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="inputPassword3" ng-model="FormData.pagina_texto_color">
+                          <p class="help-block">Procura escoger un color que contraste con el color de fondo de tu página</p>
+                        </div>
+                      </div>
+                      <!-- <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Tipo de letra</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="inputPassword3" ng-model="FormData.pagina_fondo">
+                        </div>
+                      </div> -->
+                      <p align="right"><input type="submit" class="btn btn-lg btn-success" value="Aceptar"></p>
                                                              
                                     
                 </div>              
