@@ -3,9 +3,15 @@ var router  = express.Router();
 var shortId = require('shortid');
 var config  = require('./../config/config.js');
 var auth    = require('./../config/auth.js');
+
+//  Modelos
 var Usuario = require('./../models/usuario.js');
 var Pagina  = require('./../models/pagina.js');
 var Soporte  = require('./../models/soporte.js');
+
+
+//  Controladores
+var PaginaCtrl  = require('./../controllers/pagina.js');
 
 var passport        = auth.passport;
 ensureAuthenticated = auth.ensureAuthenticated;
@@ -21,7 +27,7 @@ router.get('/cuenta', ensureAuthenticated, function(req, res){res.json(req.user)
 router.get('/usuario/:id',ensureAuthenticated, function (req, res) {
     
     var id = req.params.id;
-    var campos = Usuario.getUsuario(id, function( err, data){
+    Usuario.getUsuario(id, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -35,7 +41,7 @@ router.get('/usuario/:id',ensureAuthenticated, function (req, res) {
 router.get('/misPaginas',ensureAuthenticated, function (req, res) {
     
     var condicion = {'usuario_id':req.user[0].usuario_id};    
-    var campos = Pagina.getPaginas(condicion, function( err, data){
+    Pagina.getPaginas(condicion, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -49,7 +55,7 @@ router.get('/misPaginas',ensureAuthenticated, function (req, res) {
 router.get('/usuario/:id/paginas',ensureAuthenticated, function (req, res) {
     var condicion = {'usuario_id':req.params.id};
 
-    var campos = Usuario.getPaginas(condicion, function( err, data){
+    Usuario.getPaginas(condicion, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -64,7 +70,7 @@ router.get('/pagos',ensureAuthenticated, function (req, res) {
     var usuario_id = req.user[0].usuario_id;
     var condicion = {'pago_usuario_id':usuario_id};    
 
-    var campos = Usuario.getPagos(condicion, function( err, data){
+    Usuario.getPagos(condicion, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -78,7 +84,7 @@ router.get('/pagos',ensureAuthenticated, function (req, res) {
 router.get('/pagos/pendientes',ensureAuthenticated, function (req, res) {    
     var usuario_id = req.user[0].usuario_id;
     var condicion = {'pago_usuario_id':usuario_id};    
-    var campos = Usuario.getPagosPendientes(condicion, function( err, data){
+    Usuario.getPagosPendientes(condicion, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -94,7 +100,7 @@ router.get('/pagos/facturas',ensureAuthenticated, function (req, res) {
     var condicion = {'pago_usuario_id':usuario_id};
     
 
-    var campos = Usuario.getFacturas(condicion, function( err, data){
+    Usuario.getFacturas(condicion, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -112,7 +118,7 @@ router.get('/pagos/facturas',ensureAuthenticated, function (req, res) {
 router.get('/pagina/:id', function (req, res) {
     
     // var condicion = {'pagina_id':req.params.id};
-    var campos = Pagina.getPagina(req.params.id, function( err, data){
+    Pagina.getPagina(req.params.id, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -141,7 +147,29 @@ router.put('/pagina/:id', function (req, res) {
 
     }
 
-    var campos = Pagina.editPagina(req.params.id,datos, function( err, data){
+    Pagina.editPagina(req.params.id,datos, function( err, data){
+        if (err) {
+            // error handling code goes here
+            console.log("ERROR : ",err);            
+        } else {            
+            // code to execute on data retrieval            
+            res.json(data);
+        } 
+    });
+});
+
+router.put('/pagina/:id/redes', function (req, res) {
+
+    var datos = {
+        facebook:  req.body.facebook,
+        twitter:   req.body.twitter,        
+        google:    req.body.google,
+        instagram: req.body.instagram,
+        youtube:   req.body.youtube,
+
+    }
+
+    Pagina.editRedes(req.params.id,datos, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -172,7 +200,7 @@ router.post('/pagina', function (req, res) {
     var secciones = req.body.secciones;    
 
 
-    var campos = Pagina.createPagina(datos, function( err, data){
+    Pagina.createPagina(datos, function( err, data){
         if (err) {            
             console.log("ERROR : ",err);     
             res.send('Error');       
@@ -223,6 +251,20 @@ router.post('/pagina', function (req, res) {
     });
 });
 
+
+router.delete('/pagina/:documento/seccion/:id',function (req, res) {
+    id = req.params.id;
+    documento = req.params.documento;
+    Pagina.deleteSeccion(documento, id,function (err, data) {
+        if (err) {
+            console.log(err);
+        } else{            
+            res.send('Ok');
+        };
+    });
+});
+
+
 router.get('/pagina/:pagina_id/settings', function(req, res){
     Pagina.getPagina(req.params.pagina_id,function (err, data) {
         if (err) {console.log('Hubo un error al recuperar la información de la página');} 
@@ -251,7 +293,7 @@ router.get('/pagina/:id/secciones', function (req, res) {
 router.get('/pagina/:id/:seccion', function (req, res) {
     var condicion = {'seccion_id':req.params.seccion};
 
-    var campos = Pagina.getSeccion(condicion, function( err, data){
+    Pagina.getSeccion(condicion, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -284,7 +326,7 @@ router.post('/pagina/:id', function (req, res) {
 router.get('/seccion/:id', function (req, res) {
     var condicion = {'bloque_seccion_id':req.params.id};
 
-    var campos = Pagina.getBloques(condicion, function( err, data){
+    Pagina.getBloques(condicion, function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -300,7 +342,7 @@ router.get('/seccion/:id', function (req, res) {
 
 
 router.get('/faqs',function (req, res){
-    var campos = Soporte.getFaqCategorias(function( err, data){
+    Soporte.getFaqCategorias(function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -312,7 +354,7 @@ router.get('/faqs',function (req, res){
 });
 
 router.get('/faqs/:id',function (req, res){
-    var campos = Soporte.getFaqs(req.params.id,function( err, data){
+    Soporte.getFaqs(req.params.id,function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            
@@ -324,7 +366,7 @@ router.get('/faqs/:id',function (req, res){
 });
 
 router.get('/faq/:id',function (req, res){
-    var campos = Soporte.getFaq(req.params.id,function( err, data){
+    Soporte.getFaq(req.params.id,function( err, data){
         if (err) {
             // error handling code goes here
             console.log("ERROR : ",err);            

@@ -49,6 +49,33 @@ Pagina.createPagina = function(datos,callback){
 	});
 }
 
+//	Borrar página D:
+Pagina.deletePagina = function(id,callback){	
+	db.pagina.remove({'_id':id}, function(err, ok) {
+		if( err ) {
+			console.log("Ocurrió un error D:");	
+			callback(err,null);
+		}
+		else {
+			console.log("Página eliminada T.T");			
+		}
+	});
+}
+
+//	Borrar sección D:
+Pagina.deleteSeccion = function(documento,id,callback){	
+	db.pagina.update({'_id':new ObjectId(documento)}, {$pull: {'secciones': {'_id':id }}},function(err, ok) {
+		if( err ) {
+			console.log("Ocurrió un error D:");	
+			callback(err,null);
+		}
+		else {
+			console.log("Sección eliminada T.T",ok);			
+			callback(null,'ok');
+		}
+	});
+}
+
 //	Esta función guarda el ID de MySQL para facilitarnos la vida en angular y en ruteo en general :)
 Pagina.setPagina_id = function(id,nuevo ,callback){	
 	db.pagina.update({"_id":id},{$set:{'pagina_id':nuevo	}}, function(err, saved) {
@@ -91,16 +118,18 @@ Pagina.editPagina = function(id,datos,callback){
 		}else {
 			callback(null,'Ok');			
 		}
-	});	
-	// console.log(id);
-	// connection.query('UPDATE pagina SET ? WHERE pagina_id = ?',[datos,id], function(err, result){        
-	// 	if (err) 
-	// 		callback(err,null);
-	// 	else{
-	// 		console.log(result);			
-	// 		callback(null,result[0]);
-	// 	}
- //    });
+	});		
+}
+
+Pagina.editRedes = function(id,datos,callback){
+	db.pagina.update({_id:new ObjectId(id)},{$set:{redes:datos}}, function(err, data) {
+		if( err) {
+			console.log("Ocurrió un error");
+			callback(err,null);
+		}else {
+			callback(null,'Ok');			
+		}
+	});		
 }
 
 // Pagina.addSeccion = function(datos,callback){
