@@ -36,9 +36,7 @@ angular.module('app.controllers', []).controller('AppCtrl', [
 
     
     return $scope.main = {
-      brand: 'Intrabits',
-      avatar: 'http://graph.facebook.com/cedric.luckie/picture'
-
+      brand: 'Intrabits',      
     };
 
 

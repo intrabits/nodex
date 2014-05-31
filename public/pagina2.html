@@ -1,0 +1,93 @@
+<html>
+<head>
+    <title>{{ settings.pagina_nombre }}</title>
+    <base href="http://localhost:3000/">
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./styles/preview.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js    "></script>
+
+    <link rel="stylesheet" type="text/css" href="./plugins/snap.css" />
+        <link rel="stylesheet" type="text/css" href="./plugins/demo.css" />
+    
+    
+    
+</head>
+<body ng-controller="MainCtrl" class="bg"   ng-app=app>
+
+    <!-- 
+
+AngularJS - Multiple inline ng-view Example with Services
+
+Features :
+
+* 2 Services manage the domain model :
+- Page : store the page title and broadcasts an changedPageTitle event which the MainCtrl controller listens for and updates the DOM
+- Model : a simple in-memory indexed record store with getter methods (and an add and delete method that is not used yet
+
+* multiple ng-views with inline templates (partials). These use the `<script type=text/ng-template id=home.html>` syntax which mean we dont have to have partials in seperate files (good for single file examples like JSFiddles
+
+PROBLEMS
+
+1) I dont like that my Page service has to broadcast an event that the pageTitle has changed. Is there a better way to do this (is this a use case for a $watch ?
+
+-->
+
+
+
+<!-- <section data-ng-include=" 'views/preview/header.html' " id="header" class="top-header"></section> -->
+
+
+
+
+
+    <div class="snap-drawers">
+        <div class="snap-drawer snap-drawer-left">
+            <div>
+                <h3>Snap.js</h3>
+                <h4>Demos</h4>
+                <ul>
+                    <li><a href="default.html">Configuración general</a></li>
+                    <li><a href="noDrag.html">Estilo de la página</a></li>
+                    <li><a href="javascript:;" ng-click="open()">Redes sociales</a></li>                    
+                    <li><a href="dragElement.html">Drag Element</a></li>                    
+                </ul>                    
+            </div>
+        </div>
+        <div class="snap-drawer snap-drawer-right"></div>
+    </div>
+    
+    <div id="content" class="snap-content">
+        
+        <div class="container contenido">    
+        <!-- <div data-ng-include=" 'views/preview/contenido.html'"></div> -->    
+            <ng-view>Loading...</ng-view>    
+            <div ng-controller="ModalDemoCtrl">    
+                <button class="btn btn-default" ng-click="open()">Open me!</button>
+                <button class="btn btn-default" ng-click="open('lg')">Large modal</button>
+                <button class="btn btn-default" ng-click="open('sm')">Small modal</button>
+                <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+<script src="scripts/vendor.js"></script>
+<script src="https://code.angularjs.org/1.0.1/angular-sanitize-1.0.1.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
+<script src="./scripts/preview/controladores.js"></script>
+<script src="./scripts/preview/services.js"></script>
+<script type="text/javascript" src="./plugins/snap.js"></script>
+
+</body>
+</html>

@@ -22,10 +22,8 @@ angular.module('app.paginas.ctrl', []).controller('algo', [
 
     
 
-    $scope.processForm = function() {
-      var datos;
-      alert(datos)
-      datos = $scope.FormData
+    $scope.processForm = function() {      
+      var datos = $scope.FormData
       console.log(datos);      
       $http({
           method  : 'POST',
