@@ -1,0 +1,17 @@
+<div class="snap-drawers" ng-controller="MenuCtrl">
+        <div class="snap-drawer snap-drawer-left">
+            <div>
+                <h3>Snap.js</h3>
+                <h4>Demos</h4>
+                <ul >
+                    <li><a href="{{ $routeParams }}">
+                        <i class="fa fa-cogs fa-2x"></i> Configuración general</a></li>
+                    <li><a href="/preview/#/pagina/{{ settings._id }}/estilo">
+                        <i class="fa fa-pencil fa-2x"></i> Editar estilo</a></li>
+                    <li><a href="javascript:;" ng-click="open()">
+                        <i class="fa fa-facebook fa-2x"></i> Redes sociales</a></li>
+                </ul>                    
+            </div>
+        </div>
+        <div class="snap-drawer snap-drawer-right"></div>
+    </div>

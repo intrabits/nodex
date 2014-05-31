@@ -11,18 +11,19 @@
         </div>
         <div class="navbar-collapse collapse">                    
           <ul class="nav navbar-nav navbar-right" style="color:#fff;">
-            <li class="btn-info"><a href="/preview/#/pagina/{{ settings._id }}/agregar" style="color:#fff"><i class="fa fa-plus"></i> Agregar sección</a></li>
+            <!-- <li class="btn-info"><a href="/preview/#/pagina/{{ settings._id }}/agregar" style="color:#fff"><i class="fa fa-plus"></i> Agregar sección</a></li> -->
+            <li class="btn-info"><a href="javascript:;" ng-click="agregarSeccion()" style="color:#fff"><i class="fa fa-plus"></i> Agregar sección</a></li>
             <li><a href="/preview/#/pagina/{{ settings._id }}/estilo"><i class="fa fa-pencil"></i> Editar estilo</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right"  ng-repeat="seccion in settings.secciones">
-            <li><a href="/preview/#/{{ settings._id }}/seccion/{{ seccion.id }}"><i class="{{ seccion.seccion_icono }}"></i> {{ seccion.seccion_nombre }}</a></li>
+            <li><a href="/preview/#/pagina/{{ settings._id }}/seccion/{{ seccion._id }}"><i class="{{ seccion.seccion_icono }}"></i> {{ seccion.seccion_nombre }}</a></li>
           </ul>
 
 
         </div>              
     </div>
 <style type="text/css">
-    .bg{
+    .bg,.snap-content{
         background-image:url({{ settings.pagina_fondo }});
         background-color: {{ settings.pagina_fondo_color }} ;
         color: {{ settings.pagina_texto_color }}

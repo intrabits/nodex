@@ -1,7 +1,7 @@
 <div data-ng-include=" 'views/preview/menu.html'"></div>
 <div class="bloque">		
 	<div class="row" ng-repeat="seccion in pagina.secciones">
-		<div class="col-md-12" id="s{{ seccion.seccion_id }}">
+		<div class="col-md-12 well" id="s{{ seccion.seccion_id }}" >
 			<h2>{{ seccion.seccion_nombre }}</h2>
 			<!-- <div class="row">
 				<div class="col-md-4" ng-repeat="bloque in bloques">
@@ -12,8 +12,11 @@
 			</div> -->
 
 			<div class="row">				
-				<div class="col-md-3">
+				<div class="col-md-12">
 					<button class="btn btn-lg btn-info" ng-click="bloqes()"><i class="fa fa-plus fa-4x"></i><br> Agregar contenido</button>
+					<button class="btn btn-lg btn-danger pull-right" ng-click="deleteSeccion(seccion._id)"><i class="fa fa-trash-o fa-2x"></i><br> Borrar</button>
+					<button class="btn btn-lg pull-right" ng-click="editarSeccion(seccion._id)"><i class="fa fa-edit fa-2x"></i><br> Editar</button>
+					
 				</div>
 			</div>
 		</div>		

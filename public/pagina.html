@@ -1,71 +1,92 @@
-<html>
-<head>
-    <title>{{ settings.pagina_nombre }}</title>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
     <base href="http://localhost:3000/">
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <link rel="stylesheet" type="text/css" href="./styles/preview.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js    "></script>
+    <link rel="stylesheet" type="text/css" href="./plugins/snap.css" />
+    <link rel="stylesheet" type="text/css" href="./plugins/demo.css" />
+
+    <title>Edita tu página</title>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="bg"   data-ng-app="app" id="app"  ng-app=app>
+
+
+    <div class="container" ng-controller="MainCtrl">
+
+      
+      <div class="contenido">    
+
+
+
+
+    <div class="snap-drawers" ng-controller="MenuCtrl">
+        <div class="snap-drawer snap-drawer-left">
+            <div>
+                <h3>Snap.js</h3>
+                <h4>Demos</h4>
+                <ul >
+                    <li><a href="default.html">
+                        <i class="fa fa-cogs fa-2x"></i> Configuración general</a></li>
+                    <li><a href="/preview/#/pagina/{{ settings._id }}/estilo">
+                        <i class="fa fa-pencil fa-2x"></i> Editar estilo</a></li>
+                    <li><a href="javascript:;" ng-click="open()">
+                        <i class="fa fa-facebook fa-2x"></i> Redes sociales</a></li>
+                </ul>                    
+            </div>
+        </div>
+        <div class="snap-drawer snap-drawer-right"></div>
+    </div>
+
+
+    <div id="content" class="snap-content">
+        
+        <div class="container contenido">    
+        <!-- <div data-ng-include=" 'views/preview/contenido.html'"></div> -->    
+            <section data-ng-view="" id="content" class="animate-fade-up">Cargando . . .</section>
+        </div>
+    </div>
     
-    
-    
-</head>
-<body ng-controller="MainCtrl" class="bg"   ng-app=app>
-
-    <!-- 
-
-AngularJS - Multiple inline ng-view Example with Services
-
-Features :
-
-* 2 Services manage the domain model :
-- Page : store the page title and broadcasts an changedPageTitle event which the MainCtrl controller listens for and updates the DOM
-- Model : a simple in-memory indexed record store with getter methods (and an add and delete method that is not used yet
-
-* multiple ng-views with inline templates (partials). These use the `<script type=text/ng-template id=home.html>` syntax which mean we dont have to have partials in seperate files (good for single file examples like JSFiddles
-
-PROBLEMS
-
-1) I dont like that my Page service has to broadcast an event that the pageTitle has changed. Is there a better way to do this (is this a use case for a $watch ?
-
--->
 
 
 
-<!-- <section data-ng-include=" 'views/preview/header.html' " id="header" class="top-header"></section> -->
-
-<div class="container contenido">    
-    <!-- <div data-ng-include=" 'views/preview/contenido.html'"></div> -->    
-        <ng-view>Loading...</ng-view>    
-</div>
-
-<script src="scripts/vendor.js"></script>
-<script src="https://code.angularjs.org/1.0.1/angular-sanitize-1.0.1.js"></script>
-<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
-<script src="./scripts/preview/controladores.js"></script>
-<script src="./scripts/preview/services.js"></script>
 
 
-<!-- Inline Templates (Partials) -->
-    
+      </div>
+
+    </div> <!-- /container -->
 
 
-</div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+     
 
 
-<div ng-controller="ModalDemoCtrl">    
-    <button class="btn btn-default" ng-click="open()">Open me!</button>
-    <button class="btn btn-default" ng-click="open('lg')">Large modal</button>
-    <button class="btn btn-default" ng-click="open('sm')">Small modal</button>
-    <div ng-show="selected">Selection from a modal: {{ selected }}</div>
-</div>
+    <script src="scripts/vendor.js"></script>
+    <script src="https://code.angularjs.org/1.0.1/angular-sanitize-1.0.1.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="scripts/preview/main.js"></script>
+    <script src="scripts/preview/controladores.js"></script>
+    <script src="scripts/preview/services.js"></script>
 
-
-
-<script type="text/javascript">
-
-</script>
-
-</body>
+    <script type="text/javascript" src="./plugins/snap.js"></script>
+  </body>
 </html>

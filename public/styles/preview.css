@@ -1,7 +1,4 @@
-.contenido{
-	margin-top:70px;
-}
-.bg{
-	background-attachment: fixed;
-	background-size: 100%;
+.bloque{
+	margin-top:65px;
+	min-height: 1000px;
 }

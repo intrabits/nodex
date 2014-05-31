@@ -104,6 +104,18 @@ angular.module('appServices',  ['ngRoute'])
                             callback('Hubo un error',null);
                         });
                 },
+                editRedes:function (mongo, datos, callback) {
+                    $http({
+                          method  : 'PUT',
+                          url     : '/api/pagina/'+mongo+'/redes',
+                          data    :  datos,  // pass in data as string        
+                      })
+                        .success(function(data) {
+                            callback(null,'Ok');
+                        }).error(function(err){
+                            callback('Hubo un error',null);
+                        });
+                },
                 addSeccion:function (mongo, datos, callback) {
                     $http({
                           method  : 'POST',
@@ -111,6 +123,17 @@ angular.module('appServices',  ['ngRoute'])
                           data    :  datos,  // pass in data as string        
                       })
                         .success(function(data) {
+                            callback(null,'Ok');
+                        }).error(function(err){
+                            callback('Hubo un error',null);
+                        });
+                },
+                deleteSeccion:function (mongo, id, callback) {
+                    $http({
+                          method  : 'DELETE',
+                          url     : '/api/pagina/'+mongo+'/seccion/'+id                          
+                      })
+                        .success(function(data) {                            
                             callback(null,'Ok');
                         }).error(function(err){
                             callback('Hubo un error',null);
