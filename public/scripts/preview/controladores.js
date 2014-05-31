@@ -78,13 +78,17 @@ function DefaultCtrl ($scope, $routeParams, Pagina, Page, Seccion, $modal, $rout
 }
 
 function MenuCtrl ($scope,Seccion,$routeParams,Pagina) {    
-    Pagina.settings($routeParams.mongo,function(err,data){
-        $scope.settings = data;       
-    });  
 
-    Seccion.secciones($routeParams.mongo,function(err,data){
-        $scope.secciones = data;
-    });
+    if ($routeParams.mongo) { //nos aseguramos de no enviar una consulta sin ID
+      Pagina.settings($routeParams.mongo,function(err,data){
+          $scope.settings = data;       
+      });  
+
+      Seccion.secciones($routeParams.mongo,function(err,data){
+          $scope.secciones = data;
+      });  
+    };
+    
 
 }
 
