@@ -1,3 +1,16 @@
+/node_modules/grunt-contrib-concat/node_modules/chalk/node_modules/.bin/has-ansi
+/node_modules/grunt-contrib-concat/node_modules/chalk/node_modules/.bin/strip-ansi
+/node_modules/grunt-contrib-concat/node_modules/chalk/node_modules/.bin/supports-color
+/node_modules/grunt/node_modules/.bin/cake
+/node_modules/grunt/node_modules/.bin/coffee
+/node_modules/grunt/node_modules/.bin/js-yaml
+/node_modules/grunt/node_modules/.bin/nopt
+/node_modules/grunt/node_modules/.bin/rimraf
+/node_modules/grunt/node_modules/.bin/which
+/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse
+/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esvalidate
+/node_modules/socket.io/node_modules/engine.io/node_modules/.bin/wscat
+/node_modules/socket.io/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/.bin/wscat
 /public/websites/89/4_2014-07-27_06:01:47.png
 /public/websites/89/4_2014-07-28_02:15:49.png
 /public/websites/89/4_2014-07-28_02:18:07.png
