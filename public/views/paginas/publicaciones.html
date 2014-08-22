@@ -1,0 +1,52 @@
+<div class="page">
+    <div class="row">
+        <div class="col-sm-8">
+            <section class="panel panel-default mail-container mail-compose">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Nueva publicación</strong></div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" ng-submit="addPublicacion()">
+                        <div class="form-group">
+                            <label for="mail_subject" class="col-xs-2">Título:</label>
+                            <div class="col-xs-10">
+                                <input type="text" ng-model="FormAddPublicacion.publicacion_titulo" class="form-control">
+                            </div>
+                        </div>
+                        <div text-angular ng-model="FormAddPublicacion.publicacion_contenido" class="ui-editor"></div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="mail_subject" class="col-xs-3">Agregar un video de Youtube:</label>
+                            <div class="col-xs-9">
+                                <input type="text" ng-model="FormAddPublicacion.publicacion_video" class="form-control" id="myUrl" ng-change="buscarVideo()">
+                            </div>
+                        </div>
+                        <div id="myCode"></div>
+                    <div class="mail-actions">                        
+                         <input type="submit" value="Aceptar" class="btn btn-primary"> 
+                         <input type="button" value="Cancelar" class="btn btn-default"> 
+                    </div>
+                    </form>
+                </div>                
+
+
+            </section>
+        </div>
+        <div class="col-sm-4">
+
+            <section class="panel panel-default mail-categories">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Últimas publicaciones</strong></div>
+                <ul class="list-group" ng-repeat="p in publicaciones">
+                    <li class="list-group-item"><a href="#/pagina/{{ p.publicacion_pagina_id }}/publicacion/{{ p.publicacion_id }}">
+                        {{ p.publicacion_titulo }} 
+                        <i ng-if="p.publicacion_status=0" class="fa fa-circle color-danger pull-right"></i>
+                        <i ng-if="p.publicacion_status=1" class="fa fa-circle color-success pull-right"></i>                        
+                    </a></li>                                        
+                </ul>                                
+                <div class="mini-box" ng-if="!publicaciones">
+                    Aún no hay publicaciones para mostrar... es el momento de ponerte creativo :)
+                </div>
+                    
+            </section>
+        </div>
+        
+    </div>
+</div>

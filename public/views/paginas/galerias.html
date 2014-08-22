@@ -1,0 +1,71 @@
+<div class="page">    
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Galerías</strong></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4" ng-repeat="g in galerias">
+                            <div class="thumbnail">
+                                <a href="#/pagina/{{ pagina_id }}/galeria/{{ g.galeria_id }}">
+                                <div class="img-holder">
+                                    <img alt="" ng-src="websites/paginas/{{ g.galeria_imagen }}" ng-if="g.galeria_imagen">
+                                    <img alt="" src="http://placehold.it/340x300&text=Galería" ng-if="!g.galeria_imagen">
+                                </div>                           
+                                </a>
+                                <div class="caption">
+                                    <h3>{{ g.galeria_nombre }}</h3>
+                                    <p>{{ g.galeria_descripcion }}</p>                                    
+                                </div>
+                            </div>    
+                        </div>                       
+                        <div class="col-sm-4">
+                            <div class="thumbnail" id="vista1">
+                                <div class="img-holder">
+                                    <a href="javascript:;" ng-click="FormGaleria()">
+                                        <img alt="" src="http://st.houzz.com/simgs/7d91a07c0e82805f_4-9068/modern-frames.jpg">
+                                    </a>
+                                    
+                                </div>
+                                
+                                <div class="caption">
+                                    <h3>Crear galería</h3>
+                                    <p>Agrega fotos de tu negocio, productos o eventos, es fácil y rápido</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail" id="vista2" style="display:none;height:400px;">                                
+                                <div class="caption">
+                                <h3>Agregar galería</h3>
+                                <hr>
+                                <form  class="form-horizontal" role="form" ng-submit="addGaleria()">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-4 control-label">Nombre de la galería</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" class="form-control" ng-model="FormAddGaleria.galeria_nombre">
+                                        </div>
+                                      </div>                      
+                                      <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-4 control-label">Descripción de la galería</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" class="form-control" ng-model="FormAddGaleria.galeria_descripcion">
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <p>
+                                        <input type="submit" value="Crear" class="btn btn-primary col-md-12"> 
+                                        <button ng-click="CancelarAddGaleria()" class="btn btn-warning col-md-12">Cancelar</button>
+                                      </p>
+                                       
+                                </form>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>            
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

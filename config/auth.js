@@ -43,34 +43,72 @@ passport.use(new FacebookStrategy({
       // to associate the Facebook account with a user record in your database,
       // and return that user instead.
       var datos = {        
-        apellido_paterno  : profile.name.familyName,
-        nombre    : profile.name.givenName,
-        nivel_id  :1,
-        facebook  : profile.id
+        usuario_apellido_paterno  : profile.name.familyName,
+        usuario_nombre    : profile.name.givenName,
+        usuario_nivel_id  :1,
+        usuario_facebook  : profile.id,
+        usuario_email: profile._json.email,
+        usuario_genero: profile.gender,
       }
 
-      var username={facebook:profile.id};
-      Usuario.existUsuario(username,function(err,data){
+      console.log("-----------------datos de facebook------------------");
+      console.log(profile);
+      console.log("-----------------datos de facebook------------------");
+
+      var username={usuario_facebook:profile.id};
+      Usuario.existFB(profile.id,function(err,data){
         if (err) {
-          console.log("======================= ERROR =========================: ",err);            
+          console.log("======================= ERROR =========================: ",err);       
+          done(err,null);
         } else {            
             if (data) {
               console.log("=======================  YA EXISTE =============================");
-              console.log(data);
-              return done(null, data);
+              Usuario.loginFB(profile.id,function(err,data_login){
+                   if (err) {
+                        console.log("======================   ERROR    =============================",err);            
+                   } else {            
+                      if (data_login) {                                        
+                         console.log("=============================    Ya inició     =============================");
+                         done(null,data_login);
+                      }else{
+                          return done(err,null);
+                          console.log("============================== Falló el inicio de sesión ===================");              
+                      }
+                   } 
+                });
+
+
+
             }else{
               Usuario.addUsuario(datos,function(err,data){
                   if (err) {
-                    console.log("======================= ERROR DURANTE LA CREACIÓN DEL USUARIO =========================: "+profile.username ,err);            
+                    done(err,null);
                   } else {            
                     console.log("======================= Agregado correctamente ========================================");
-                    return done(null, data);
+
+                    // lo logueamos... porque es cool                      
+                        Usuario.loginFB(profile.id,function(err,data_login){
+                             if (err) {
+                                  console.log("======================   ERROR    =============================",err);   
+                                  callback(err);         
+                             } else {            
+                                if (data_login) {                                        
+                                   console.log("=============================    Ya inició     =============================");
+                                   done(null,data_login);
+                                }else{
+                                    return done('Ops, algo salió mal',null);
+                                    console.log("============================== Falló el inicio de sesión ===================");              
+                                }
+                             } 
+                          });
+
+
+
                     } 
                   });
             }
           } 
-        });
-      console.log(datos);
+        });      
       
     });
   }
@@ -80,18 +118,17 @@ passport.use(new LocalStrategy({
   usernameField : 'correo',
   passwordField : 'password'
 },
-  function(correo, password, done) {
+  function(correo, password, done) {        
     // asynchronous verification, for effect...    
     process.nextTick(function () {
-      
-      Usuario.loginUsuario(correo,password,function(err,data){
+      console.log("Correo: "+ correo + " Password " + password);
+      Usuario.login(correo,password,function(err,data){
          if (err) {
-              console.log("======================   ERROR    =============================",err);            
+              console.log("======================   ERROR    =============================",err);    
+              done(err,null);        
          } else {            
-            if (data) {
-               console.log("============================= Iniciando sesión =============================");
-               console.log(data);
-               console.log("=============================    Ya inició     =============================");
+            if (data) {                              
+               console.log("=============================    Se loguea correctamente     =============================");
                return done(null,data);
             }else{
                 return done(null,null);
@@ -107,11 +144,31 @@ passport.use(new LocalStrategy({
 
 
 
-function ensureAuthenticated(req, res, next) {
+function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login')
 }
 
+function ensureAdmin(req, res, next){
+  
+
+
+  if (req.isAuthenticated()) {    
+    var nivel_id = req.user.usuario_nivel_id;
+    if (nivel_id==5) {   
+      next();
+    }else{
+      // res.redirect('/login');
+      res.send(404);
+    }      
+  }else{    
+    // res.redirect('/login');
+    res.send(404);
+  }
+  
+}
+
    module.exports.ensureAuthenticated = ensureAuthenticated;
+   module.exports.ensureAdmin         = ensureAdmin;
    module.exports.passport = passport;
    module.exports.FacebookStrategy = FacebookStrategy;

@@ -1,57 +1,21 @@
 'use strict';
-angular.module('app', ['ngRoute','ngSanitize', 'ngAnimate', 'ui.bootstrap', 'mgo-angular-wizard', 'textAngular', 'app.ui.ctrls',  'app.controllers', 'app.directives', 'app.localization','app.paginas.ctrl','app.servicios']).config([
+angular.module('app', ['ngRoute','ngSanitize','angular-loading-bar', 'ngAnimate', 'ui.bootstrap', 'mgo-angular-wizard', 'textAngular', 'app.controllers', 'app.directives', 'app.localization','app.servicios','app.pagina','app.soporte','app.chat','ModeloPagina','app.ui.ctrls','app.ui.services','app.usuario','ModeloUsuario','app.producto','ModeloProducto','app.tienda','app.admin','ModeloAdmin']).config([
   '$routeProvider', function($routeProvider) {
     return $routeProvider.when('/', {
       redirectTo: '/dashboard'
     }).when('/dashboard', {
-      templateUrl: 'views/dashboard.html'
+      templateUrl: 'views/dashboard.html'    
+    }).when('/usuario/perfil', {
+      templateUrl: 'views/usuario/perfil.html',
+      controller: 'UsuarioCtrl'    
+    }).when('/usuario/password', {
+      templateUrl: 'views/usuario/pass.html',
+      controller:'UsuarioCtrl'
+    }).when('/pagos', {
+      templateUrl: 'views/pagos/pagos.html'    
+    }).when('/upload', {
+      templateUrl: 'views/upload/test.html'        
     }).when('/ui/typography', {
-      templateUrl: 'views/ui/typography.html'
-    }).when('/ui/buttons', {
-      templateUrl: 'views/ui/buttons.html'
-    }).when('/ui/icons', {
-      templateUrl: 'views/ui/icons.html'
-    }).when('/ui/grids', {
-      templateUrl: 'views/ui/grids.html'
-    }).when('/ui/widgets', {
-      templateUrl: 'views/ui/widgets.html'
-    }).when('/ui/components', {
-      templateUrl: 'views/ui/components.html'
-    }).when('/ui/timeline', {
-      templateUrl: 'views/ui/timeline.html'
-    }).when('/forms/elements', {
-      templateUrl: 'views/forms/elements.html'
-    }).when('/forms/layouts', {
-      templateUrl: 'views/forms/layouts.html'
-    }).when('/forms/validation', {
-      templateUrl: 'views/forms/validation.html'
-    }).when('/forms/wizard', {
-      templateUrl: 'views/forms/wizard.html'
-    }).when('/tables/static', {
-      templateUrl: 'views/tables/static.html'
-    }).when('/tables/responsive', {
-      templateUrl: 'views/tables/responsive.html'
-    }).when('/tables/dynamic', {
-      templateUrl: 'views/tables/dynamic.html'
-    }).when('/charts/others', {
-      templateUrl: 'views/charts/charts.html'
-    }).when('/charts/morris', {
-      templateUrl: 'views/charts/morris.html'
-    }).when('/charts/flot', {
-      templateUrl: 'views/charts/flot.html'
-    }).when('/mail/inbox', {
-      templateUrl: 'views/mail/inbox.html'
-    }).when('/mail/compose', {
-      templateUrl: 'views/mail/compose.html'
-    }).when('/mail/single', {
-      templateUrl: 'views/mail/single.html'
-    }).when('/pages/features', {
-      templateUrl: 'views/pages/features.html'
-    }).when('/pages/signin', {
-      templateUrl: 'views/pages/signin.html'
-    }).when('/pages/signup', {
-      templateUrl: 'views/pages/signup.html'
-    }).when('/pages/lock-screen', {
       templateUrl: 'views/pages/lock-screen.html'
     }).when('/pages/profile', {
       templateUrl: 'views/pages/profile.html'
@@ -59,26 +23,93 @@ angular.module('app', ['ngRoute','ngSanitize', 'ngAnimate', 'ui.bootstrap', 'mgo
       templateUrl: 'views/pages/404.html'
     }).when('/pages/500', {
       templateUrl: 'views/pages/500.html'
+    }).when('/pages/suspendida', {
+      templateUrl: 'views/pages/suspendida.html'
     }).when('/pages/blank', {
       templateUrl: 'views/pages/blank.html'
     }).when('/pages/invoice', {
       templateUrl: 'views/pages/invoice.html'
     }).when('/tasks', {
       templateUrl: 'views/tasks/tasks.html'    
+    }).when('/tienda', {
+      templateUrl: 'views/tienda/inicio.html',
+      controller: ''
+    }).when('/tienda/item/:producto_id', {
+      templateUrl: 'views/tienda/item.html',
+      controller: 'TiendaCtrl'
+    }).when('/paginas', {
+      templateUrl: 'views/paginas/paginas.html',
+      controller: 'PaginasCtrl'
+    }).when('/pagina/add', {
+      templateUrl: 'views/paginas/addPagina.html',
+      controller: 'PaginaCtrl'    
+    }).when('/pagina/:pagina_id/textos', {
+      templateUrl: 'views/paginas/textos.html',
+      controller:'PaginaCtrl'
     }).when('/pagina/:pagina_id', {
-      templateUrl: 'views/paginas/pagina.html'
+      templateUrl: 'views/paginas/dash.html',
+      controller:'PaginaCtrl'
+    }).when('/pagina/:pagina_id/config', {
+      templateUrl: 'views/paginas/pagina.html',
+      controller: 'PaginaCtrl'
+    }).when('/pagina/:pagina_id/success', {
+      templateUrl: 'views/paginas/success.html',
+      controller: 'PaginaCtrl'
+    }).when('/pagina/:pagina_id/estilo', {
+      templateUrl: 'views/paginas/estilo.html',
+      controller: 'EstiloCtrl'
+    }).when('/pagina/:pagina_id/publicaciones', {
+      templateUrl: 'views/paginas/publicaciones.html',
+      controller: 'PublicacionesCtrl'    
+    }).when('/pagina/:pagina_id/productos', {
+      templateUrl: 'views/paginas/productos.html',
+      controller: 'ProductoCtrl' 
+    }).when('/pagina/:pagina_id/producto/:producto_id', {
+      templateUrl: 'views/paginas/producto.html',
+      controller: 'ProductoDetalleCtrl' 
+    }).when('/pagina/producto/:producto_id', {
+      templateUrl: 'views/paginas/producto.html',
+      controller: 'ProductoCtrl'    
+    }).when('/pagina/:pagina_id/publicacion/:publicacion_id', {
+      templateUrl: 'views/paginas/publicacion.html',
+      controller: 'PublicacionesCtrl'
+    }).when('/pagina/:pagina_id/cuentas', {
+      templateUrl: 'views/paginas/cuentas.html',
+      controller: 'PaginaCuentasCtrl'
+    }).when('/pagina/:pagina_id/mensajes', {
+      templateUrl: 'views/paginas/mensajes.html',
+      controller: 'PaginaMensajesCtrl'
+    }).when('/pagina/:pagina_id/mensaje/:mensaje_id', {
+      templateUrl: 'views/paginas/mensajes.html',
+      controller: 'PaginaMensajesCtrl'
+    }).when('/pagina/:pagina_id/galerias', {
+      templateUrl: 'views/paginas/galerias.html',
+      controller: 'GaleriasCtrl'
+    }).when('/pagina/:pagina_id/galeria/:galeria_id', {
+      templateUrl: 'views/paginas/galeria.html',
+      controller: 'GaleriasCtrl'
     }).when('/_=_', {
       templateUrl: 'views/dashboard.html'
     }).when('/servicios', {
-      templateUrl: 'views/servicios/servicios.html'
+      templateUrl: 'views/servicios/servicios.html',
+      controller: 'serviciosCtrl'
     }).when('/servicios/porPagar', {
       templateUrl: 'views/servicios/pendientes.html'
     }).when('/servicios/facturas', {
       templateUrl: 'views/servicios/facturas.html'
     }).when('/soporte/faqs', {
       templateUrl: 'views/soporte/faqs.html'
+    }).when('/soporte/chat', {
+      templateUrl: 'views/soporte/chat.html',
+      controller: 'ChatCtrl'
     }).when('/soporte/faqs/:faq_id', {
       templateUrl: 'views/soporte/faqs.html'
+    }).when('/test', {
+      templateUrl: 'views/pages/test.html',
+      controller: ''
+    }).when('/admin', {
+      templateUrl: 'views/admin/dash.html',
+      controller: 'AdminDashCtrl'
     }).otherwise({
       redirectTo: '/404'
     });

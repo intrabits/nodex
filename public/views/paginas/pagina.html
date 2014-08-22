@@ -1,43 +1,36 @@
-<div class="page"  ng-controller="algo">
+<div class="page">
 
 <div class="row">
     <div class="col-md-6">
     <section class="panel panel-default">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Detalles</strong></div>
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Información general</strong></div>
         <div class="panel-body">
-            <div id="result"></div>            
+            <div id="result"></div>
             <form class="form-horizontal" role="form" ng-submit="editPagina()">              
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-4 control-label">Nombre de la página</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormPagina.pagina_nombre" value="{{ FormPagina.pagina_nombre }}">                          
+                      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormEditPagina.pagina_nombre" value="{{ FormEditPagina.pagina_nombre }}">                          
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-4 control-label">Dominio deseado</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputPassword3" placeholder="ejemplo.com" ng-model="FormPagina.pagina_dominio">
+                      <input type="text" class="form-control" placeholder="ejemplo.com" ng-model="FormEditPagina.pagina_dominio">
                       <p class="help-block">Nosotros verificaremos la disponibilidad de ese dominio</p>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Correo electrónico</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputPassword3" ng-model="FormPagina.pagina_correo">
-                      <p class="help-block">Los mensajes que les envíen llegarán a la cuenta de correo que indiques aquí</p>
-                    </div>
-                </div>
+                </div>                
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-4 control-label">Breve descripción</label>
                     <div class="col-sm-8">
-                      <!-- <textarea style="width:100%" data-ng-model="DataForm.pagina_descripcion">{{ FormPagina.pagina_descripcion }}</textarea>  {{ FormPagina.pagina_descripcion }} -->
-                      <input type="text" class="form-control" id="inputPassword3" ng-model="FormPagina.pagina_descripcion" value="{{ FormPagina.pagina_descripcion }}">
+                      <!-- <textarea style="width:100%" data-ng-model="DataForm.pagina_descripcion">{{ FormEditPagina.pagina_descripcion }}</textarea>  {{ FormEditPagina.pagina_descripcion }} -->
+                      <input type="text" class="form-control" ng-model="FormEditPagina.pagina_descripcion" value="{{ FormEditPagina.pagina_descripcion }}">
                       <p class="help-block">Ayuda al posicionamiento en motores de búsqueda (Google, Yahoo!, etc</p>
                     </div>
                 </div>
                 <input type="submit" value="Actualizar" class="btn btn-primary pull-left">
 
-                <a href="/preview/#/pagina/{{ FormPagina._id }}" class="btn pull-right btn-info" target="_blank">Vista previa</a> 
+                <a href="/preview/#/pagina/{{ FormEditPagina._id }}" class="btn pull-right btn-info" target="_blank">Vista previa</a> 
             </form>
         </div>
     </section>
@@ -48,31 +41,31 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-4 control-label">Facebook</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormPagina.pagina_facebook" value="{{ FormPagina.pagina_facebook }}">                          
+                      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormEditPagina.pagina_facebook" value="{{ FormEditPagina.pagina_facebook }}">                          
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-4 control-label">Twitter</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputPassword3" ng-model="FormPagina.pagina_twitter">
+                      <input type="text" class="form-control" ng-model="FormEditPagina.pagina_twitter">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-4 control-label">Youtube</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputPassword3" ng-model="FormPagina.pagina_youtube">
+                      <input type="text" class="form-control" ng-model="FormEditPagina.pagina_youtube">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-4 control-label">Google +</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputPassword3" ng-model="FormPagina.pagina_google">
+                      <input type="text" class="form-control" ng-model="FormEditPagina.pagina_google">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-4 control-label">Instagram</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputPassword3" ng-model="FormPagina.pagina_instagram">
+                      <input type="text" class="form-control" ng-model="FormEditPagina.pagina_instagram">
                     </div>
                 </div>
                 <input type="submit" value="Actualizar" class="btn btn-primary pull-right">
@@ -83,29 +76,45 @@
     </div>
     <div class="col-md-6">
     <section class="panel panel-default">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Secciones</strong></div>
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Logotipo</strong></div>
+        <div class="panel-body">            
+            <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+            <!-- <form action="/api/upload"  enctype="multipart/form-data" role="form" ng-submit="subirLogo()">
+                <img src="{{ FormEditPagina.pagina_logo }}" width="150px">                
+                <input type="file" name="file" ng-model="FormLogo.file"><br>
+                <input type="hidden" ng-model="FormLogo.pid" value="{{ FormEditPagina.pagina_id }}">
+                <input type="submit" value="Subir logo" class="btn btn-primary"> 
+            </form>  -->           
+        </div>
+    </section>
+
+
+    <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Contacto</strong></div>
         <div class="panel-body">          
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Orden</th>
-                        <th>Nombre</th>
-                        <th>Link</th>
-                        <th>Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="seccion in secciones">
-                        <td><a   href="javascript:void(0)">{{ seccion.seccion_id }}</a></td>
-                        <td><a   href="javascript:void(0)">{{ seccion.seccion_nombre }}</a></td>
-                        <td><a   href="javascript:void(0)">{{ seccion.seccion_url }}</a></td>
-                        <td>
-                            <input type="button" value="Editar" class="btn btn-info" ng-click="editar.doClick(user.id,user.name)">
-                            <input type="button" value="Eliminar" class="btn btn-danger" ng-click="myData.doClick(user.id)">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>                      
+              <form class="form-horizontal" role="form" ng-submit="editPagina()">              
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Teléfono</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormEditPagina.pagina_telefono" value="{{ FormEditPagina.pagina_telefono }}">                          
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">E-mail</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditPagina.pagina_email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Dirección</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditPagina.pagina_direccion">
+                    </div>
+                </div>
+
+                <input type="submit" value="Actualizar" class="btn btn-primary pull-right">
+                
+            </form>               
         </div>
     </section>
     

@@ -1,0 +1,75 @@
+<div class="page page-table">
+
+    <div class="row">
+
+        <div class="col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Usuarios / Cuentas de correo</strong></div>                
+                
+                <div class="panel-body">
+                
+                    <table class="table">
+                        <thead>
+                            <tr>                                                                
+                                <th>Cuenta de correo</th>
+                                <th>Espacio de la cuenta</th>                    
+                                <th>Status</th>
+                                <th>Operaciones</th>                 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="c in cuentas">
+                                <td>{{ c.cuenta_email }}</td>                                
+                                <td>b</td>
+                                <td>
+                                    <span ng-if="c.cuenta_status == 1" class="label label-success">Pagada</span>
+                                    <span ng-if="c.cuenta_status == 0" class="label label-warning">Pendiente</span>
+                                </td>                                
+                                <td>
+                                    <a href="https://my.webfaction.com/change_mail_password/create" class="btn btn-info" title="Cambiar password" target="_blank"><i class="fa fa-lock"></i> </a>
+                                    <a href="" class="btn btn-danger" title="Eliminar"><i class="fa fa-trash-o"></i> </a>
+                                </td>                                                    
+                            </tr>                                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Agregar cuenta</strong></div>                
+                <div class="panel-body">
+                    <button class="btn btn-danger" ng-if="disponibles">Cuentas disponibles: <span class="badge">{{ disponibles - usadas  }}</span></button>
+                                        
+                    <div class="alert alert-info" role="alert" ng-if="!disponibles">
+                        <p>No tienes cuentas disponibles... es momento de adquirir un paquete NODEX                            
+                        </p>
+                        <p><a href="" class="btn btn-success">Ver Paquetes</a></p>
+                    </div>
+                    
+                
+                <hr>
+                <form class="form-horizontal" role="form" ng-submit="addCuenta()" ng-if="disponibles">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Correo deseado</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="inputEmail3" ng-model="FormAddCuenta.cuenta_email">                          
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Contraseña</label>
+                        <div class="col-sm-8">
+                          <input type="password" class="form-control" id="inputEmail3" ng-model="FormAddCuenta.cuenta_password">                          
+                        </div>
+                    </div>
+                    <input type="submit" value="Agregar cuenta" class="btn btn-primary pull-right">
+                </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+</div>

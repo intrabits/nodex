@@ -1,0 +1,68 @@
+
+<div class="page">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Detalles de la galería</strong></div>
+                <div class="panel-body">
+                    <form  class="form-horizontal" role="form" ng-submit="editGaleria()">                        
+                        <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-4 control-label">Nombre de la galería</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="FormEditGaleria.galeria_nombre">
+                        </div>
+                        </div>                      
+                        <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Descripción de la galería</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="FormEditGaleria.galeria_descripcion">
+                        </div>
+                        </div>                        
+                        <p>
+                        <input type="submit" value="Crear" class="btn btn-primary"> 
+                        <button go-back class="btn btn-warning">Cancelar</button>
+                        </p>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel">
+                <div class="panel-body">
+                    <p>Selecciona una foto para subir</p>                    
+                    
+                    <input type="file" name="file" onchange="angular.element(this).scope().uploadImage(this.files)"/>
+                </div>
+                
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <p>Ingresa el link de una fotografía</p>                    
+                    <input type="text" class="form-control col-md-12" placeholder="http://ejemplo.com/images/hola.png">                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-md-12">            
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Imágenes</strong></div>
+                <div class="panel-body">
+                    <div class="media col-md-12" ng-repeat="i in imagenes">
+                        <a class="pull-left" href="javascript:;">
+                            <img alt="" ng-src="websites/paginas/{{ i.imagen_url }}" class="img-rounded" width="300px">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ i.imagen_titulo }}</h4> 
+                            <p>{{ i.imagen_descripcion }}</p>
+                            <button class="btn btn-primary" ng-click="editarImg(i.imagen_id)"><i class="fa fa-edit"></i> Editar título</button>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

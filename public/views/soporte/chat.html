@@ -1,0 +1,49 @@
+<style type="text/css">
+.chat-right{
+    background-image: url({{ main.foto }});
+    background-position: right top;
+    background-repeat:no-repeat;
+    padding-right: 90px;
+    min-width: 150px;
+}
+.chat{
+    
+}
+.chat-left{
+    background-image: url({{ con }});
+    background-repeat:no-repeat;
+    padding-left: 70px;    
+    min-width: 150px;
+}
+.chatlog{
+    margin-bottom: 50px;
+    padding: 15px;
+    margin: 5px 10px 10px 10px; 
+    /*position: relative;*/
+    border-radius: 20px;    
+}
+</style>
+<div class="page">            
+    <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Ayuda en tiempo real</strong></div>
+        <ul style="margin:0px; width:100%;">
+            <li class="chat" id="mensajes">
+              <div class="chatArea col-md-12">
+                <ul class="messages col-xs-12" ></ul>
+              </div>
+
+            </li>
+            <li class="login page">
+              <div class="form">                
+                <input class="usernameInput" type="hidden" maxlength="14" ng-value="nick" />
+                <input class="facebookInput" type="hidden" maxlength="14" ng-value="facebook" />
+              </div>
+            </li>
+          </ul>
+          <textarea type="text" class="form-control chat-bar inputMessage" placeholder="Escribe aquí"></textarea>              
+    </section> 
+
+</div>
+ <script type="text/javascript">
+  
+    </script>

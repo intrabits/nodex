@@ -4,35 +4,57 @@ var config  = require('./../config/config.js');
 var auth    = require('./../config/auth.js');
 var Usuario = require('./../models/usuario.js');
 
+var ambiente        = config.ambiente;
 var passport        = auth.passport;
 ensureAuthenticated = auth.ensureAuthenticated;
 connection          = config.connection;
 
 
+
 router.get('/cuenta', ensureAuthenticated, function(req, res){res.json(req.user);  });
 
-router.get('/', ensureAuthenticated, function(req, res){  res.render('app', { user: req.user , avatar:req.user.username}); });
-
-router.get('/preview/', function(req, res){  
-    res.sendfile('public/pagina.html');  
+router.get('/', ensureAuthenticated, function(req, res){  
+	// res.render('app', { user: req.user , avatar:req.user.username}); 
+  res.sendfile('public/app.html');  
 });
 
+router.get('/up', ensureAuthenticated, function(req, res){  
+  res.render('up', { user: req.user , avatar:req.user.username}); 
+});
 
-router.get('/login', function(req, res){  res.sendfile('public/start.html');  });
+router.get('/admin/', function(req, res){  
+    res.sendfile('public/admin.html');  
+});
 
+router.get('/gatos',function ( req, res) {
+  res.send("hola bartola");
+  setInterval(function() {
+    console.log("hola :)");
+  }, 1000);
+});
+
+// router.get('/login', function(req, res){  res.sendfile(__dirname+'public/start.html');  });
+router.get('/login', function(req, res){
+  res.sendfile('public/login.html'); 
+});
+
+router.get('/registro', function(req, res){  
+  res.sendfile('public/registro.html');  
+});
 // GET /auth/facebook
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  The first step in Facebook authentication will involve
 //   redirecting the user to facebook.com.  After authorization, Facebook will
 //   redirect the user back to this application at /auth/facebook/callback
-router.get('/auth/facebook',passport.authenticate('facebook'));
+router.get('/auth/facebook',
+  passport.authenticate('facebook', { scope: [' basic_info', 'email'],successRedirect: '/',failureRedirect: '/login' }),function (req, res) {
+  console.log("intentando redireccionar");
+  res.redirect('/');
+});
 
 
 router.get('/auth/facebook/callback', 
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+  passport.authenticate('facebook', { successRedirect: '/',failureRedirect: '/login' })  );
 
 router.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login' }),
@@ -43,5 +65,17 @@ router.post('/login',
 
 
 router.get('/logout', function(req, res){req.logout();res.redirect('/');  });
+
+router.get('/config',function (req, res) {  
+  connection.query("SELECT config_nombre,config_valor from config",function (err, rows) {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else{
+      res.json(rows);
+    };
+  });
+
+});
 
 module.exports = router;

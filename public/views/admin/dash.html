@@ -1,0 +1,93 @@
+<div class="page page-table">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> WebFaction </strong></div>            
+                <div class="panel-body">
+                    <div class="row" ng-if="listo<2">
+                        <div class="col-md-4">
+                            <img src="http://i134.photobucket.com/albums/q116/Moochamoocha/Funny_Pictures_Animated_Dancing_Cat.gif" width="80%" >      
+                        </div>
+                        <div class="col-md-6">
+                            <h2>Si ves al gato significa que la aplicación está cargando... relax, esto toma tiempo</h2>
+                        </div>
+                    </div>
+
+                    <p>
+                        <input type="search" ng-model="buscar" class="form-control" placeholder="Buscar..." id="buscar"> 
+                    </p>        
+                    <tabset justified="true" class="ui-tab">                        
+                        <tab heading="Aplicaciones">
+                                                 
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>                            
+                                        <th>Nombre</th>
+                                        <th>Tipo</th>
+                                        <th>Extra info</th>
+                                        <th>Operaciones</th>                    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="a in apps | filter:buscar">                    
+                                        <td>{{ a.name }}</td>
+                                        <td>{{ a.type }}</td>
+                                        <td>{{ a.extra_info }}</td>
+                                        <td ng-if="a.type=='symlink54'">
+                                            <a href="javascript:;" class="btn btn-danger btn-sm" title="" ng-click="borrarApp(a.name)"><i class="fa fa-trash-o fa-2x"></i></a>                                            
+                                        </td>
+                                    </tr>
+
+                                                
+                                </tbody>
+                            </table>
+                        </tab>
+                        <tab heading="Websites">
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>                            
+                                        <th>Nombre</th>
+                                        <th class="hidden-xs">Subdominios</th>
+                                        <th class="hidden-xs">Extra info</th>
+                                        <th>Operaciones</th>                    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="p in websites | filter:buscar">    
+                                        <td>{{ p.name }}</td>                
+                                        <td>
+                                            <ul ng-repeat="subdomain in p.subdomains">
+                                                <li>{{ subdomain }}</li>
+                                            </ul>
+                                        </td>                                
+                                        <td>
+                                            <ul ng-repeat="app in p.website_apps">
+                                                <li>{{ app }}</li>
+                                            </ul>
+                                        </td>
+                                        <td ng-if="a.id!='726797'">
+                                            <a href="javascript:;" class="btn btn-danger btn-sm" title="" ng-click="borrarWebsite(p.name)"><i class="fa fa-trash-o fa-2x"></i></a>
+                                        </td>
+                                    </tr>        
+                                </tbody>
+                            </table>
+                        </tab>
+                    </tabset>
+                    
+                    
+                    
+            </div>
+
+        </div>
+
+    
+
+
+    </div>
+    
+
+
+</div>

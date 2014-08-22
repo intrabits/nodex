@@ -1,0 +1,92 @@
+
+<div class="page">
+    <div class="row">
+        <div class="col-sm-3">
+            <section class="panel panel-default mail-categories">
+                <div class="panel-heading">
+                    <a href="#/mail/compose" class="btn btn-block btn-lg btn-primary hidden">Compose</a>
+                </div>                
+                <ul class="list-group">
+                    <li class="list-group-item active"><a href="#/pagina/{{ pagina_id }}/mensajes">
+                        <i class="fa fa-inbox"></i>Inbox
+                        <span class="badge badge-danger pull-right" ng-if="stats.mensajes_sin_leer>0">{{ stats.mensajes_sin_leer }}</span>
+                    </a></li>
+                    <!-- <li class="list-group-item"><a href="javascript:;">
+                        <i class="glyphicon glyphicon-send"></i>Enviar correo
+                    </a></li>
+                    <li class="list-group-item"><a href="javascript:;">
+                        <i class="fa fa-star"></i>Destacados
+                        <span class="badge badge-success pull-right">{{ stats.mensajes_destacados }}</span>
+                    </a></li>             -->
+                    <li class="list-group-item"><a href="javascript:;">
+                        <i class="fa fa-trash-o"></i>Eliminados
+                        <span class="badge pull-right">{{ stats.mensajes_eliminados }}</span>
+                    </a></li>
+                </ul>
+            </section>
+        </div>
+        <div class="col-sm-9">
+            <section class="panel panel-default mail-container" ng-if="!single">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Inbox</strong></div>
+                <div class="mail-options">
+                    <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ><span>Toggle All</span></label>
+                </div>
+                <table class="table table-hover">
+                    <tbody ng-repeat="m in mensajes">
+                        <tr class="{{ m.mensaje_leido }}">
+                            <td><label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ><span></span></label></td>
+                            <td>
+                                <a href="#/pagina/{{ m.mensaje_pagina_id }}/mensaje/{{ m.mensaje_id }}">{{ m.mensaje_autor }}</a>
+                            </td>
+                            <td>
+                                <a href="#/pagina/{{ m.mensaje_pagina_id }}/mensaje/{{ m.mensaje_id }}">{{ m.mensaje_asunto }}</a>
+                            </td>
+                            <td><i class="fa fa-paperclip"></i></td>
+                            <td>{{ m.mensaje_fecha }}</td>
+                            <td><i class="fa fa-star"></i></td>
+                        </tr>
+                    </tbody>              
+                </table>
+            </section>
+
+
+            <section class="panel panel-default mail-container" ng-if="single">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Leer mensaje</strong></div>
+                <div class="panel-body">
+                    <div class="mail-header row">
+                        <div class="col-md-8">
+                            <h3>{{ mensaje.mensaje_asunto }}</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="pull-right hidden">
+                                <a href="#/mail/compose" class="btn btn-sm btn-primary">Responder <i class="fa fa-mail-reply"></i></a>
+                                <a href="javascript:;" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
+                                <a href="javascript:;" class="btn btn-sm btn-default"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mail-info">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <strong>{{ mensaje.mensaje_autor }}</strong> {{ mensaje.mensaje_correo}}                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="pull-right">
+                                    {{ mensaje.mensaje_fecha }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mail-content">
+                        {{ mensaje.mensaje_contenido }}
+                    </div>                    
+                    <div class="mail-actions hidden">
+                        <a href="#/mail/compose" class="btn btn-sm btn-primary">Reply <i class="fa fa-mail-reply"></i></a>
+                        <a href="#/mail/compose" class="btn btn-sm btn-default">Forward <i class="fa fa-mail-forward"></i></a>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+</div>

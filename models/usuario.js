@@ -1,6 +1,6 @@
 var config  = require('../config/config.js');
 connection = config.connection;
-
+var Lib     = require('./../lib/index.js');
 
 
 var Usuario = {};
@@ -14,20 +14,77 @@ Usuario.addUsuario = function(datos,callback){
             if (err)
                 callback(err,null);
             else
-                callback(null,'Agregado correctamente')
+                callback(null,datos.insertId);
                 
         }
     );
 }
 
+Usuario.perfil = function (id,callback) {
+    connection.query('SELECT usuario_nombre,usuario_apellido_paterno,usuario_apellido_materno, usuario_email,usuario_telefono,usuario_rfc,usuario_razon_social,usuario_direccion_fiscal,usuario_facebook from usuario WHERE usuario_id =  ?', id, 
+        function (err, result) {
+            if (err)
+                callback(err,null);
+            else
+                callback(null,result[0])
+                
+        }
+    );
+}
 
-Usuario.existUsuario = function(condicion,callback){
-    connection.query('SELECT * FROM usuario where ? LIMIT 1',condicion, function(err, rows){        
+Usuario.existFB = function(fb,callback){
+    connection.query('SELECT * FROM usuario where usuario_facebook = ? LIMIT 1',fb, function(err, rows){        
         if (err) 
             callback(err,null);
-        else
-            callback(null,rows);
+        else{
+            if (rows[0]==undefined) {
+                callback(null,null);
+            }else{          
+                callback(null,rows[0]);                 
+           }
+        }
+            
     });   
+}
+
+Usuario.update = function (data, id, callback) {    
+    connection.query('UPDATE usuario SET ? WHERE usuario_id = ?',[data,id], 
+        function (err, result) {
+            if (err)
+                callback(err,null);
+            else
+                callback(null,'Edited!')
+                
+        }
+    );    
+}
+
+
+Usuario.updatePass = function (oldP, newP, id, callback) {
+
+    connection.query('SELECT usuario_password from usuario where usuario_id = ? LIMIT 1',id,function(err,rows){
+        if (err) 
+            callback(err,null);
+        else                
+            Lib.comparePassword(oldP,rows[0].usuario_password,function (err, data) {
+                if (err) {console.log(err);}
+                if(data){
+                    Lib.cryptPassword(newP,function (err, hash) {
+                        connection.query('UPDATE usuario SET usuario_password = ? WHERE usuario_id = ?',[hash,id], 
+                            function (err, result) {
+                                if (err)
+                                    callback(err,null);
+                                else
+                                    callback(null,result);
+                                    
+                            }
+                        );   
+                    })
+                                  
+                    
+                }
+            })                           
+    });
 }
 
 Usuario.getUsuario = function(condicion,callback){
@@ -39,19 +96,39 @@ Usuario.getUsuario = function(condicion,callback){
     });   
 }
 
-Usuario.loginUsuario = function(correo,pass,callback){    
-    console.log(correo);
-    connection.query('SELECT * from usuario where correo = ? and password = ? LIMIT 1',[correo , pass],function(err,rows){
+
+Usuario.login = function(email,pass,callback){        
+
+    connection.query('SELECT * from usuario where usuario_email = ? LIMIT 1',email,function(err,rows){
         if (err) 
             callback(err,null);
-        else
-            if (rows[0]==undefined) {                
-                callback(null,null);                
+        else                
+            Lib.comparePassword(pass,rows[0].usuario_password,function (err, data) {
+                if (err) {console.log(err);}
+                else{
+                    if (data) {                        
+                        callback(null,rows[0]);    
+                    } else{                        
+                        callback(null,null);
+                    };                    
+                    
+                }
+            })                           
+    });
+}
+
+
+Usuario.loginFB = function(fb,callback){        
+
+    connection.query('SELECT * from usuario where usuario_facebook = ? LIMIT 1',fb,function(err,rows){
+        if (err) 
+            callback(err,null);
+        else                
+            if (rows[0]) {
+                callback(null,rows[0]);
             }else{
-                console.log('Se loguea el usuario : ' + rows[0].correo);   
-                callback(null,rows);  
-                
-            }
+                callback('nope',null);
+            }    
     });
 }
 

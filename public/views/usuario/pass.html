@@ -1,0 +1,49 @@
+<div class="page">
+<div class="row">
+    <div class="col-md-12">
+    <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Cambiar password</strong></div>
+        <div class="panel-body">
+
+            <div id="result"></div>
+            <form role="form">
+
+            </form>
+
+            <form class="form-horizontal" role="form" ng-submit="changePass()">                
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Contraseña actual</label>
+                    <div class="col-sm-8">
+                      <input type="password" class="form-control" ng-model="FormChangePassword.old_password" id="oldpass">
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Nueva contraseña</label>
+                    <div class="col-sm-8">
+                      <input type="password" class="form-control" id="pass1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Confirmar contraseña</label>
+                    <div class="col-sm-8">
+                      <input type="password" class="form-control" ng-model="FormChangePassword.new_password" ng-change="coinciden(this.value,this.value)" id="pass2">
+                      <p class="help-block danger" id="coinciden"></p>
+                    </div>
+                </div>                
+                <input type="submit" value="Update" class="btn btn-primary pull-left" disabled="tre" id="passSubmit">
+            </form>
+        </div>
+    </section>   
+    </div>
+
+    
+
+
+
+</div>
+    
+
+
+
+</div>

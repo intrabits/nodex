@@ -1,0 +1,213 @@
+
+
+<div class="page">  
+  <form ng-controller="PaginaCtrl" class="form-horizontal" role="form" ng-submit="crearPagina()">
+  <section class="panel panel-default">
+    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Crear página</strong></div>
+
+    
+      <div class="panel-body" > 
+      <div class="row">
+          <div class="col-md-12">
+            <h3>¿Tienes una página de facebook?</h3>
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-4 control-label">Si ya tienes una página de facebook pega el link a continuación</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="facebookID">            
+              </div>
+            </div>  
+            <hr>
+            <p align="center"><button class="btn btn-primary" ng-click="buscarFB()">Buscar</button></p>
+            
+          </div>          
+        </div>       
+
+
+        <div class="row" ng-if="facebook.name">
+          <div class="col-md-6" >
+            <h4>Foto de portada</h4>
+            <div class="img-holder">
+              <img ng-src="{{ facebook.cover.source }}" width="100%">
+            </div>
+            
+            <input type="hidden" ng-model="FormAddPagina.pagina_portada" > 
+          </div>
+          <div class="col-md-6" >
+            <h4>Logotipo</h4>
+            <img ng-src="http://graph.facebook.com/{{ facebook.username }}/picture">
+             <input type="hidden" ng-model="FormAddPagina.pagina_logo"> 
+            <h4>Nombre</h4>
+            <input type="text" value="{{ facebook.name }}" class="form-control" ng-model="FormAddPagina.pagina_nombre" ng-change="subdominio(this.value)">            
+            <h4>Descripción</h4>
+            <input type="text" value="{{ facebook.about }}" class="form-control"  ng-model="FormAddPagina.pagina_descripcion">          
+
+            <input type="hidden" ng-model="FormAddPagina.pagina_facebook">  
+          </div>          
+
+        </div>
+
+        
+        
+
+        
+
+        <hr>
+
+
+                  <h3>Escoge un color para tu página</h3>
+                    <div class="row">                                                
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="01DFA5"><img src="http://placehold.it/100/01DFA5&text=." width="100%"></label>
+                        </div>
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="2E64FE"><img src="http://placehold.it/100/2E64FE&text=." width="100%"></label>
+                        </div>
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="04B431"><img src="http://placehold.it/100/04B431&text=." width="100%"></label>
+                        </div>
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="FA5858"><img src="http://placehold.it/100/FA5858&text=." width="100%"></label>
+                        </div>
+                        
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="FACC2E"><img src="http://placehold.it/100/FACC2E&text=." width="100%"></label>
+                        </div>
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="FA58F"><img src="http://placehold.it/100/FA58FF&text=." width="100%"></label>
+                        </div>
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="424242"><img src="http://placehold.it/100/424242&text=." width="100%"></label>
+                        </div>
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="DF013A"><img src="http://placehold.it/100/DF013A&text=." width="100%"></label>
+                        </div>
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="eeeeee"><img src="http://placehold.it/100/eeeeee&text=." width="100%"></label>
+                        </div>
+                        <div class="col-md-1">
+                          <label><input type="radio" ng-model="FormAddPagina.pagina_color" value="FA58F4"><img src="http://placehold.it/100/FA58F4&text=." width="100%"></label>
+                        </div>
+                                                                              
+                      </div>
+                      <hr>                  
+
+                  <h3>Información general</h3>
+                  <div>                    
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-4 control-label">Nombre de la página</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormAddPagina.pagina_nombre" ng-change="subdominio(FormAddPagina.pagina_nombre)" ng-required="true" required>                          
+                          </div>
+                        </div>                                                  
+                        <div class="form-group">
+                          <label for="inputPassword3" class="col-sm-4 control-label">Dominio deseado</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="ejemplo.com" ng-model="FormAddPagina.pagina_dominio" required>
+                            <p class="help-block">Nosotros verificaremos la disponibilidad de ese dominio</p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputPassword3" class="col-sm-4 control-label">Breve descripción</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="FormAddPagina.pagina_descripcion">
+                            <p class="help-block">Esta información le aparecerá a todos los usuarios de Nodex</p>
+                          </div>
+                        </div>
+
+                    <hr>
+
+                    <h3>Contacto</h3>
+
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-4 control-label">Correo electrónico</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormAddPagina.pagina_email">   
+                            <p class="help-block">A esta cuenta se enviarán los mensajes que lleguen a tu página</p>                       
+                          </div>
+                        </div>                      
+                        <div class="form-group">
+                          <label for="inputPassword3" class="col-sm-4 control-label">Teléfono</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="(777) 123 11 22" ng-model="FormAddPagina.pagina_telefono">                            
+                            <p class="help-block">Opcional, será visible para todos tus visitantes</p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputPassword3" class="col-sm-4 control-label">Dirección</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="FormAddPagina.pagina_direccion">
+                            <p class="help-block">Opcional, será visible para todos tus visitantes</p>
+                          </div>
+                        </div>
+                         <!-- <input type="submit" class="btn btn-lg btn-success" value="Aceptar">  -->
+                         <hr>
+                         <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-4 control-label">Este será tu dominio provisional</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormAddPagina.pagina_subdominio">                          
+                          </div>
+                        </div>                          
+                                                               
+                <hr>
+                <h3>Tipo de página</h3>
+                <div class="row">      
+                  <div class="col-md-4" ng-repeat="t in tipos">
+                      <div class="panel panel-{{ t.tipo_class }}">
+                          <div class="panel-heading">
+                              <h4 class="text-center">
+                                  {{ t.tipo_nombre }}</h4>
+                          </div>
+                          <div class="panel-body text-center">
+                              <p class="lead">
+                                  <strong>${{ t.tipo_precio }} MXN</strong> / anual</p>
+                          </div>
+                          <ul class="list-group list-group-flush text-center">
+                              <li class="list-group-item"><i class="fa fa-envelope-o fa-2x"></i><br>{{ t.tipo_emails }} cuentas de correo</li>
+                              <li class="list-group-item" title="Las galerías te permiten subir imágenes ilimitadas de manera ordenada"><i class="glyphicon glyphicon-picture fa-2x"></i><br>{{ t.tipo_galerias }} Galerías</li>
+                              <li class="list-group-item"><i class="glyphicon glyphicon-ok fa-2x"></i><br>Soporte técnico 24/7</li>
+                              <li class="list-group-item"><i class="glyphicon glyphicon-ok fa-2x" ng-if="t.tipo_dominio!=0"></i><br>Dominio incluído</li>
+                              <li class="list-group-item"><i class="glyphicon glyphicon-ok fa-2x" ng-if="t.tipo_asesoria!=0"></i><br>Asesoría presencial</li>
+                          </ul>
+                          <div class="panel-footer">
+                              <label class="btn btn-danger col-md-12 btn-lg"><input type="radio" ng-model="FormAddPagina.pagina_tipo_id" value="{{ t.tipo_id }}"> {{ t.tipo_nombre }}</label>
+                          </div>
+                      </div>
+                  </div>            
+                 
+              </div>
+                          
+            
+          
+      
+      
+    </div>
+    <hr>
+      <div class="callout callout-success">
+                <h4>Fácil, ¿No?</h4>
+                <p>No hay de qué preocuparse, posteriormente podrás editar toda esta información si así lo deseas, incluso podrás cambiar de paquete si cambias de opinión</p>
+                <p>Si necesitas ayuda puedes contactarnos por cualquiera de estos medios: <a href="#/contacto">Contacto</a> </p>
+            </div>
+      <!-- <button class="btn btn-primary" ng-click="ok()">OK</button> -->
+      <div class="btn-group pull-right">
+        <button class="btn btn-default btn-lg">Cancelar</button>
+        <input type="submit" value="Empezar usar tu página " class="btn btn-primary btn-lg">
+      </div>
+      
+  
+  
+  </section>
+  </form>
+
+</div>
+
+<style type="text/css">
+h3{
+  text-align: center;
+}
+.glyphicon-ok{
+  color: #31B404;
+}
+.panel-footer{
+  height: 100px;
+}
+</style>

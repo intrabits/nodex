@@ -1,22 +1,32 @@
 {
-  "name": "passport-facebook-examples-login",
+  "name": "Nodex",
   "version": "0.0.0",
   "dependencies": {
+    "async": "^0.9.0",
     "bcrypt": "^0.7.8",
     "body-parser": "~1.0.0",
+    "colors": "^0.6.2",
+    "connect-busboy": "0.0.1",
     "cookie-parser": "~1.0.1",
     "express": "4.x",
     "express-session": "~1.0.0",
+    "gm": "^1.16.0",
     "jade": "latest",
     "method-override": "~1.0.0",
+    "moment": "^2.7.0",
     "mongodb": "*",
     "mongojs": "^0.13.0",
     "mongoose": "^3.8.11",
     "morgan": "~1.0.0",
     "mysql": "^2.3.0",
+    "nodemailer": "^1.0.3",
     "passport": ">= 0.0.0",
     "passport-facebook": ">= 0.0.0",
     "passport-local": "^1.0.0",
-    "shortid": "^2.0.0"
+    "shortid": "^2.0.0",
+    "socket.io": "^1.0.6",
+    "underscore": "^1.6.0",
+    "webfaction-api": "^0.1.1",
+    "xmlrpc": "^1.2.0"
   }
 }

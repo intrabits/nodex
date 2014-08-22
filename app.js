@@ -3,6 +3,12 @@ var app    	= require('./config/express');
 var api 	= require('./routes/api');
 var index 	= require('./routes/index');
 
+//  Sockets!!!!
+var server = require('http').Server(app.app);
+var io = require('socket.io')(server);
+var sockets = require('./sockets/index.js');
+io.on('connection',sockets);
+
 
 app = app.app;
 
@@ -13,9 +19,8 @@ app.use('/', index);
 app.use('/api/', api);
 
 
-
-
-app.listen(3000);
+server.listen(21575);
+// app.listen(3000);
 console.log('================================================================================');
 console.log(config.BIENVENIDA);
 console.log('================================================================================');

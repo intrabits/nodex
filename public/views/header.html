@@ -1,3 +1,4 @@
+
 <header class="clearfix">
     <a href="#/" data-toggle-min-nav
                  class="toggle-min"
@@ -5,9 +6,9 @@
 
     <!-- Logo -->
     <div class="logo">
-        <a href="#/">
+        <a href="#/" >
             <span>{{main.brand}} {{main.prueba.id}}</span>
-        </a>
+        </a>        
     </div>
 
     <!-- needs to be put after logo to make it working-->
@@ -17,129 +18,92 @@
         <span class="icon-bar"></span>
     </div>
 
-    <div class="top-nav" ng-controller="menu">
-        <ul class="nav-left list-unstyled">            
+    <div class="top-nav" ng-controller="NavCtrl">
+        <ul class="nav-left list-unstyled">
             <li class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge badge-info">3</span>
+                    <i class="fa fa-envelope-o nav-icon"></i>
+                    <span class="badge badge-danger" ng-if="notificacionesMensajesTotal>0">{{ notificacionesMensajesTotal }}</span>                    
                 </a>
                 <div class="dropdown-menu with-arrow panel panel-default">
                     <div class="panel-heading">
-                        You have 3 mails.
+                        Tienes {{ notificacionesMensajesTotal }} mensajes
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            <a href="javascript:;" class="media">
-                                <span class="pull-left media-icon">
-                                    <span class="round-icon sm bg-warning"><i class="fa fa-envelope-o"></i></span>
+                        <li class="list-group-item" ng-repeat="m in notificacionesMensajes">
+                            <a href="/#/pagina/{{ m.mensaje_pagina_id }}/mensaje/{{ m.mensaje_id }}" class="media">
+                                <span class="pull-left media-icon bg-info" >
+                                    <span class="round-icon sm" ><i class="fa fa-envelope-o"></i></span>
                                 </span>
                                 <div class="media-body">
-                                    <span class="block">Lisa sent you a mail</span>
-                                    <span class="text-muted block">2min ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="javascript:;" class="media">
-                                <span class="pull-left media-icon">
-                                    <span class="round-icon sm bg-info"><i class="fa fa-envelope-o"></i></span>
-                                </span>
-                                <div class="media-body">
-                                    <span class="block">Jane sent you a mail</span>
-                                    <span class="text-muted">3 hours ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="javascript:;" class="media">
-                                <span class="pull-left media-icon">
-                                    <span class="round-icon sm bg-success"><i class="fa fa-envelope-o"></i></span>
-                                </span>
-                                <div class="media-body">
-                                    <span class="block">Lynda sent you a mail</span>
-                                    <span class="text-muted">9 hours ago</span>
+                                    <span class="block">{{ m.mensaje_asunto }} </span>
+                                    <span class="text-muted block">{{ m.mensaje_fecha  | date: 'dd/M/yy'}}</span>
                                 </div>
                             </a>
                         </li>                       
-                    </ul>
                     <div class="panel-footer">
-                        <a href="javascript:;">Show all mails.</a>
+                        <a href="javascript:;">Ver todas.</a>
                     </div>
                 </div>
-            </li>
+            </li>                     
             <li class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-bell-o nav-icon"></i>
-                    <span class="badge badge-warning">3</span>
+                    <span class="badge badge-warning" ng-if="TotalPaginasVencidas>0">{{ TotalPaginasVencidas }}</span>
                 </a>
                 <div class="dropdown-menu with-arrow panel panel-default">
                     <div class="panel-heading">
-                        You have 3 notifications.
+                        Tienes {{ TotalPaginasVencidas }} notificaciones
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            <a href="javascript:;" class="media">
-                                <span class="pull-left media-icon">
-                                    <span class="round-icon sm bg-success"><i class="fa fa-bell-o"></i></span>
-                                </span>
-                                <div class="media-body">
-                                    <span class="block">New tasks needs to be done</span>
-                                    <span class="text-muted block">2min ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="javascript:;" class="media">
-                                <span class="pull-left media-icon">
-                                    <span class="round-icon sm bg-info"><i class="fa fa-bell-o"></i></span>
-                                </span>
-                                <div class="media-body">
-                                    <span class="block">Change your password</span>
-                                    <span class="text-muted">3 hours ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="javascript:;" class="media">
+                        <li class="list-group-item" ng-repeat="pv in PaginasVencidas">
+                            <a href="/#/pagina/{{ pv.pagina_id }}" class="media">
                                 <span class="pull-left media-icon">
                                     <span class="round-icon sm bg-danger"><i class="fa fa-bell-o"></i></span>
                                 </span>
                                 <div class="media-body">
-                                    <span class="block">New feature added</span>
-                                    <span class="text-muted">9 hours ago</span>
+                                    <span class="block">{{ pv.pagina_nombre }}</span>
+                                    <span class="text-muted block">{{ pv.pagina_vencimiento  | date: 'dd/M/yy'}}</span>
                                 </div>
                             </a>
                         </li>                       
-                    </ul>
                     <div class="panel-footer">
                         <a href="javascript:;">Show all notifications.</a>
                     </div>
                 </div>
             </li>
-        </ul>
-
-        <ul class="nav-left pull-right list-unstyled" >
-            <li class="btn-danger">                
-                <a href="javascript:;" ng-click="open()" ng-controller="ModalPagina">
-                    <span data-i18n="Crear una página nueva"></span>
+            <!-- <li style="background-color:#d33;margin-left:10px">
+                <a href="javascript:;" ng-click="open()" ng-controller="ModalPagina" style="background-color:#d33;color:#fff">
+                    <span data-i18n="Nueva página"></span>
+                </a>                
+            </li> -->
+            <li style="background-color:#fff;margin-left:10px">
+                <a href="javascript:;"  go-back  style="background-color:#fff;color:#444" >{{ $routeParams.pagina_id }}
+                    <i class="glyphicon glyphicon-arrow-left"></i><span data-i18n="Atrás"></span>
                 </a>                
             </li>
+                    
+        </ul>
+
+        <ul class="nav-left pull-right list-unstyled hidden-phone" >
+             
             
-            <li class="dropdown">
+            <li class="dropdown hidden-xs">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                    <span data-i18n="Mis páginas"></span>  <span class="caret"></span>
+                    <span data-i18n="Mis páginas"></span>  <span class="caret"></span> {{ paginas }}
                 </a>
                 <ul  class="dropdown-menu with-arrow pull-right" role="menu">
                     
                         <li ng-repeat="pagina in misPaginas">
-                            <a href="#/pagina/{{ pagina.mongo }}">{{ pagina.pagina_nombre }}</a>
-                        </li>                    
+                            <a href="#/pagina/{{ pagina.pagina_id }}">{{ pagina.pagina_nombre }}</a>
+                        </li>
+                        <li><a href="#/pagina/add">Crear una nueva página</a></li>
                     
                 </ul>
                 
-            </li>
-            <li class="dropdown langs text-normal" data-ng-controller="LangCtrl">
+            </li>   
+ 
+            <li class="dropdown langs text-normal hidden-xs" data-ng-controller="LangCtrl">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                     {{lang}}
                 </a>
@@ -161,20 +125,26 @@
             </li>
             <li class="dropdown text-normal nav-profile">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="{{ main.foto }}" alt="" class="img-circle img30_30">
+                    <img ng-src="{{ main.foto }}" alt="" class="img-circle img30_30">
                     <span class="hidden-xs">
-                        {{main.nombre}} 
+                        {{usuario.usuario_nombre}} 
                     </span>
                 </a>
                 
                 <ul class="dropdown-menu with-arrow pull-right">
                     <li>
-                        <a href="#/pages/profile">
+                        <a href="#/usuario/perfil">
                             <i class="fa fa-user"></i>
                             <span data-i18n="My Profile"></span>
                         </a>
                     </li>
                     <li>
+                        <a href="#/usuario/password">
+                            <i class="fa fa-lock"></i>
+                            <span data-i18n="Cambiar contraseña"></span>
+                        </a>
+                    </li>
+                    <!-- <li>
                         <a href="#/tasks">
                             <i class="fa fa-check"></i>
                             <span data-i18n="My Tasks"></span>
@@ -185,7 +155,7 @@
                             <i class="fa fa-lock"></i>
                             <span data-i18n="Lock"></span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="/logout">
                             <i class="fa fa-sign-out"></i>

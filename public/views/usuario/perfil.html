@@ -1,0 +1,86 @@
+<div class="page">
+<div class="row">
+    <div class="col-md-6">
+    <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Información general</strong></div>
+        <div class="panel-body">
+
+            <div id="result"></div>
+            
+            <form class="form-horizontal" role="form" ng-submit="editarPerfil()">              
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Nombre</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormEditarPerfil.usuario_nombre">                         
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Apellido paterno</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditarPerfil.usuario_apellido_paterno">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Apellido materno</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditarPerfil.usuario_apellido_materno">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">E-mail</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditarPerfil.usuario_email" disabled>
+                      <p class="help-block">A esta cuenta se enviarán las notificaciones importantes</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Teléfono</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditarPerfil.usuario_telefono">
+                    </div>
+                </div>  
+                <input type="submit" value="Update" class="btn btn-primary pull-left">                
+            </form>
+        </div>
+    </section>    
+    </div>
+    <div class="col-md-6">
+    
+
+
+   <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Información fiscal</strong></div>
+        <div class="panel-body">          
+            <form class="form-horizontal" role="form" ng-submit="editarPerfil()">              
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Razón social</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditarPerfil.usuario_razon_social">                          
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Dirección</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditarPerfil.usuario_direccion_fiscal">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">RFC</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="FormEditarPerfil.usuario_rfc">
+                    </div>
+                </div>              
+                <input type="submit" value="Update" class="btn btn-primary pull-right">
+                
+            </form>            
+        </div>
+    </section>
+    
+    </div>
+
+</div>
+    
+
+
+
+</div>

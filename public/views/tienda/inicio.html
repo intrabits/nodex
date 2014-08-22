@@ -1,0 +1,165 @@
+<div class="page">
+	<div class="row">
+		<div class="col-md-10">			
+			<!-- Panel box -->
+            <section class="panel panel-box">
+                <div class="panel-left panel-item bg-primary">
+                    <p class="size-h3"><i class="fa fa-shopping-cart"></i></p>
+                    <p>Productos</p>
+                </div>
+                <div class="panel-item bg-success">
+                    <p class="size-h3"><i class="fa fa-briefcase"></i></p>
+                    <p>Servicios</p>
+                </div>
+                <div class="panel-item bg-danger">
+                    <p class="size-h3"><i class="fa fa-code"></i></p>
+                    <p>Plugins</p>
+                </div>
+                <div class="panel-right panel-item bg-info">
+                    <p class="size-h3"><i class="fa fa-institution"></i></p>
+                    <p>Otro</p>
+                </div>
+            </section>
+
+            <tabset justified="true" class="ui-tab">
+                <tab heading="Destacados">
+                	<a href="" ng-click="predicate = 'producto_precio'; reverse=!reverse" class="btn btn-success">Phone Number</a>
+                	<div ng-repeat="p in productos | orderBy:predicate:reverse">
+                		<a href="#/tienda/item/{{ p.producto_id }}">
+	                	<section class="panel panel-box">
+			                <div class="panel-left panel-item img-holder">
+			                    <img ng-src="websites/paginas/{{ p.producto_foto }}">
+			                </div>
+			                <div class="panel-right panel-item bg-reverse">
+			                	<p class="size-h2">{{ p.producto_nombre }}</p>
+			                    <p class="size-h1">$ {{ p.producto_precio }}</p>
+			                </div>
+			            </section>
+			            </a>
+                	</div>
+                	
+                </tab>
+                <tab heading="Mejor valorados">
+                	<div class="row">
+                		<div ng-repeat="p in productos | orderBy:producto_fecha" class="col-xs-6">
+	                		<a href="#/tienda/item/{{ p.producto_id }}">
+		                	<section class="panel panel-box">
+				                <div class="panel-left panel-item img-holder">
+				                    <img ng-src="websites/paginas/{{ p.producto_foto }}">
+				                </div>
+				                <div class="panel-right panel-item bg-reverse">
+				                	<p class="size-h2">{{ p.producto_nombre }}</p>
+				                    <p class="size-h1">$ {{ p.producto_precio }}</p>
+				                </div>
+				            </section>
+				            </a>
+	                	</div>
+		                <div class="col-xs-6">
+		                    <section class="panel panel-box info-box">
+		                        <div class="panel-left panel-item bg-success">
+		                            <i class="fa fa-rocket text-large stat-icon"></i>
+		                        </div>
+		                        <div class="panel-right panel-item bg-reverse">
+		                            <p class="size-h1 no-margin">80<span class="size-h3">%</span></p>
+		                            <p class="text-muted no-margin"><span data-i18n="Growth"></span></p>
+		                        </div>
+		                    </section>
+		                </div>
+
+		                <div class="col-xs-6">
+		                    <section class="panel panel-box info-box">
+		                        <div class="panel-left panel-item bg-info">
+		                            <i class="fa fa-users text-large stat-icon"></i>
+		                        </div>
+		                        <div class="panel-right panel-item bg-reverse">
+		                            <p class="size-h1 no-margin">132</p>
+		                            <p class="text-muted no-margin"><span data-i18n="New users"></span></p>
+		                        </div>
+		                    </section>
+		                </div>
+
+		                <div class="col-xs-6">
+		                    <section class="panel panel-box info-box">
+		                        <div class="panel-left panel-item bg-warning">
+		                            <i class="fa fa-dollar text-large stat-icon"></i>
+		                        </div>
+		                        <div class="panel-right panel-item bg-reverse">
+		                            <p class="size-h1 no-margin">3,760</p>
+		                            <p class="text-muted no-margin"><span data-i18n="Profit"></span></p>
+		                        </div>
+		                    </section>
+		                </div>
+
+		                <div class="col-xs-6">
+		                    <section class="panel panel-box info-box">
+		                        <div class="panel-left panel-item bg-danger">
+		                            <i class="fa fa-shopping-cart text-large stat-icon"></i>
+		                        </div>
+		                        <div class="panel-right panel-item bg-reverse">
+		                            <p class="size-h1 no-margin">369</p>
+		                            <p class="text-muted no-margin"><span data-i18n="Sales"></span></p>
+		                        </div>
+		                    </section>
+		                </div>
+		            </div>
+                </tab>
+                <tab heading="Nuevos">Long Labeled Justified content</tab>
+            </tabset>
+		            
+            
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <section class="panel panel-box info-box">
+                        <div class="panel-left panel-item bg-success">
+                            <i class="fa fa-rocket text-large stat-icon"></i>
+                        </div>
+                        <div class="panel-right panel-item bg-reverse">
+                            <p class="size-h1 no-margin">80<span class="size-h3">%</span></p>
+                            <p class="text-muted no-margin"><span data-i18n="Growth"></span></p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-xs-6">
+                    <section class="panel panel-box info-box">
+                        <div class="panel-left panel-item bg-info">
+                            <i class="fa fa-users text-large stat-icon"></i>
+                        </div>
+                        <div class="panel-right panel-item bg-reverse">
+                            <p class="size-h1 no-margin">132</p>
+                            <p class="text-muted no-margin"><span data-i18n="New users"></span></p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-xs-6">
+                    <section class="panel panel-box info-box">
+                        <div class="panel-left panel-item bg-warning">
+                            <i class="fa fa-dollar text-large stat-icon"></i>
+                        </div>
+                        <div class="panel-right panel-item bg-reverse">
+                            <p class="size-h1 no-margin">3,760</p>
+                            <p class="text-muted no-margin"><span data-i18n="Profit"></span></p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-xs-6">
+                    <section class="panel panel-box info-box">
+                        <div class="panel-left panel-item bg-danger">
+                            <i class="fa fa-shopping-cart text-large stat-icon"></i>
+                        </div>
+                        <div class="panel-right panel-item bg-reverse">
+                            <p class="size-h1 no-margin">369</p>
+                            <p class="text-muted no-margin"><span data-i18n="Sales"></span></p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+
+		</div>
+	</div>
+</div>
+

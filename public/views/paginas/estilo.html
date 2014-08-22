@@ -1,0 +1,60 @@
+<div class="page page-table">
+
+    <div class="row">
+
+        <div class="col-md-7">
+            <div class="panel panel-default">              
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Estilo de la página</strong></div>                            
+                <div class="panel-body">                                                                        
+                    <form class="form-horizontal" role="form" ng-submit="editEstilo()">
+                        <div class="col-md-12"><h3>Foto de portada</h3></div>
+                        <div class="col-md-6">
+
+                            <img ng-if="estilo.pagina_portada==''" ng-src="http://placehold.it/400x400&text=Portada" width="100%">
+                            <img ng-if="estilo.pagina_portada!=''" ng-src="http://nodex.mx/paginas/{{ estilo.pagina_portada }}" width="100%"></div>
+                        <div class="col-md-6">
+                            <input type="file" name="file" onchange="angular.element(this).scope().upImg(this.files,'portada')"/><br>
+                            <p class="muted">El tamaño recomendado es de 900x300 pixeles</p>
+                        </div>
+                        <div class="col-md-12"><h3>Fondo de la página</h3></div>
+                        <div class="col-md-6" ng-if="estilo.pagina_fondo!=''">
+                            <img ng-src="http://nodex.mx/paginas/{{ estilo.pagina_fondo }}" width="100%"></div>
+                        <div class="col-md-6">
+                            <input type="file" name="file" onchange="angular.element(this).scope().upImg(this.files,'fondo')"/><br>
+                            <p class="muted">El tamaño recomendado es de 1440 x 900 pixeles</p>
+                        </div>
+                        <div class="col-md-12"><h3>Logotipo</h3></div>
+                        <div class="col-md-3">
+                            <img ng-if="estilo.pagina_logo==''" ng-src="http://placehold.it/400x400&text=Logotipo" width="100%">
+                            <img ng-if="estilo.pagina_logo!=''" ng-src="http://nodex.mx/paginas/{{ estilo.pagina_logo }}" width="100%"></div>
+                        <div class="col-md-6">
+                            <input type="file" name="file" onchange="angular.element(this).scope().upImg(this.files,'logo')"/>
+                            <p class="muted">El tamaño recomendado es de 200 x 100 pixeles. La proporción puede variar dependiendo de tu logotipo, pero te recomendamos que el ancho no exceda los 200 pixeles</p>
+                        </div>                                                
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Vista preliminar</strong></div>                
+                <div class="panel-body">
+                    <p align="center">
+                    <button ng-if="estilo.pagina_dominio" class="btn btn-lg btn-warning" ng-click="vistaPrevia('nodex.mx/paginas/'+estilo.pagina_id,'phone')"><i class="glyphicon glyphicon-phone fa-3x"></i> Ver como dispositivo móvil</button>
+                    <br><br>                    
+                    <button class="btn btn-lg btn-info" ng-click="vistaPrevia('nodex.mx/paginas/'+estilo.pagina_id,'desktop')"><i class="fa fa-desktop fa-3x"></i> Ver como computadora</button>
+                    <br><br>
+                    <button class="btn btn-lg btn-primary" ng-click="vistaPrevia('nodex.mx/paginas/'+estilo.pagina_id,'desktop')"><i class="fa fa-tablet fa-3x"></i> Ver como tablet</button>
+                    </p>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+</div>

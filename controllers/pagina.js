@@ -25,5 +25,18 @@ PaginaCtrl.deleteSeccion = function (req, res) {
 	})
 }
 
+PaginaCtrl.misPaginas = function(req, res){
+	   var condicion = {'usuario_id':req.user[0].usuario_id};    
+    Pagina.getPaginas(condicion, function( err, data){
+        if (err) {
+            // error handling code goes here
+            console.log("ERROR : ",err);            
+        } else {            
+            // code to execute on data retrieval
+            res.json(data);
+        } 
+    });
+}
+
 
 module.exports = PaginaCtrl;

@@ -1,7 +1,7 @@
-<div class="modal-header" ng-controller="menu">
+<div class="modal-header">
     <h3><span data-i18n="Crear una página nueva"></span> </h3>
 </div>
-<form ng-controller="algo" class="form-horizontal" role="form" ng-submit="processForm()">
+<form ng-controller="PaginaCtrl" class="form-horizontal" role="form" ng-submit="crearPagina()">
 <div class="modal-body" >
                 
             
@@ -10,9 +10,9 @@
                 <div>                    
                     <div class="row">                                                
                         <div class="col-md-6">
-                          <label><input type="radio" name="estilo" ng-model="FormData.pagina_template_id" value="1"><img src="http://bootswatch.com/slate/thumbnail.png" width="100%"></label></div>
+                          <label><input type="radio" name="estilo" ng-model="FormAddPagina.pagina_template_id" value="1"><img src="http://bootswatch.com/slate/thumbnail.png" width="100%"></label></div>
                         <div class="col-md-6">
-                          <label><input type="radio" name="estilo" ng-model="FormData.pagina_template_id" value="2"><img src="http://bootswatch.com/cerulean/thumbnail.png" width="100%"></label></div>
+                          <label><input type="radio" name="estilo" ng-model="FormAddPagina.pagina_template_id" value="2"><img src="http://bootswatch.com/cerulean/thumbnail.png" width="100%"></label></div>
                     </div>
                     <hr>
                     <div class="row">                        
@@ -27,13 +27,13 @@
                       <div class="form-group">
                         <label for="inputEmail3" class="col-sm-4 control-label">Nombre de la página</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormData.pagina_nombre">                          
+                          <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="FormAddPagina.pagina_nombre">                          
                         </div>
                       </div>                      
                       <div class="form-group">
                         <label for="inputPassword3" class="col-sm-4 control-label">Dominio deseado</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" id="inputPassword3" placeholder="ejemplo.com" ng-model="FormData.pagina_dominio">
+                          <input type="text" class="form-control" id="inputPassword3" placeholder="ejemplo.com" ng-model="FormAddPagina.pagina_dominio">
                           <p class="help-block">Nosotros verificaremos la disponibilidad de ese dominio</p>
                         </div>
                       </div>
@@ -50,7 +50,6 @@
 <div class="modal-footer">
     <!-- <button class="btn btn-primary" ng-click="ok()">OK</button> -->
     <input type="submit" value="Ok" class="btn btn-primary">
-    <button class="btn" ng-click="cancel()">Cancel</button>
 </div>
 </form>
 

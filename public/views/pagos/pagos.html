@@ -1,0 +1,41 @@
+<div class="page page-table">
+
+<section class="panel panel-default mail-container" ng-controller="PacienteCtrl">
+    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Pagos</strong></div>
+    <div class="panel-body">
+        
+            <div class="row">
+                <div class="col-md-6"><a href="/#/paciente/agregar" class="btn btn-primary">Nuevo pago</a></div>
+                <div class="col-md-6"><input type="text" ng-model="search" placeholder="Buscar"  class="form-control pull-right"></div>
+            </div>
+            
+        
+        <hr>        
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>                
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Usuario</th>
+                    <th>Método de pago</th>
+                    <th>Teléfono</th>
+                    <th>Opciones</th>
+                    <th>Status</th>
+                    <th>Vencimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="paciente in pacientes | filter:search">
+                    <td>{{ paciente.nombre }}</td>
+                    <td>{{ paciente.apellido_paterno }}</td>
+                    <td>{{ paciente.apellido_materno }}</td>
+                    <td>{{ paciente.celular }}</td>
+                    <td>{{ paciente.telefono }}</td>
+                    <td><a href="/#/paciente/{{ paciente.paciente_id }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></td>
+                </tr>           
+            </tbody>
+        </table>      
+    </div>
+</section> 
+</div>

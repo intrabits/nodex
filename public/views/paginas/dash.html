@@ -1,0 +1,316 @@
+
+<div class="page page-profile">
+
+    <div class="row">
+        <div class="col-md-6">            
+
+            <div class="panel panel-profile">
+                <!-- <div class="panel-heading bg-primary clearfix" style="background-image:url(websites/{{ FormEditPagina.pagina_portada }});widht:300px"> -->
+                <div class="panel-heading clearfix" style="background-image:url({{ FormEditPagina.pagina_portada }});widht:300px;background-color:#{{ FormEditPagina.pagina_color }};height:140px">
+                    <a href="" class="pull-left profile">
+                        <img ng-if="FormEditPagina.pagina_logo=''" ng-src="http://placehold.it/200x300" class="img-circle img80_80">
+                        <img ng-if="FormEditPagina.pagina_logo!=''" ng-src="{{ FormEditPagina.pagina_logo }}" class="img-circle img80_80">
+                    </a>
+                    <div>                                            
+                    </div>
+                    
+                </div>
+                <ul class="list-group" data-step="1" data-intro="Aquí verás algunos datos importantes sobre tu página, no olvides revisarlos a menudo para asegurarte de que todo esté en orden">
+                    <li class="list-group-item">
+                        <h4>{{ FormEditPagina.pagina_nombre }}</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-info">{{ FormEditPagina.pagina_vencimiento | date:'dd/MM/yyyy'}}</span>
+                        <i class="fa fa-calendar"></i>
+                        Fecha de vencimiento
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-success">{{ FormEditPagina.pagina_visitas }}</span>
+                        <i class="glyphicon glyphicon-signal"></i>
+                        Visitas a la página
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-danger">{{ FormEditPagina.tipo_nombre }}</span>
+                        <i class="fa fa-folder-open-o"></i>
+                        Tipo de página
+                    </li>    
+                    <li class="list-group-item">
+                        <a class="btn btn-large btn-warning pull-right" href="javascript:void(0);" onclick="javascript:introJs().start();">Ver tutorial de introducción</a>                
+                        <i class="fa fa-life-saver"></i>
+                        Primeros pasos
+                    </li>    
+                </ul>
+            </div>            
+            <div class="panel" ng-if="FormEditPagina.pagina_status != 1">
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-md-6">
+                    <h4>Pagar en OXXO</h4>
+                    <form action="https://mexico.dineromail.com/Shop/Shop_Ingreso.asp" method="post"> 
+                    <input type="hidden" name="NombreItem" value="NODEX: Sitio web con administrador de contenido"> 
+                    <input type="hidden" name="TipoMoneda" value="1"> 
+                    <input type="hidden" name="PrecioItem" value="{{ FormEditPagina.tipo_precio }}"> 
+                    <input type="hidden" name="E_Comercio" value="1269818">
+                    <input type="hidden" name="NroItem" value="INTRA01"> 
+                    <input type="hidden" name="image_url" value="https://i.imgur.com/L4D1k48.jpg"> <input type="hidden" name="DireccionExito" value="http://intrabits.net/gracias"> 
+                    <input type="hidden" name="DireccionFracaso" value="http://intrabits.net/cancelada">  <input type="hidden" name="Mensaje" value="1">
+                    <input type="image" src="https://mexico.dineromail.com/imagenes/botones/pagar-medios_c.gif?dmbypayu" border="0" name="submit" alt="Pagar con DineroMail"></form>
+                    </div>
+                    <div class="col-md-6">
+                    <h4>Paypal/Tarjeta de crédtito</h4>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="currency_code" value="MXN">
+                        <input type="hidden" name="item_name" value="NODEX: Sitio web con administrador de contenido {{ FormEditPagina.tipo_nombre }}">
+                        <input type="hidden" name="amount" value="{{ FormEditPagina.tipo_precio }}">
+                        <input type="hidden" name="hosted_button_id" value="Z7FEFNFU356NE">
+                        <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+                        </form>
+                    </div>
+                    </div>
+                    
+                    
+                </div>            
+            </div>
+            
+            <div class="row">
+                
+                <div class="col-sm-6">
+                    <section class="panel panel-box">
+                        <div class="panel-top bg-facebook">
+                            <div class="divider divider"></div>
+                            <i class="fa fa-facebook size-h1"></i>
+                            <div class="divider divider"></div>
+                        </div>
+                        <div class="list-justified-container">
+                            <ul class="list-justified text-center">
+                                <li>
+                                    <p class="size-h3">{{ facebook.likes }}</p>
+                                    <p class="text-muted">Seguidores</p>
+                                </li>
+                                <li>
+                                    <p class="size-h3">{{ facebook.talking_about_count }}</p>
+                                    <p class="text-muted">Hablando de</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-sm-6">
+                    <section class="panel panel-box">
+                        <div class="panel-top bg-twitter">
+                            <div class="divider divider"></div>
+                            <i class="fa fa-twitter size-h1"></i>
+                            <div class="divider divider"></div>
+                        </div>
+                        <div class="list-justified-container">
+                            <ul class="list-justified text-center">
+                                <li>
+                                    <p class="size-h3">X</p>
+                                    <p class="text-muted">Seguidores</p>
+                                </li>
+                                <li>
+                                    <p class="size-h3">Y</p>
+                                    <p class="text-muted">Siguiendo</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>                        
+                </div>
+            </div>
+
+
+          
+        </div>
+        <div class="col-md-6">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel mini-box" data-step="2" data-intro="Si das click aquí podrás editar la manera en la que se ve tu página: cambiar el fondo, cambiar tu logotipo o cambiar tu foto de portada">
+                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/estilo">
+                        <span class="box-icon bg-primary">
+                            <i class="glyphicon glyphicon-tint"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h3">Editar estilo de la página</p> <img ng-src="{{ FormEditPagina.pagina_logo }}">
+                            <p class="text-muted">Cambia el fondo, los colores, la tipografía</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel mini-box" data-step="3" data-intro="Nodex te permite promover tus productos en internet a través de tu propia tienda en línea, da click aquí para agregar productos">
+                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/productos">
+                        <span class="box-icon bg-info">
+                            <i class="fa fa-shopping-cart"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">Tienda en linea</p>
+                            <p class="text-muted">Vende productos a través de tu página</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel mini-box" data-step="4" data-intro="Si quieres crear cuentas de correo o cuentas de acceso a NODEX para los miembros de tu equipo podrás hacerlo aqui">
+                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/cuentas">
+                        <span class="box-icon bg-danger">
+                            <i class="fa fa-male"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h3">{{ FormEditPagina.pagina_cuentas_usadas }}</p>
+                            <p class="text-muted">Usuarios</p>
+                        </div>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="col-sm-6">
+                    <a href="#/pagina/{{ FormEditPagina.pagina_id }}/galerias">
+                    <div class="panel mini-box"  data-step="5" data-intro="En esta sección podrás crear galerías y subir imágenes">
+                        <span class="box-icon bg-warning">
+                            <i class="fa fa-camera"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ FormEditPagina.pagina_imagenes }}</p>
+                            <p class="text-muted">Imágenes</p>
+                        </div>                        
+                    </div>
+                    </a>                
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">                    
+                    <div class="panel mini-box"  data-step="6" data-intro="Al dar click aquí podrás ver tu Bandeja de entrada o Inbox, donde podrás consultar todos los mensajes que te envíen a través de tu sitio web">
+                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/mensajes" class="boton">
+                        <span class="box-icon bg-success">
+                            <i class="fa fa-envelope-o"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ FormEditPagina.pagina_mensajes }}</p>
+                            <p class="text-muted">Mensajes</p>
+                        </div>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel mini-box"  data-step="7" data-intro="¿Te sientes inspirado? Utiliza esta sección para compartir información con tus clientes/usuarios de manera similar a un Blog">
+                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/publicaciones">
+                        <span class="box-icon bg-info">
+                            <i class="glyphicon glyphicon-comment"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ FormEditPagina.pagina_publicaciones }}</p>
+                            <p class="text-muted">Publicaciones</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="panel mini-box" data-step="7" data-intro="Escribe un mensaje de bienvenida, así como una descripción más detallada de tu negocio">
+                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/textos">
+                        <span class="box-icon bg-primary">
+                            <i class="fa fa-font"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">Textos de la página</p>
+                            <p class="text-muted">Bienvenida y Acerca de</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="panel panel-default" >
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Información de contacto</strong></div>
+                <div class="panel-body" data-step="8" data-intro="Configura aqui tu información de contacto, así como los textos de Bienvenida y Acerca de" data-position="top">
+                    <div class="media">
+                        <div class="media-body"  >
+                            <ul class="list-unstyled list-info">                                
+                                <li>
+                                    <span class="icon glyphicon glyphicon-envelope"></span>
+                                    <label>Email</label>
+                                    {{ FormEditPagina.pagina_email }}
+                                </li>
+                                <li>
+                                    <span class="icon glyphicon glyphicon-home"></span>
+                                    <label>Dirección</label>
+                                    {{ FormEditPagina.pagina_direccion }}
+                                </li>
+                                <li>
+                                    <span class="icon glyphicon glyphicon-earphone"></span>
+                                    <label>Teléfono</label>
+                                    {{ FormEditPagina.pagina_telefono }}
+                                </li>
+                                <!-- <li>
+                                    <span class="icon glyphicon glyphicon-earphone"></span>
+                                    <label>Celular</label>
+                                    {{ FormEditPagina.pagina_celular }}
+                                </li>              -->                   
+                            </ul>
+                            <a href="#/pagina/{{ FormEditPagina.pagina_id }}/config" class="btn btn-info pull-right"><i class="fa fa-pencil"></i> Editar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="display:none;">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Últimos mensajes</strong></div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Mensaje</th>
+                    <th>Status</th>
+                    <th>Progress</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><span class="color-success"><i class="fa fa-level-up"></i></span> TWLT</td>
+                    <td>Amery Lee</td>
+                    <td><span class="label label-info">Pending</span></td>
+                    <td><progressbar class="progressbar-xs no-margin" value="55"></progressbar>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><span class="color-success"><i class="fa fa-level-up"></i></span> A16Z</td>
+                    <td>Romayne Carlyn</td>
+                    <td><span class="label label-primary">Due</span></td>
+                    <td><progressbar class="progressbar-xs no-margin" value="34" type="success"></progressbar></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><span class="color-warning"><i class="fa fa-level-down"></i></span> DARK</td>
+                    <td>Marybeth Joanna</td>
+                    <td><span class="label label-success">Due</span></td>
+                    <td><progressbar class="progressbar-xs no-margin" value="68" type="info"></progressbar></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><span class="color-info"><i class="fa fa-level-up"></i></span> Q300</td>
+                    <td>Jonah Benny</td>
+                    <td><span class="label label-danger">Blocked</span></td>
+                    <td><progressbar class="progressbar-xs no-margin" value="52" type="warning"></progressbar></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><span class="color-danger"><i class="fa fa-level-down"></i></span> RVNG</td>
+                    <td>Daly Royle</td>
+                    <td><span class="label label-warning">Suspended</span></td>
+                    <td><progressbar class="progressbar-xs no-margin" value="77" type="danger"></progressbar></td></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

@@ -1,0 +1,53 @@
+<div class="page">
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel panel-default mail-container mail-compose">
+                <div class="panel-heading"><strong><span class="fa fa-edit"></span> Editar publicación</strong></div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" ng-submit="editPublicacion()">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="mail_subject" class="col-xs-2">Título:</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" ng-model="FormEditPublicacion.publicacion_titulo" class="form-control">
+                                    </div>
+                                </div>
+                                <hr>
+                                 <div class="form-group">
+                                    <label for="mail_subject" class="col-xs-2">Imágen:</label>
+                                    <div class="col-xs-10">
+                                        <input type="file" name="file" onchange="angular.element(this).scope().upImg(this.files)"/>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="{{ main.base }}{{ FormEditPublicacion.publicacion_imagen }}" width="170px" ng-if="FormEditPublicacion.publicacion_imagen">
+                            </div>
+                        </div>
+                                
+                                
+                        <div text-angular ng-model="FormEditPublicacion.publicacion_contenido" class="ui-editor"></div>
+                        <hr>
+                        
+                        <hr>            
+
+                        <div class="form-group">
+                            <label for="mail_subject" class="col-xs-2">Video de youtube:</label>
+                            <div class="col-xs-10">
+                                <input type="text" ng-model="FormEditPublicacion.publicacion_video" class="form-control">
+                            </div>
+                        </div>
+                        <hr>
+                                    
+                    <div class="mail-actions">                        
+                         <input type="submit" value="Aceptar" class="btn btn-primary"> 
+                         <input type="button" value="Cancelar" class="btn btn-default"> 
+                    </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

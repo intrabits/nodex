@@ -1,0 +1,87 @@
+================================================================================
+========= Nave espacial lista!...  PIU PIU || Puerto de despegue: 21575 =========
+================================================================================
+-----------------datos de facebook------------------
+{ id: '100002190879775',
+  username: 'cedric.luckie',
+  displayName: 'Cedric Luckie',
+  name: 
+   { familyName: 'Luckie',
+     givenName: 'Cedric',
+     middleName: undefined },
+  gender: 'male',
+  profileUrl: 'https://www.facebook.com/cedric.luckie',
+  emails: [ { value: 'cedric_luckie@msn.com' } ],
+  provider: 'facebook',
+  _raw: '{"id":"100002190879775","education":[{"school":{"id":"121828577861414","name":"UAEM FCAEI"},"type":"College"}],"email":"cedric_luckie\\u0040msn.com","first_name":"Cedric","gender":"male","last_name":"Luckie","link":"https:\\/\\/www.facebook.com\\/cedric.luckie","locale":"es_LA","name":"Cedric Luckie","timezone":-5,"updated_time":"2013-11-14T07:09:09+0000","username":"cedric.luckie","verified":true}',
+  _json: 
+   { id: '100002190879775',
+     education: [ [Object] ],
+     email: 'cedric_luckie@msn.com',
+     first_name: 'Cedric',
+     gender: 'male',
+     last_name: 'Luckie',
+     link: 'https://www.facebook.com/cedric.luckie',
+     locale: 'es_LA',
+     name: 'Cedric Luckie',
+     timezone: -5,
+     updated_time: '2013-11-14T07:09:09+0000',
+     username: 'cedric.luckie',
+     verified: true } }
+-----------------datos de facebook------------------
+{ usuario_apellido_paterno: 'Luckie',
+  usuario_nombre: 'Cedric',
+  usuario_nivel_id: 1,
+  usuario_facebook: '100002190879775',
+  usuario_email: 'cedric_luckie@msn.com',
+  usuario_genero: 'male' }
+=======================  YA EXISTE =============================
+=============================    Ya inició     =============================
+================================================================================
+========= Nave espacial lista!...  PIU PIU || Puerto de despegue: 21575 =========
+================================================================================
+================================================================================
+========= Nave espacial lista!...  PIU PIU || Puerto de despegue: 21575 =========
+================================================================================
+-----------------datos de facebook------------------
+{ id: '100002190879775',
+  username: 'cedric.luckie',
+  displayName: 'Cedric Luckie',
+  name: 
+   { familyName: 'Luckie',
+     givenName: 'Cedric',
+     middleName: undefined },
+  gender: 'male',
+  profileUrl: 'https://www.facebook.com/cedric.luckie',
+  emails: [ { value: 'cedric_luckie@msn.com' } ],
+  provider: 'facebook',
+  _raw: '{"id":"100002190879775","education":[{"school":{"id":"121828577861414","name":"UAEM FCAEI"},"type":"College"}],"email":"cedric_luckie\\u0040msn.com","first_name":"Cedric","gender":"male","last_name":"Luckie","link":"https:\\/\\/www.facebook.com\\/cedric.luckie","locale":"es_LA","name":"Cedric Luckie","timezone":-5,"updated_time":"2013-11-14T07:09:09+0000","username":"cedric.luckie","verified":true}',
+  _json: 
+   { id: '100002190879775',
+     education: [ [Object] ],
+     email: 'cedric_luckie@msn.com',
+     first_name: 'Cedric',
+     gender: 'male',
+     last_name: 'Luckie',
+     link: 'https://www.facebook.com/cedric.luckie',
+     locale: 'es_LA',
+     name: 'Cedric Luckie',
+     timezone: -5,
+     updated_time: '2013-11-14T07:09:09+0000',
+     username: 'cedric.luckie',
+     verified: true } }
+-----------------datos de facebook------------------
+{ usuario_apellido_paterno: 'Luckie',
+  usuario_nombre: 'Cedric',
+  usuario_nivel_id: 1,
+  usuario_facebook: '100002190879775',
+  usuario_email: 'cedric_luckie@msn.com',
+  usuario_genero: 'male' }
+=======================  YA EXISTE =============================
+=============================    Ya inició     =============================
+================================================================================
+========= Nave espacial lista!...  PIU PIU || Puerto de despegue: 21575 =========
+================================================================================
+================================================================================
+========= Nave espacial lista!...  PIU PIU || Puerto de despegue: 21575 =========
+================================================================================

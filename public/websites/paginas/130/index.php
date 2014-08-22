@@ -1,0 +1,1 @@
+<?php $pagina_id = 130; require '../nucleo.php';?>

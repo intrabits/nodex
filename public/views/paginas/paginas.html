@@ -1,0 +1,43 @@
+<div class="page page-table">
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Tus páginas / Perfiles nodex</strong></div>            
+        <div class="panel-body">            
+            <a href="#/pagina/add" class="btn btn-primary">Crear una nueva página</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>                            
+                    <th>Nombre de la página</th>
+                    <th class="hidden-xs">Dominio</th>
+                    <th>Fecha de vencimiento</th>
+                    <th class="hidden-xs">Visitas</th>
+                    <th class="hidden-xs">Status</th>
+                    <th>Operaciones</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="p in paginas">                    
+                    <td><a href="#/pagina/{{ p.pagina_id }}">{{ p.pagina_nombre }}</a></td>
+                    <td class="hidden-xs"><a href="http://{{ p.pagina_dominio }}" target="_blank">{{ p.pagina_dominio }}</a></td>
+                    <td>{{ p.pagina_vencimiento | date:'dd/MM/yyyy' }}</td>
+                    <td class="hidden-xs">{{ p.pagina_visitas }}</td>
+                    <td class="hidden-xs">
+                        <span ng-if="p.pagina_status == 1" class="label label-success">Pagada</span>
+                        <span ng-if="p.pagina_status == 0" class="label label-danger">Pendiente</span>
+                    </td>
+                    <td>
+                        <a href="#/pagina/{{ p.pagina_id }}" class="btn btn-info btn-sm" title="Configuración"><i class="fa fa-cog fa-2x"></i></a>
+                        <a href="#/pagina/{{ p.pagina_id }}/publicaciones" class="btn btn-default btn-sm" title="Publicaciones"><i class="fa fa-pencil fa-2x"></i></a>
+                        <a href="#/pagina/{{ p.pagina_id }}/mensajes" class="btn btn-warning btn-sm" title="Mensajes"><i class="fa fa-envelope fa-2x"></i></a>
+                        <a href="#/pagina/{{ p.pagina_id }}/mensajes" class="btn btn-primary btn-sm" title="Galerías"><i class="glyphicon glyphicon-picture fa-2x"></i> </a>
+                    </td>
+                </tr>
+
+                            
+            </tbody>
+        </table>
+        </div>        
+    </div>
+
+
+</div>
