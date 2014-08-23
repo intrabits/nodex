@@ -1,4 +1,6 @@
+<style type="text/css">
 
+</style>
         <section class="wrap">
             <div class="container">                
             	<ul class="list-inline">
@@ -14,7 +16,7 @@
 			                <div class="photoset-grid-lightbox" data-layout="32323" style="visibility: hidden;">
                                 <?php if (isset($imagenes)): ?>
                                 <?php foreach ($imagenes as $i): ?>
-                                <img rel="gallery" src="<?=$base."/paginas/".$i['imagen_url']?>" data-highres="<?=$base."/paginas/".$i['imagen_url']?>" alt="<?=$i['imagen_titulo']?> " />
+                                <img rel="gallery"  data-highres="<?=$base."/paginas/".$i['imagen_url']?>" class="lazy" data-original="<?=$base."/paginas/".$i['imagen_url']?>" alt="<?=$i['imagen_titulo']?> " />
                                 <?php endforeach ?>    
                                 <?php endif ?>
 			                </div>
@@ -23,10 +25,12 @@
                             <?php foreach ($galerias as $g): ?>
                                 <div class="col-md-4">
                                     <div class="thumbnail">
+                                        <div class="bw">
                                         <a href="?p=galeria&id=<?=$g['galeria_id']?> ">                                        
                                             <!-- <img alt="" src="http://placehold.it/600/<?php echo $colores[array_rand($colores)]; ?>&text= <?=$p['publicacion_id']?>&text=<?=$g['galeria_nombre']?> ">                                 -->        
                                             <img src="<?=$base.'paginas/'.$g['foto']?>">
                                         </a>
+                                        </div>
                                         <div class="caption">
                                             <h3><?=$g['galeria_nombre']?> </h3>
                                             <p><?=$g['galeria_descripcion']?> </p>                                    
@@ -72,6 +76,12 @@
         <script src="<?=$base?>static/js/topmenufixed.js"></script>
         <script src="<?=$base?>static/js/theme.js"></script>
         <script src="<?=$base?>static/js/script.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
         <script>photogrid();</script>   
+        <script type="text/javascript">
+        $("img.lazy").lazyload({
+            effect : "fadeIn"
+        });
+        </script>
     </body>
 </html>

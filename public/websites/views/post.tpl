@@ -9,25 +9,24 @@
                     <?php if (isset($publicacion)): ?>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="well blog-post">
-                            <?php if (isset($publicacion['publicacion_imagen'])): ?>
+                            
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="image">
+                                        <?php if (isset($publicacion['publicacion_imagen'])){ ?>
                                         <img src="<?=$base.'paginas/'.$publicacion['publicacion_imagen']?> " alt="">
+                                        <?php }else{?>
+                                        <img src="http://placehold.it/1200x400&text=<?=$publicacion['publicacion_titulo']?>" alt="">
+                                        <?php } ?>
                                     </div>
                                 </div>
-                            </div>    
-                            <?php endif ?>
+                            </div>                                
                             
                             <div class="row">
                                 <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
                                     <div style="padding:20px">
                                         <h2>
-                                            <?=$publicacion['publicacion_titulo']?> 
-                                            <span class="btn-group pull-right">
-                                                <a class="btn btn-default" href="#"><i class="fa fa-heart text-danger"></i> 103</a>
-                                                <a class="btn btn-default" href="#"><i class="fa fa-comments"></i> 3</a>
-                                            </span>
+                                            <?=$publicacion['publicacion_titulo']?>                                             
                                         </h2>
                                         <hr />
                                         <?=$publicacion['publicacion_contenido']?> 
@@ -36,37 +35,12 @@
                                                 <iframe width="560" height="315" src="//www.youtube.com/embed/<?=$publicacion['publicacion_video']?>" frameborder="0" allowfullscreen></iframe>
                                             <?php endif ?>
                                         </div>                                        
-                                        <form method="POST" action="" class="comment">
-                                        <div class="form-group">
-                                          <label for="inputEmail3" class="col-sm-4 control-label">Nombre</label>
-                                          <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="nombre" name="autor">   
-                                            <p class="help-block"></p>
-                                          </div>
-                                        </div>
-                                        <div class="form-group hidden">
-                                          <label for="inputEmail3" class="col-sm-4 control-label">Aunto</label>
-                                          <div class="col-sm-8">
-                                            <input type="" class="form-control" placeholder="" name="asunto" value="Comentario: <?=$publicacion['publicacion_titulo']?> ">   
-                                            <p class="help-block"></p>
-                                          </div>
-                                        </div>  
-                                        <div class="form-group">
-                                          <label for="inputEmail3" class="col-sm-4 control-label">Correo</label>
-                                          <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="correo">   
-                                            <p class="help-block"></p>
-                                          </div>
-                                        </div>
-                                        <div class="form-group">
-                                          <label  class="col-sm-4 control-label">Mensaje</label>
-                                          <div class="col-sm-8">
-                                            <textarea style="width:100%;height:100px" name="mensaje"></textarea>
-                                          </div>
-                                        </div>
-                                        <hr>
-                                        <input type="submit" value="Enviar" class="btn btn-primary pull-right" name="submit_form"> 
-                                        </form>
+                                        <span class="btn-group pull-right">
+                                                <div class="fb-like" data-href="<?=$url?>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                            </span>
+                                            <hr>
+                                        
+                                                
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
@@ -76,7 +50,7 @@
 
                                         <?php foreach ($publicaciones as $p): ?>
                                         <a href="?p=publicacion&id=<?=$p['publicacion_id']?> " class="related-blog">
-                                            <img src="http://placehold.it/250/<?=$colores[array_rand($colores)]; ?>&text=<?=$p['publicacion_id']?> ">" alt="">
+                                            <img src="http://placehold.it/250/333&text=<?=$p['publicacion_id']?> ">" alt="">
                                             <div class="details">
                                                 <?=$p['publicacion_titulo']?>
                                             </div>
@@ -107,7 +81,51 @@
                                         </div> -->
                                     </div>
                                 </div>
+
+
                             </div>
+
+
+                            <div class="row" style="padding:20px">
+                                            <div class="col-md-6">
+                                                <div class="fb-comments" data-href="<?=$url?>" data-numposts="5" data-colorscheme="light" data-width="100%"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <form method="POST" action="" class="comment">
+                                                <div class="form-group">
+                                                  <label for="inputEmail3" class="col-sm-12 control-label">Nombre</label>
+                                                  <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="nombre" name="autor">   
+                                                    <p class="help-block"></p>
+                                                  </div>
+                                                </div>
+                                                <div class="form-group hidden">
+                                                  <label for="inputEmail3" class="col-sm-12 control-label">Aunto</label>
+                                                  <div class="col-sm-12">
+                                                    <input type="" class="form-control" placeholder="" name="asunto" value="Comentario: <?=$publicacion['publicacion_titulo']?> ">   
+                                                    <p class="help-block"></p>
+                                                  </div>
+                                                </div>  
+                                                <div class="form-group">
+                                                  <label for="inputEmail3" class="col-sm-12 control-label">Correo</label>
+                                                  <div class="col-sm-12">
+                                                    <input type="text" class="form-control" name="correo">   
+                                                    <p class="help-block"></p>
+                                                  </div>
+                                                </div>
+                                                <div class="form-group">
+                                                  <label  class="col-sm-12 control-label">Mensaje</label>
+                                                  <div class="col-sm-12">
+                                                    <textarea style="width:100%;height:100px" name="mensaje"></textarea>
+                                                  </div>
+                                                </div>
+                                                <hr>
+                                                <input type="submit" value="Enviar" class="btn btn-primary pull-right" name="submit_form"> 
+                                                </form>
+                                            </div>
+                                        </div>
+
+
                         </div>
                     </div>    
                     <?php endif ?>

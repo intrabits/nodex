@@ -4,8 +4,14 @@ if (isset($_POST['submit_form'])) {
 	$correo	 = post('correo');
 	$mensaje = post('mensaje');
 	$autor   = post('autor');
+
+	$producto_id 	= post('producto_id');
+	$opcional1 		= post('telefono');
 	//Guardar mensaje en la base de datos
 	$datos = array('mensaje_asunto' => $asunto,'mensaje_correo'=>$correo,'mensaje_autor'=>$autor,'mensaje_contenido'=>$mensaje,'mensaje_pagina_id'=>$pagina_id );
+	if ($producto_id) {
+		$datos = array('mensaje_asunto' => $asunto,'mensaje_correo'=>$correo,'mensaje_autor'=>$autor,'mensaje_contenido'=>$mensaje,'mensaje_pagina_id'=>$pagina_id,'mensaje_producto_id'=>$producto_id,'mensaje_opcional_1'=>$opcional1);
+	}
 	$mensaje_id=$db->insert('pagina_mensaje',$datos);	
 
 	//	Hacemos esto para avisarle a node que algo pasó

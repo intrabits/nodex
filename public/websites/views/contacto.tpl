@@ -4,15 +4,13 @@
             	<div class="row">
             		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		                <div class="">
+                            <?php if (isset($pagina['pagina_mapa'])): ?>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="well">
-                                    <?php if (isset($pagina['pagina_mapa'])): ?>
-                                        <?=$pagina['pagina_mapa']?> 
-                                    <?php endif ?>
-                                    </div>                                    
+                                <div class="col-md-12">                                    
+                                        <?=$pagina['pagina_mapa']?>                                                                     
                                 </div>
                             </div>
+                            <?php endif ?>
                             <div class="row">
                                 <div class="col-md-4 well">
                                     <h3>Contacto</h3>

@@ -283,6 +283,7 @@ angular.module('app.pagina', [])
       if (err) {console.log(err);}
       else{
         $scope.FormEditPublicacion = data;
+        $('#myCode').html('<iframe width="560" height="315" src="//www.youtube.com/embed/' + $scope.FormEditPublicacion.publicacion_video + '" frameborder="0" allowfullscreen></iframe>');
       };
     })
   } 
@@ -356,7 +357,10 @@ angular.module('app.pagina', [])
       myId = getId(myUrl);
       $('#myCode').html('<iframe width="560" height="315" src="//www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>');
       $scope.FormAddPublicacion.publicacion_video = myId;
+      $scope.FormEditPublicacion.publicacion_video = myId;
     }
+
+
   
 }).controller('PaginaMensajesCtrl',function($scope,Pagina,$routeParams){    
 

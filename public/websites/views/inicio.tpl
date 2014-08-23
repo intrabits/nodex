@@ -64,40 +64,12 @@
                         <div class="well no-padding hidden">
                             <div id="cal"></div>
                         </div>
-                        <?php if ($pagina['pagina_telefono']||$pagina['pagina_direccion']||$pagina['pagina_email']): ?>
+                        <?php if ($pagina['pagina_facebook']): ?>
                         <div class="well">
-                            <h3>Contacto</h3>
-                                    <hr>
-                                    <?php if ($pagina['pagina_direccion']): ?>
-                                    <h4>Dirección
-                                        <i class="fa fa-map-marker pull-right fa-2x"></i>
-                                    </h4>
-                                    <?=$pagina['pagina_direccion']?>     
-                                    <hr>
-                                    <?php endif ?>
-
-                                    <?php if ($pagina['pagina_telefono']): ?>
-                                    <h4>Teléono
-                                        <i class="fa fa-phone pull-right fa-2x"></i>
-                                    </h4>
-                                    <?=$pagina['pagina_telefono']?>
-                                    <hr> 
-                                    <?php endif ?>
-
-                                    <?php if ($pagina['pagina_email']): ?>
-                                    <h4>Correo electrónico
-                                        <i class="fa fa-envelope-o pull-right fa-2x"></i>
-                                    </h4>
-                                    <?php
-                                    $correo = explode('@', $pagina['pagina_email'])
-                                    ?>    
-                                    <script type="text/javascript">
-                                      document.write('<?=$correo[0]?>' + '@' +'<?=$correo[1]?>')
-                                    </script> 
-                                    <hr>
-                                    <?php endif ?>
-                        </div>    
-                        <?php endif ?>
+                            <div class="fb-like-box" data-href="<?=$pagina['pagina_facebook']?>" data-width="100%" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="true" data-show-border="false"></div>
+                        </div>
+                        
+                        <?php endif ?>                        
                         <div class="">
                             <div class="social-icon">
                                 <?php if (isset($pagina['pagina_facebook'] )): ?>
@@ -185,12 +157,13 @@
                                 </div>
                             </div>
                             <hr>    
-                            <?php endforeach ?>                     
+                            <?php endforeach ?>            
+                            <?php if (count($publicaciones)>3): ?>
+                                <a href="?p=publicacion" class="btn btn-info" align="right">Ver todas las publicaciones</a>
+                            <?php endif ?>         
                         </div>    
                         <?php endif ?>
-                        <?php if (count($publicaciones)>5): ?>
-                            <a href="?p=publicaciones" class="btn btn-default">Ver todas las publicacioes</a>
-                        <?php endif ?>
+                     
 
                         <?php if (isset($productos)): ?>
                         <div class="well hidden">
@@ -229,7 +202,45 @@
                     </div>
                 </div>
                 
-                <footer class="text-center">Nodex - Intrabits </footer>
+                <footer class="text-center" style="margin-bottom:0px">
+                    <div class="row">
+                        <?php if ($pagina['pagina_direccion']): ?>
+                        <div class="col-md-4">                        
+                        <h4>Dirección
+                            <i class="fa fa-map-marker pull-right fa-2x"></i>
+                        </h4>
+
+                        <?=$pagina['pagina_direccion']?>                             
+                        <hr>
+                        </div>
+                        <?php endif ?>
+
+                        <?php if ($pagina['pagina_telefono']): ?>
+                        <div class="col-md-4">
+                        <h4>Teléono
+                            <i class="fa fa-phone pull-right fa-2x"></i>
+                        </h4>
+                        <?=$pagina['pagina_telefono']?>
+                        <hr> 
+                        </div>
+                        <?php endif ?>
+
+                        <?php if ($pagina['pagina_email']): ?>
+                        <div class="col-md-4">
+                        <h4>Correo electrónico
+                            <i class="fa fa-envelope-o pull-right fa-2x"></i>
+                        </h4>
+                        <?php
+                        $correo = explode('@', $pagina['pagina_email'])
+                        ?>    
+                        <script type="text/javascript">
+                          document.write('<?=$correo[0]?>' + '@' +'<?=$correo[1]?>')
+                        </script> 
+                        <hr>
+                        </div>
+                        <?php endif ?>
+                    </div>
+                </footer>
             </div>
         </section>
         

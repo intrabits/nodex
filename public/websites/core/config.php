@@ -9,9 +9,9 @@ $hoy=date('Y-m-d');
 $ahora=date('H:i:s');
 
 if(!defined('DB_HOST')) define('DB_HOST', 'localhost'); // Database Host Name
-if(!defined('DB_USER')) define('DB_USER', 'ced'); // Database Username
-if(!defined('DB_PASS')) define('DB_PASS', 'ratoncito'); // Database Password
-if(!defined('DB_NAME')) define('DB_NAME', 'intrabits'); // Database Name
+if(!defined('DB_USER')) define('DB_USER', 'root'); // Database Username
+if(!defined('DB_PASS')) define('DB_PASS', ''); // Database Password
+if(!defined('DB_NAME')) define('DB_NAME', 'mydb'); // Database Name
 
 
 $db = new database(DB_HOST, DB_NAME, DB_USER,DB_PASS);

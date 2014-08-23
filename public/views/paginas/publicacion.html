@@ -36,10 +36,12 @@
                         <div class="form-group">
                             <label for="mail_subject" class="col-xs-2">Video de youtube:</label>
                             <div class="col-xs-10">
-                                <input type="text" ng-model="FormEditPublicacion.publicacion_video" class="form-control">
+                                <input type="text" ng-model="FormEditPublicacion.publicacion_video" class="form-control" id="myUrl" ng-change="buscarVideo()">
                             </div>
+
                         </div>
                         <hr>
+                        <div id="myCode"></div>
                                     
                     <div class="mail-actions">                        
                          <input type="submit" value="Aceptar" class="btn btn-primary"> 

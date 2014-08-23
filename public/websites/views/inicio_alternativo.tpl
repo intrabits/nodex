@@ -1,6 +1,7 @@
 <style type="text/css">
 #portada{
     z-index: -1000;
+    text-align: center;
 }
 #action{
     z-index: 90;
@@ -15,17 +16,20 @@
     color: #fff;    
 }
 .TextoEntrada{
+    text-align: center;
     margin-top: 20%;
     z-index: 90;
     position: absolute;
-    padding: 100px;    
-    text-align: center;
+    padding: 100px;        
     color: #fff;    
     text-shadow: 2px 2px #333;
 
 }
 .wrap{
     z-index: 99;
+}
+.well img{
+    max-width: 90%;
 }
 </style>
 
@@ -37,7 +41,7 @@
 $().ready(function() {
         $('body').tubular({
         videoId: '<?=$pagina['pagina_video_fondo']?>',        
-        start: 30
+        start: 20
         }); // where idOfYourVideo is the YouTube ID.
 
 });
@@ -48,6 +52,26 @@ $("#action").click(function() {
         scrollTop: $("#bienvenida").offset().top
     }, 100);
 });
+window.onYouTubeIframeAPIReady = function() {
+    player = new YT.Player('tubular-player', {
+        width: options.width,
+        height: Math.ceil(options.width / options.ratio),
+        videoId: options.videoId,
+        playerVars: {
+            controls: 0,
+            showinfo: 0,
+            modestbranding: 1,
+            wmode: 'transparent',
+            rel: 0,
+            autoplay: 1,
+            html5: 1
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
 </script>
         <?php if ($pagina['pagina_portada']): ?>                    
             <div style="height:600px;min-height:250px;width:100%" id="portada">
@@ -130,7 +154,7 @@ $("#action").click(function() {
 
                                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                                     <a href="?p=publicacion&id=<?=$p['publicacion_id']?>">
-                                        <img class="img-responsive" src="http://placehold.it/150/<?=$colores[array_rand($colores)]; ?>&text=Leer más">
+                                        <img class="img-responsive" src="http://placehold.it/200/333333&text=Ver más">
                                     </a>                                    
                                 </div>
                                 <div class="col-xs-8 col-sm-9 col-md-9 col-lg-9">
@@ -142,7 +166,7 @@ $("#action").click(function() {
                             <?php endforeach ?>                     
                         </div>    
                         <?php endif ?>
-                        <?php if (count($publicaciones)>5): ?>
+                        <?php if (count($publicaciones)>4): ?>
                             <a href="?p=publicaciones" class="btn btn-default">Ver todas las publicacioes</a>
                         <?php endif ?>
 <!-- 

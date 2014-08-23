@@ -1,7 +1,7 @@
 <style type="text/css">
 .product-holder {
     width:100%;
-    height:150px;
+    height:250px;
     position:relative;
     overflow:hidden;
     }
@@ -21,7 +21,7 @@
                         <?php if (isset($productos)): ?>
                             <?php foreach ($productos as $p): ?>
                                 <div class="col-md-4">
-                                    <div class="thumbnail">
+                                    <div class="thumbnail bw">
                                         <h3 align="center"><?=$p['producto_nombre']?> </h3>                                        
                                         <a href="?p=tienda&id=<?=$p['producto_id']?>">     
                                         <div class="product-holder">

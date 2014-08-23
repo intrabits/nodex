@@ -19,7 +19,7 @@ app.use('/', index);
 app.use('/api/', api);
 
 
-server.listen(21575);
+server.listen(config.PORT);
 // app.listen(3000);
 console.log('================================================================================');
 console.log(config.BIENVENIDA);

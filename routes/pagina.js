@@ -376,6 +376,7 @@ router.put('/:pagina_id/publicacion/:publicacion_id',ensureAuthenticated, functi
     var pagina_id = req.params.pagina_id;
     var datos = {
         publicacion_titulo: req.body.publicacion_titulo,
+        publicacion_video: req.body.publicacion_video,
         publicacion_contenido:req.body.publicacion_contenido        
     };
 

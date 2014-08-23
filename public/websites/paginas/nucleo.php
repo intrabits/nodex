@@ -40,6 +40,9 @@ $tpl->pagina 	= $pagina;
 //	Productos de la página
 $productos 	= $db->select_sql("SELECT *,(SELECT imagen_url from pagina_producto_imagen WHERE imagen_producto_id = producto_id LIMIT 1) as producto_foto FROM pagina_producto WHERE producto_pagina_id = $pagina_id ");
 $tpl->productos = $productos;
+//	Publicaciones del blog
+$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
+$tpl->publicaciones = $publicaciones;
 
 if (isset($_GET['p'])) {	
 	$p = $_GET['p'];
@@ -67,7 +70,7 @@ if (isset($_GET['p'])) {
 			$tpl->fetch('galeria.tpl');
 			break;
 		case 'publicacion':
-			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 5");
+			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC");
 			$tpl->publicaciones = $publicaciones;
 
 			$id = get('id');
@@ -106,20 +109,24 @@ if (isset($_GET['p'])) {
 			break;
 		
 		default:						
-			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 5");
+			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
 			$tpl->publicaciones = $publicaciones;
 			
 
-			$tpl->fetch('inicio_alternativo.tpl'); 
+			if ($pagina['pagina_video_fondo']!='') {
+				if (isMobile()) {$tpl->fetch('inicio.tpl');}
+				else{$tpl->fetch('inicio_alternativo.tpl');}	
+			}else{
+				$tpl->fetch('inicio.tpl'); 	
+			}
 			break;
 	}
 }else{
-	//	Publicaciones del blog
-	$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 5");
-	$tpl->publicaciones = $publicaciones;
+	
 
 	if ($pagina['pagina_video_fondo']!='') {
-		$tpl->fetch('inicio_alternativo.tpl'); 	
+		if (isMobile()) {$tpl->fetch('inicio.tpl');}
+		else{$tpl->fetch('inicio_alternativo.tpl'); 	}		
 	}else{
 		$tpl->fetch('inicio.tpl'); 	
 	}
