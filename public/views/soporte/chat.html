@@ -26,7 +26,14 @@
 <div class="page">            
     <section class="panel panel-default">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Ayuda en tiempo real</strong></div>
-        <ul style="margin:0px; width:100%;">
+        <br>
+        <div class="alert alert-info">
+            <p>Si no hay nadie conectado podrás dejar tus dudas o comentarios y los atenderemos lo antes posible</p>
+        </div>        
+        <ul ng-repeat="username in usernames">
+            <li>{{ username }}</li>            
+        </ul>
+        <ul style="margin:0px; width:100%;padding:10px">
             <li class="chat" id="mensajes">
               <div class="chatArea col-md-12">
                 <ul class="messages col-xs-12" ></ul>

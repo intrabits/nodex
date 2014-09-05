@@ -51,7 +51,7 @@ angular.module('app.chat', []).controller('ChatCtrl',['$scope','$routeParams','$
             } else {
               message += "Hay " + data.numUsers + " participantes";
             }
-            // log(message);
+            // alert(message);
         }
 
   function div2top(){
@@ -73,6 +73,7 @@ angular.module('app.chat', []).controller('ChatCtrl',['$scope','$routeParams','$
 
       // Tell the server your username
       socket.emit('add user', username,foto);
+      socket.emit('online users');
     }
   }
 
@@ -230,9 +231,9 @@ angular.module('app.chat', []).controller('ChatCtrl',['$scope','$routeParams','$
       $currentInput.focus();
     }
     // When the client hits ENTER on their keyboard
+    setUsername();
     if (event.which === 13) {
-      if (username) {
-        setUsername();
+      if (username) {        
         sendMessage();
         socket.emit('stop typing');
         typing = false;
@@ -269,27 +270,38 @@ angular.module('app.chat', []).controller('ChatCtrl',['$scope','$routeParams','$
     //   prepend: true
     // });
     addParticipantsMessage(data);
+    socket.emit('online users',function (data) {
+      console.log(data);
+    });
   });
 
+
   // Whenever the server emits 'new message', update the chat body
-  socket.on('new message', function (data) {
-    console.log(data.foto);
+  socket.on('new message', function (data) {    
     addChatMessage(data);
+    socket.on('prueba',function (data) {
+      console.log(data);
+    });
+  });
+
+  // Contar usuarios en linea
+  socket.on('prueba', function (data) {
+    console.log(data.numUsers);
+    alert(data);
+    
   });
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
-    log(data.username + ' se unió a la conversación ');
+    console.log(data.username + ' se unió a la conversación ');
     $scope.con = "http://graph.facebook.com/"+data.foto+"/picture";    
 
-    
-    console.log($scope.con);
     addParticipantsMessage(data);
   });
 
   // Whenever the server emits 'user left', log it in the chat body
   socket.on('user left', function (data) {
-    log(data.username + ' left');
+    console.log(data.username + ' se ha desconectado');
     addParticipantsMessage(data);
     removeChatTyping(data);
   });

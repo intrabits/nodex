@@ -15,18 +15,15 @@ $bootstrap_class = ['info','primary','danger','warning','success'];
 
 //	Infomación General de la página
 
-$pagina = $db ->fields("pagina","pagina_id = $pagina_id",'pagina_nombre,pagina_dominio,pagina_descripcion,pagina_descripcion_larga,pagina_descripcion_larga,pagina_nosotros,pagina_tipo_id,pagina_logo,pagina_portada,pagina_fondo,pagina_video_fondo,pagina_telefono,pagina_direccion,pagina_email,pagina_facebook,pagina_twitter,pagina_instagram,pagina_google,pagina_youtube,pagina_mapa,pagina_conversion');
+$pagina = $db ->fields("pagina","pagina_id = $pagina_id",'pagina_nombre,pagina_dominio,pagina_descripcion,pagina_descripcion_larga,pagina_descripcion_larga,pagina_nosotros,pagina_tipo_id,pagina_logo,pagina_portada,pagina_fondo,pagina_video_fondo,pagina_telefono,pagina_direccion,pagina_email,pagina_facebook,pagina_twitter,pagina_instagram,pagina_google,pagina_youtube,pagina_mapa,pagina_conversion,pagina_conversion_titulo,pagina_paypal');
 
 //	Sumar una visita :)
 $db->query("UPDATE pagina set pagina_visitas = pagina_visitas+1 WHERE pagina_id = $pagina_id");
 
-
+$tpl = new TemplateEngine();
 //	Mandar correo
 require './../../core/send.php';
-
 // $tpl->pagina=$pagina;
-
-$tpl = new TemplateEngine();
 
 $tpl->url 		= $url="http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
 $tpl->base 		= $base;
@@ -36,6 +33,9 @@ $tpl->colores 	= $colores;
 $tpl->bootstrap_class = $bootstrap_class;
 
 $tpl->pagina 	= $pagina;
+if (isset($respuesta)) {	
+	$tpl->respuesta= $respuesta;
+}
 
 //	Productos de la página
 $productos 	= $db->select_sql("SELECT *,(SELECT imagen_url from pagina_producto_imagen WHERE imagen_producto_id = producto_id LIMIT 1) as producto_foto FROM pagina_producto WHERE producto_pagina_id = $pagina_id ");
@@ -43,6 +43,10 @@ $tpl->productos = $productos;
 //	Publicaciones del blog
 $publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
 $tpl->publicaciones = $publicaciones;
+
+//	Menú estático
+$menu = $db->select('pagina_publicacion',"publicacion_pagina_id=$pagina_id and publicacion_destacada=1",'publicacion_id,publicacion_titulo');
+$tpl->menu = $menu;
 
 if (isset($_GET['p'])) {	
 	$p = $_GET['p'];
@@ -75,6 +79,7 @@ if (isset($_GET['p'])) {
 
 			$id = get('id');
 			if ($id!='') {
+				$db->query("UPDATE pagina_publicacion set publicacion_visitas = publicacion_visitas+1 WHERE publicacion_id = $id");
 				$publicacion = $db->select('pagina_publicacion',"publicacion_id=$id",'publicacion_id,publicacion_titulo,publicacion_contenido,publicacion_fecha,publicacion_video,publicacion_imagen');
 				$tpl->publicacion = $publicacion[0];
 				$tpl->fetch('post.tpl');
@@ -91,6 +96,7 @@ if (isset($_GET['p'])) {
 		case 'tienda':
 			$id = get('id');
 			if ($id!='') {
+				$db->query("UPDATE pagina_producto set producto_visitas = producto_visitas+1 WHERE publicacion_id = $id");
 				$producto 	= $db->select_sql("SELECT * from pagina_producto WHERE producto_id = $id  and producto_pagina_id = $pagina_id");
 				$fotos 	= $db->select('pagina_producto_imagen',"imagen_producto_id = $id",'imagen_url');
 				$tpl->producto 	= $producto[0];

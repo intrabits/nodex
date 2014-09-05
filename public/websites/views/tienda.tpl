@@ -12,6 +12,10 @@
     top:0;
     left:0; 
     }
+.thumbnail:hover{
+    background-color: #444;
+    color: #eee;
+}
 </style>
         <section class="wrap">
             <div class="container">                
@@ -30,7 +34,7 @@
                                         </a>
                                         <div class="caption">                                            
                                             <hr>
-                                            <p class="lead">$ <?=$p['producto_precio']?> </p>
+                                            <h3>Precio: $ <?=$p['producto_precio']?> </h3>
                                             <a href="?p=tienda&id=<?=$p['producto_id']?>" class="btn btn-danger">Detalles</a>
                                             <div class="fb-share-button btn btn-default" style="color:#fff" data-href="<?=$url?> "></div>
                                         </div>

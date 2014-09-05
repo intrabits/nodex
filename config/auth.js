@@ -120,8 +120,7 @@ passport.use(new LocalStrategy({
 },
   function(correo, password, done) {        
     // asynchronous verification, for effect...    
-    process.nextTick(function () {
-      console.log("Correo: "+ correo + " Password " + password);
+    process.nextTick(function () {      
       Usuario.login(correo,password,function(err,data){
          if (err) {
               console.log("======================   ERROR    =============================",err);    

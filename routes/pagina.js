@@ -13,7 +13,7 @@ var passport        = auth.passport;
 ensureAuthenticated = auth.ensureAuthenticated;
 
 var webfaction = config.webfaction;
-//	Mo
+//	Modelos
 var Pagina  = require('./../models/pagina.js');
 var Imagen 	= require('./../models/imagen.js');
 
@@ -80,20 +80,38 @@ router.post('/:pagina_id/upload/:tipo', ensureAuthenticated,function(req, res) {
                                             //  Primero checamos su tamaño
                                             gm(ruta)
                                                 .size(function (err, size) {
-                                                  if (!err&&size.width>1600)
+                                                  if (!err){
                                                     //  Si es muy grande la recortamos
-                                                    gm(ruta)
-                                                        .resize(1600)
-                                                        .write(ruta,function  (err) {
-                                                            if (err) {
-                                                                console.log(err);
-                                                            } else{
-                                                                console.log("Recortada correctamente");
-                                                                Imagen.fondo(ruta_corta,pagina_id,function (err) {
-                                                                    if (err) {console.log(err);res.send(500);}
-                                                                    else{res.json('ok');} });  
-                                                            };
-                                                        });
+                                                    if (size.width>1600) {
+                                                        gm(ruta)
+                                                            .resize(1600)
+                                                            .write(ruta,function  (err) {
+                                                                if (err) {
+                                                                    console.log(err);
+                                                                } else{
+                                                                    console.log("Recortada correctamente");
+                                                                    Imagen.fondo(ruta_corta,pagina_id,function (err) {
+                                                                        if (err) {console.log(err);res.send(500);}
+                                                                        else{res.json('ok');} });  
+                                                                };
+                                                            });
+                                                        }else{
+                                                        gm(ruta)
+                                                            .write(ruta,function  (err) {
+                                                                if (err) {
+                                                                    console.log(err);
+                                                                } else{                                                             
+                                                                    Imagen.fondo(ruta_corta,pagina_id,function (err) {
+                                                                        if (err) {console.log(err);res.send(500);}
+                                                                        else{res.json('ok');} });  
+                                                                };
+                                                            });
+                                                        }
+                                                        
+                                                    }else{
+                                                        console.log(err);
+                                                    }
+                                                    
                                                 });                                                       
                                         };           
                                                                        
@@ -236,7 +254,8 @@ router.get('/:pagina_id',ensureAuthenticated, function (req, res){
     Pagina.getPagina(pagina_id,usuario_id, function( err, data){
         if (err) {
             // error handling code goes here
-            console.log("ERROR : ",err);            
+            console.log("ERROR : ",err); 
+            res.send(500);           
         } else {            
             // code to execute on data retrieval
             res.json(data);
@@ -307,6 +326,50 @@ router.post('/:pagina_id/cuentas',ensureAuthenticated, function (req, res){
     });
 } );
 
+
+router.get('/:pagina_id/seguidores',ensureAuthenticated, function (req, res){
+    var usuario_id = req.user.usuario_id;
+    var pagina_id  = req.params.pagina_id;        
+    async.waterfall([
+        function(callback){
+            Pagina.owner(req.user.usuario_id,req.params.pagina_id,function (err,data) {
+                if (err) {
+                    console.log(err);
+                    callback(err,null);                    
+                } else{           
+                    if (data) {
+                        callback(null,pagina_id);  
+                    } else{
+                        callback('No tienes los permisos necesarios');
+                    };                    
+                };
+            });            
+        },
+        function(pagina_id,callback){
+          // arg1 now equals 'one' and arg2 now equals 'two'
+            Pagina.seguidores(pagina_id,function (err,data) {
+                if (err) {
+                    callback(err,null);
+                } else{
+                    console.log(data);
+                    if (data)
+                        callback(null,data);
+                    else
+                        callback('No hay tal',null);                        
+                };
+            });
+        },        
+    ], function (err, result) {
+       if (err) {
+        console.log(err);
+        res.send(500);
+       } else{
+        res.json(result);
+       };
+    });
+} );
+
+
 /*----------------------------------    Publicaciones   --------------------------------------*/
 
 router.get('/:pagina_id/publicaciones',ensureAuthenticated, function (req, res){
@@ -327,6 +390,40 @@ router.get('/:pagina_id/publicaciones',ensureAuthenticated, function (req, res){
 } );
 
 router.get('/:pagina_id/publicacion/:publicacion_id',ensureAuthenticated, function (req, res){
+    var usuario_id = req.user.usuario_id;
+    var publicacion_id  = req.params.publicacion_id;
+
+
+    Pagina.getPublicacion(publicacion_id, function( err, data){
+        if (err) {
+            // error handling code goes here
+            console.log("ERROR : ",err);   
+            res.json('error');         
+        } else {            
+            res.json(data);
+        } 
+    });
+    
+} );
+
+router.get('/publicacion/:publicacion_id/toggle',ensureAuthenticated, function (req, res){
+    var usuario_id = req.user.usuario_id;
+    var publicacion_id  = req.params.publicacion_id;
+
+
+    Pagina.togglePublicacionDestacada(publicacion_id, function( err, data){
+        if (err) {
+            // error handling code goes here
+            console.log("ERROR : ",err);   
+            res.json('error');         
+        } else {            
+            res.json(data);
+        } 
+    });
+    
+} );
+
+router.delete('/:pagina_id/publicacion/:publicacion_id',ensureAuthenticated, function (req, res){
     var usuario_id = req.user.usuario_id;
     var publicacion_id  = req.params.publicacion_id;
 

@@ -1,5 +1,12 @@
-
-        
+<style type="text/css">
+@media only screen and (max-device-width: 480px) {    
+    /* Put your iPhone 3g styles in here */ 
+    #bienvenida img{
+        width: 200px;
+    }
+}
+</style>
+    
         <section class="wrap">
             <div class="container">                
                 <div class="row">
@@ -53,7 +60,7 @@
                     </div>    
                     <?php endif ?>                    
                     
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="bienvenida">
                         <?php if ($pagina['pagina_descripcion_larga']): ?>
                         <div class="well">
                              <?=$pagina['pagina_descripcion_larga']?> 
@@ -245,14 +252,10 @@
         </section>
         
         <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
-        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-        <script src="<?=$base?>static/js/humane.min.js"></script>        
-        <script src="<?=$base?>static/js/bic_calendar.min.js"></script>
-        <script src="<?=$base?>static/js/skycons.js"></script>
-        <script src="<?=$base?>static/js/jquery.sparkline.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>    
         <script src="<?=$base?>static/js/leftmenu.js"></script>                        
         <script src="<?=$base?>static/js/theme.js"></script>
-        <script src="<?=$base?>static/js/script.js"></script>
+        
         <script>index();</script>
         <style type="text/css">
         </style>

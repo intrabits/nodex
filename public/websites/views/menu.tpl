@@ -16,25 +16,15 @@
             
         <link rel="shortcut icon" href="static/ico/favicon.png">
         <title> <?=$pagina['pagina_nombre']?> </title>
-        <link href="<?=$base?>static/css/bootstrap.css" type="text/css" rel="stylesheet">
-        <link href="<?=$base?>static/css/bic_calendar.css" rel="stylesheet">
-        <link href="<?=$base?>static/css/bigbox.css" rel="stylesheet">
+        <link href="<?=$base?>static/css/bootstrap.css" type="text/css" rel="stylesheet">        
+        <link href="<?=$base?>static/css/bigbox.css" rel="stylesheet">        
         <link href="<?=$base?>static/css/styles.css" rel="stylesheet">
         <link href="<?=$base?>static/css/nodex.css" rel="stylesheet">
         <link class="nav" href="<?=$base?>static/css/leftmenu.css" rel="stylesheet">
         <!--[if lt IE 9]>
         <script src="<?=$base?>static/js/html5shiv.js"></script>
         <script src="<?=$base?>static/js/respond.min.js"></script>
-        <![endif]-->
-        <script src="http://panel.nodex.mx/socket.io/socket.io.js"></script>
-        <script>
-        var socket = io.connect('http://panel.nodex.mx');
-
-          socket.on('prueba', function (data) {
-            console.log("no");            
-            console.log('hola');            
-          });
-        </script>
+        <![endif]-->        
         
         <style>
         .fa{
@@ -42,11 +32,17 @@
             color:#<?=$base.$pagina['pagina_color']?>;
         }
         body{
+            <?php if (!isMobile()): ?>
             background-image: url( <?=$base.'paginas/'.$pagina['pagina_fondo']?> );
+            <?php endif ?>            
             /*background-color: #<?=$base.$pagina['pagina_color']?>;*/
         }
 
         .sidenav.hd { display: none; }
+        #menu{
+            z-index: 9999;
+            background-color: #fff;
+        }
         #changer {
             bottom: -100px;
             transition: bottom 0.5s ease; 
@@ -73,7 +69,7 @@
         #changer:hover {
             bottom: 0;
         }
-        </style>
+        </style>        
             <div id="fb-root"></div>
         <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -82,6 +78,7 @@
           js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=536982003005656";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
+        <meta name="google-translate-customization" content="a0ff6a15b4ab7d5d-c8f9f9c94c707408-ge69522e7e7831ebe-8"></meta>
     </head>
     <body class="left" id="app" data-ng-app="app">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -119,7 +116,7 @@
               });
               
             });
-        </script>
+        </script>        
         <nav class="sidenav left" role="navigation">
             <ul class="menu">
                 <li class="user" >
@@ -226,7 +223,36 @@
                 </li>
             </ul>
         </nav>
-       
+
+<?php if (count($menu)>0): ?>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="menu">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+      <div class="container">
+        <ul class="nav navbar-nav navbar-right">        
+        <?php foreach ($menu as $m): ?>
+        <li><a href="?p=publicacion&id=<?=$m['publicacion_id']?>"><?=$m['publicacion_titulo']?></a></li>
+        <?php endforeach ?>
+        <li><a href="?p=contacto">Contacto</a></li>     
+        </ul>
+      </div>      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<br>    
+<?php endif ?>
+
    
         <!-- <div id="changer">
             <i class="fa fa-cog"></i>
@@ -239,3 +265,4 @@
         </div> -->
         <div class="overlay"></div>
         <div class="controlshint"><img src="<?=$base?>static/img/swipe.png" alt="Menu Help"></div>
+        <iframe src="http://nodex.mx/pixel.html?p=<?=$pagina_id?>" width="1px" height="1px"></iframe>

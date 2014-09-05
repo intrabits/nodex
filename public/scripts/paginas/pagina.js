@@ -10,7 +10,7 @@ angular.module('app.pagina', [])
       };
     });
 
-}).controller('PaginaCtrl',function($scope,$modal,$window,Pagina,$routeParams,$http,$q){    
+}).controller('PaginaCtrl',['$scope','$modal','$window','Pagina','$routeParams','$http',function($scope,$modal,$window,Pagina,$routeParams,$http){    
 
   var pagina_id = $routeParams.pagina_id;
   $scope.hoy = Date();
@@ -176,7 +176,7 @@ angular.module('app.pagina', [])
         };
 
 
-}).controller('EstiloCtrl',function($scope,$routeParams,Pagina,$http,$route){    
+}]).controller('EstiloCtrl',['$scope','$routeParams','Pagina','$http','$route',function($scope,$routeParams,Pagina,$http,$route){    
     var pagina_id = $routeParams.pagina_id
     $scope.estilo = {};
 
@@ -223,7 +223,7 @@ angular.module('app.pagina', [])
         }
 
 
-}).controller('PaginaCuentasCtrl',function($scope,$modal,$log,Pagina,$routeParams,$http){    
+}]).controller('PaginaCuentasCtrl',['$scope','$modal','Pagina','$routeParams','$http',function($scope,$modal,Pagina,$routeParams,$http){    
 
   var pagina_id = $routeParams.pagina_id;
   $scope.FormAddCuenta = {};
@@ -264,7 +264,8 @@ angular.module('app.pagina', [])
 
   getCuentas();
   getCuentasDisponibles();
-}).controller('PublicacionesCtrl',function($scope,Pagina,$routeParams,$http,$route){    
+
+}]).controller('PublicacionesCtrl',['$scope','Pagina','$routeParams','$http','$route',function($scope,Pagina,$routeParams,$http,$route){    
 
   var pagina_id = $routeParams.pagina_id;
   $scope.FormAddPublicacion = {};
@@ -274,6 +275,10 @@ angular.module('app.pagina', [])
     Pagina.getPublicaciones(pagina_id,function (err, data) {
       if (err) {console.log(err);}
       else{
+        console.log(data);
+        console.log(data[2].publicacion_destacada);
+        console.log(data[1].publicacion_destacada);
+        console.log(data[0].publicacion_destacada);
         $scope.publicaciones = data;
       };
     })
@@ -319,6 +324,17 @@ angular.module('app.pagina', [])
 
         };
 
+  $scope.togglePublicacion = function (publicacion_id) {    
+    Pagina.togglePublicacion(publicacion_id,function (err,data) {
+      if (err) {
+        $scope.notify('danger','Ocurrió un error');
+      } else{
+        $scope.notify('success','¡Listo!');
+        getPublicaciones();
+      };
+    });
+  }
+
   $scope.editPublicacion = function () {
     var pagina_id = $routeParams.pagina_id;
     Pagina.updatePublicacion(pagina_id,$routeParams.publicacion_id,$scope.FormEditPublicacion,function (err, data) {
@@ -362,7 +378,7 @@ angular.module('app.pagina', [])
 
 
   
-}).controller('PaginaMensajesCtrl',function($scope,Pagina,$routeParams){    
+}]).controller('PaginaMensajesCtrl',['$scope','Pagina','$routeParams',function($scope,Pagina,$routeParams){    
 
   var pagina_id = $routeParams.pagina_id;  
   $scope.pagina_id = pagina_id;  
@@ -414,7 +430,7 @@ angular.module('app.pagina', [])
   }
 
   
-}).controller('GaleriasCtrl',function($scope,$window,Pagina,$routeParams,$route,$http){    
+}]).controller('GaleriasCtrl',['$scope','$window','Pagina','$routeParams','$route','$http',function($scope,$window,Pagina,$routeParams,$route,$http){    
 
   var pagina_id = $routeParams.pagina_id;
   var galeria_id = $routeParams.galeria_id;
@@ -542,4 +558,17 @@ angular.module('app.pagina', [])
       });
     }
   
-});
+}]).controller('SeguidoresCtrl',['$scope','Pagina','$routeParams',function($scope,Pagina,$routeParams){    
+
+  var pagina_id = $routeParams.pagina_id;
+  Pagina.seguidores(pagina_id,function (err,data) {
+    if (err) {
+      console.log(err);
+      $scope.notify('danger','Error al recuperar los registros');
+    } else{
+      $scope.seguidores = data;      
+    };
+  })
+  
+}]);
+

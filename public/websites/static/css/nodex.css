@@ -28,3 +28,21 @@
 .bw:hover {
   -webkit-filter: grayscale(100%);
 }
+
+#bienvenida img{
+    max-width: 90%;
+}
+
+.bloque{
+    padding: 5px;
+}
+.bloque:hover{
+    background-color: #444;
+    color: #eee;
+}
+@media only screen and (max-device-width: 480px) {    
+    /* Put your iPhone 3g styles in here */ 
+    #bienvenida img{
+        width: 200px;
+    }
+}

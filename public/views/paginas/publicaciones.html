@@ -3,7 +3,7 @@
         <div class="col-sm-8">
             <section class="panel panel-default mail-container mail-compose">
                 <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Nueva publicación</strong></div>
-                <div class="panel-body">
+                <div class="panel-body">                    
                     <form class="form-horizontal" role="form" ng-submit="addPublicacion()">
                         <div class="form-group">
                             <label for="mail_subject" class="col-xs-2">Título:</label>
@@ -33,14 +33,39 @@
         <div class="col-sm-4">
 
             <section class="panel panel-default mail-categories">
-                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Últimas publicaciones</strong></div>
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Instrucciones</strong></div> 
+                <table class="table table-bordered">
+                    <tr>
+                        <td colspan="2">Presiona el ícono verde para destacar una publicación</td>
+                    </tr>
+                    <tr>
+                        <td>Publicaciones normales</td>
+                        <td><i class="fa fa-circle color-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Publicaciones destacadas, aparecerán en el menú</td>
+                        <td><i class="fa fa-star color-danger"></i></td>
+                    </tr>
+                </table>                               
+            </section>
+            <section class="panel panel-default mail-categories">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Últimas publicaciones</strong></div> 
+                <div style="width: 100%; height: 300px; overflow-y: scroll;">
                 <ul class="list-group" ng-repeat="p in publicaciones">
-                    <li class="list-group-item"><a href="#/pagina/{{ p.publicacion_pagina_id }}/publicacion/{{ p.publicacion_id }}">
+                    <li class="list-group-item">
+                        <a href="#/pagina/{{ p.publicacion_pagina_id }}/publicacion/{{ p.publicacion_id }}" class="pull-left">
                         {{ p.publicacion_titulo }} 
-                        <i ng-if="p.publicacion_status=0" class="fa fa-circle color-danger pull-right"></i>
-                        <i ng-if="p.publicacion_status=1" class="fa fa-circle color-success pull-right"></i>                        
-                    </a></li>                                        
-                </ul>                                
+                        </a>
+                        <a href="javascript:;" ng-click="togglePublicacion(p.publicacion_id)">
+                            <span> .                            
+                        <i ng-if="p.publicacion_destacada==1" class="fa fa-star color-danger pull-right"></i>
+                        <i ng-if="p.publicacion_destacada!=1" class="fa fa-circle color-success pull-right"></i>
+                            </span>
+                        </a>
+                    </li>                                        
+                </ul>                                    
+                </div>
+                
                 <div class="mini-box" ng-if="!publicaciones">
                     Aún no hay publicaciones para mostrar... es el momento de ponerte creativo :)
                 </div>

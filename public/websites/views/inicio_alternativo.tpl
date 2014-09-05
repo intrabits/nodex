@@ -28,8 +28,16 @@
 .wrap{
     z-index: 99;
 }
-.well img{
+.bienvenida img{
     max-width: 90%;
+}
+
+.bloque{
+    padding: 5px;
+}
+.bloque:hover{
+    background-color: #444;
+    color: #eee;
 }
 </style>
 
@@ -86,7 +94,7 @@ window.onYouTubeIframeAPIReady = function() {
                 <div class="TextoEntrada">
                     <h2><?=$pagina['pagina_descripcion']?> </h2>
                     <?php if ($pagina['pagina_conversion']): ?>
-                    <a class="btn btn-success btn-lg scroll" id="action" href="<?=$pagina['pagina_conversion']?> "> Leer más <i class="fa fa-play" style="color:#fff"></i></a>
+                    <a class="btn btn-success btn-lg scroll" id="action" href="<?=$pagina['pagina_conversion']?> "> <?php echo $pagina['pagina_conversion_titulo']!=''?$pagina['pagina_conversion_titulo']:'Leer más' ?> <i class="fa fa-play" style="color:#fff"></i></a>
                     <?php endif ?>                
                 </div>
                 
@@ -108,41 +116,8 @@ window.onYouTubeIframeAPIReady = function() {
                         </div>    
                         <?php endif ?>
                         
-                                                
-                        <div class="">
-                            <div class="social-icon">
-                                <?php if (isset($pagina['pagina_facebook'] )): ?>
-                                            <?php if ($pagina['pagina_facebook']): ?>
-                                            <a href="<?=$pagina['pagina_facebook']?>" class="btn"><i class="fa fa-facebook"></i> Facebook</a>
-                                            <?php endif ?>
-                                            <?php endif ?>
-
-                                            <?php if (isset($pagina['pagina_twitter'] )): ?>
-                                            <?php if ($pagina['pagina_twitter']): ?>
-                                            <a href="<?=$pagina['pagina_twitter']?>" class="btn"><i class="fa fa-twitter"></i> Twitter</a>    
-                                            <?php endif ?>
-                                            <?php endif ?>
-
-                                            <?php if (isset($pagina['pagina_google'] )): ?>
-                                            <?php if ($pagina['pagina_google']): ?>
-                                            <a href="<?=$pagina['pagina_google']?>" class="btn"><i class="fa fa-google-plus"></i> Google</a>    
-                                            <?php endif ?>                                            
-                                            <?php endif ?>
-
-                                            <?php if (isset($pagina['pagina_instagram'] )): ?>
-                                            <?php if ($pagina['pagina_instagram']): ?>
-                                            <a href="<?=$pagina['pagina_twitter']?>" class="btn"><i class="fa fa-instagram"></i> Instagram</a>
-                                            <?php endif ?>                                        
-                                            <?php endif ?>
-                                            
-                                            <?php if (isset($pagina['pagina_youtube'] )): ?>
-                                            <?php if ($pagina['pagina_youtube']): ?>
-                                            <a href="<?=$pagina['pagina_youtube']?>" class="btn"><i class="fa fa-youtube"></i> Youtube</a>    
-                                            <?php endif ?>                                            
-                                            <?php endif ?>                          
-                            </div>
-                        </div>
-                                            
+                                                                        
+                                     
                     </div>  
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <?php if (count($publicaciones)>0): ?>
@@ -150,19 +125,19 @@ window.onYouTubeIframeAPIReady = function() {
                             <h3>Últimas publicaciones</h3>
                             <hr>
                             <?php foreach ($publicaciones as $p): ?>
-                            <div class="row">
+                            <a href="?p=publicacion&id=<?=$p['publicacion_id']?>">
+                            <div class="row bloque">
 
                                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="?p=publicacion&id=<?=$p['publicacion_id']?>">
+                                    
                                         <img class="img-responsive" src="http://placehold.it/200/333333&text=Ver más">
-                                    </a>                                    
                                 </div>
                                 <div class="col-xs-8 col-sm-9 col-md-9 col-lg-9">
-                                    <p class="text-muted"> <?=$p['publicacion_titulo']?>  </p>
+                                    <p> <?=$p['publicacion_titulo']?>  </p>
                                     <p class="text-muted text-right"><small>- <i class="fa fa-clock-o"></i>  <?=$p['publicacion_fecha']?> </small></p>
                                 </div>
                             </div>
-                            <hr>    
+                            </a>                                             
                             <?php endforeach ?>                     
                         </div>    
                         <?php endif ?>
@@ -196,60 +171,176 @@ window.onYouTubeIframeAPIReady = function() {
                     </div>
                 </div>
                                 
-            </div>
-            <footer class="text-center" style="margin-bottom:0px">
+            </div>            
+            <footer class="text-center" style="margin-bottom:0px;">
+                    <hr>
                     <div class="row">
-                        <?php if ($pagina['pagina_direccion']): ?>
-                        <div class="col-md-4">                        
-                        <h4>Dirección
-                            <i class="fa fa-map-marker pull-right fa-2x"></i>
-                        </h4>
-
-                        <?=$pagina['pagina_direccion']?>                             
-                        <hr>
+                        <div class="col-md-12">                            
+                            <form action="" method="POST">
+                            <div class="row">
+                                <div class="col-md-3"><p class="lead">Regístrate para recibir más noticias</p></div>
+                                <div class="col-md-3"><input type="text" name="seguidor_nombre" placeholder="Nombre" class="form-control"></div>
+                                <div class="col-md-3"><input type="email" name="seguidor_correo" placeholder="Correo electrónico" class="form-control"></div>
+                                <div class="col-md-3"><input type="submit" name="submit_seguidor"class="btn btn-primary col-md-12 btn-lg" value="Enviar"></div>
+                                 <br>
+                            </form>
+                            </div>                            
+                            
                         </div>
-                        <?php endif ?>
-
-                        <?php if ($pagina['pagina_telefono']): ?>
+                    </div>
+                    <hr>
+                    <div class="row">
                         <div class="col-md-4">
-                        <h4>Teléono
-                            <i class="fa fa-phone pull-right fa-2x"></i>
-                        </h4>
-                        <?=$pagina['pagina_telefono']?>
-                        <hr> 
-                        </div>
-                        <?php endif ?>
+                            <div id="google_translate_element"></div><script type="text/javascript">
+                            function googleTranslateElementInit() {
+                              new google.translate.TranslateElement({pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                            }
+                            </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                            <h2>Habla con un experto</h2>   
+                            <?php if ($pagina_id==162): ?>
+                            <a class="btn btn-primary" data-toggle="modal" href='#modal-id'>Chat</a>
+                            <?php endif ?>                                                     
 
-                        <?php if ($pagina['pagina_email']): ?>
-                        <div class="col-md-4">
-                        <h4>Correo electrónico
-                            <i class="fa fa-envelope-o pull-right fa-2x"></i>
-                        </h4>
-                        <?php
-                        $correo = explode('@', $pagina['pagina_email'])
-                        ?>    
-                        <script type="text/javascript">
-                          document.write('<?=$correo[0]?>' + '@' +'<?=$correo[1]?>')
-                        </script> 
-                        <hr>
+                            <h2>Mapa de sitio</h2>
+                            <ul class="list-unstyled" style="color:#333">
+                                <li><a href="?p=inicio">Inicio</a></li>
+                                <li><a href="?p=galeria">Galería</a></li>
+                                <li><a href="?p=publicacion">Publicaciones</a></li>
+                                <li><a href="?p=nosotros">Acerca de</a></li>                                
+                                <li><a href="?p=tienda">Tienda</a></li>
+                                <li><a href="?p=contacto">Contacto</a></li>
+                            </ul>
                         </div>
-                        <?php endif ?>
+
+                        <div class="col-md-4">
+                            <h2>Redes sociales</h2>
+                            <div class="social-icon">
+                                <?php if (isset($pagina['pagina_facebook'] )): ?>
+                                <?php if ($pagina['pagina_facebook']): ?>
+                                <a href="<?=$pagina['pagina_facebook']?>" class="btn"><i class="fa fa-facebook"></i> Facebook</a>
+                                <?php endif ?>
+                                <?php endif ?>
+
+                                <?php if (isset($pagina['pagina_twitter'] )): ?>
+                                <?php if ($pagina['pagina_twitter']): ?>
+                                <a href="<?=$pagina['pagina_twitter']?>" class="btn"><i class="fa fa-twitter"></i> Twitter</a>    
+                                <?php endif ?>
+                                <?php endif ?>
+
+                                <?php if (isset($pagina['pagina_google'] )): ?>
+                                <?php if ($pagina['pagina_google']): ?>
+                                <a href="<?=$pagina['pagina_google']?>" class="btn"><i class="fa fa-google-plus"></i> Google</a>    
+                                <?php endif ?>                                            
+                                <?php endif ?>
+
+                                <?php if (isset($pagina['pagina_instagram'] )): ?>
+                                <?php if ($pagina['pagina_instagram']): ?>
+                                <a href="<?=$pagina['pagina_twitter']?>" class="btn"><i class="fa fa-instagram"></i> Instagram</a>
+                                <?php endif ?>                                        
+                                <?php endif ?>
+                                
+                                <?php if (isset($pagina['pagina_youtube'] )): ?>
+                                <?php if ($pagina['pagina_youtube']): ?>
+                                <a href="<?=$pagina['pagina_youtube']?>" class="btn"><i class="fa fa-youtube"></i> Youtube</a>    
+                                <?php endif ?>                                            
+                                <?php endif ?>                          
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h2>Contacto</h2>
+                            <div class="row">
+                            <?php if ($pagina['pagina_direccion']): ?>
+                            <div class="col-md-12">                        
+                            <h4>Dirección<i class="fa fa-map-marker pull-right fa-2x"></i></h4>
+
+                            <?=$pagina['pagina_direccion']?>                             
+                            <hr>
+                            </div>
+                            <?php endif ?>
+
+                            <?php if ($pagina['pagina_telefono']): ?>
+                            <div class="col-md-12">
+                            <h4>Teléono<i class="fa fa-phone pull-right fa-2x"></i></h4>
+                            <?=$pagina['pagina_telefono']?>
+                            <hr> 
+                            </div>
+                            <?php endif ?>
+
+                            <?php if ($pagina['pagina_email']): ?>
+                            <div class="col-md-12">
+                            <h4>Correo electrónico<i class="fa fa-envelope-o pull-right fa-2x"></i></h4>
+                            <?php $correo = explode('@', $pagina['pagina_email'])?>    
+                            <script type="text/javascript">document.write('<?=$correo[0]?>' + '@' +'<?=$correo[1]?>')</script> 
+                            <hr>
+                            </div>
+                            <?php endif ?>
+                            </div>
+                        </div>                        
+                            
                     </div>
                 </footer>
         </section>
-
         
-        <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
-        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-        <script src="<?=$base?>static/js/humane.min.js"></script>        
-        <script src="<?=$base?>static/js/bic_calendar.min.js"></script>
-        <script src="<?=$base?>static/js/skycons.js"></script>
-        <script src="<?=$base?>static/js/jquery.sparkline.js"></script>
+        <div class="modal fade" id="modal-id">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Soporte en línea</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php if ($pagina_id==162): ?>
+                        <div class="well">
+                            <div class="header">Chat <span class="pull-right muted"><small><i class="fa fa-user"></i> Chatting with user Stan Smith</small></span></div>
+                            <div class="chat">
+                                <div class="chat-right">
+                                    <p>Bienvenido, en qué podemos ayudarte.</p>
+                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 2 days ago</small></p>
+                                </div>
+                                <div class="chat-left">
+                                    <p>Buenas tardes, me gustaría conocer más acerca de cómo puedo adquirir sus playeras.</p>
+                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 2 days ago</small></p>
+                                </div>
+                                <div class="chat-right">
+                                    <p>Claro que si, lo primero que debes de hacer es checar nuestro catálago, deinir los productos que te llamen más la atención.</p>
+                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 1 days ago</small></p>
+                                </div>
+                                <div class="chat-right">
+                                    <p>Posteriormente deberás enviarnos un correo con tus datos para que podamos contactarte y darte un seguimiento más personalizado.</p>
+                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 1 days ago</small></p>
+                                </div>
+                                <div class="chat-left">
+                                    <p>Es posible visitarlos a algún sitio.</p>
+                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 1 days ago</small></p>
+                                </div>
+                                <div class="chat-right">
+                                    <p>Claro que sí, puedes revisar nuestra dirección y mapa en la página de contacto.</p>
+                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 2 hours ago</small></p>
+                                </div>                                
+                            </div>
+                            
+                        </div>       
+                        <?php endif ?>
+                        
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>                        
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>        
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js    "></script>        
+        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>  
+        <script src="//cdnjs.cloudflare.com/ajax/libs/humane-js/3.0.6/humane.min.js"></script>      
         <script src="<?=$base?>static/js/leftmenu.js"></script>                        
-        <script src="<?=$base?>static/js/theme.js"></script>
-        <script src="<?=$base?>static/js/script.js"></script>
-        <script>index();</script>
-        <style type="text/css">
-        </style>
+        <script src="<?=$base?>static/js/theme.js"></script>       
+        <?php
+        if (isset($respuesta)) {
+            echo $respuesta;
+        }
+        ?>        
     </body>
 </html>

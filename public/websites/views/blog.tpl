@@ -20,7 +20,7 @@
                                     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                         <div class="image">
                                             <?php if (isset($p['publicacion_imagen'])){ ?>
-                                            <img src="<?=$base.'paginas/'.$p['publicacion_imagen']?>" alt="">    
+                                            <img src="<?=$base.'paginas/'.$p['publicacion_imagen']?>" alt="<?=$p['publicacion_titulo']?>">    
                                             <?php }else{ ?>
                                             <img src="http://placehold.it/1000x300" alt="">
                                             <?php } ?>
@@ -29,9 +29,9 @@
                                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                         <div class="blog-details">
                                             <br>
-                                            <h2><?=$p['publicacion_titulo']?> </h2>
+                                            <h2><?=$p['publicacion_titulo']?></h2>
                                             <p>
-                                                <?=$p['publicacion_resumen']?> 
+                                                <?=strip_tags($p['publicacion_resumen'])?> 
                                             </p>
                                         </div>
                                     </div>
@@ -76,10 +76,8 @@
         <script src="<?=$base?>static/js/jquery.photoset-grid.min.js"></script>
         <script src="<?=$base?>static/js/leftmenu.js"></script>
         <script src="<?=$base?>static/js/rightmenu.js"></script>
-        <script src="<?=$base?>static/js/topmenu.js"></script>
-        <script src="<?=$base?>static/js/topmenufixed.js"></script>
-        <script src="<?=$base?>static/js/theme.js"></script>
-        <script src="<?=$base?>static/js/script.js"></script>
+        <script src="<?=$base?>static/js/topmenu.js"></script>        
+        <script src="<?=$base?>static/js/theme.js"></script>        
         <script>blogpost();</script>
     </body>
 </html>

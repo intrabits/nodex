@@ -119,6 +119,7 @@ angular.module('ModeloPagina',  ['ngRoute'])
                           callback(null,data);
                      }).error(function (err) {
                        console.log(err);
+                          callback('Error',null);
                      });
                 },
                 getPublicacion:function (pagina_id,id,callback) {        
@@ -154,6 +155,15 @@ angular.module('ModeloPagina',  ['ngRoute'])
                         }).error(function(err){
                             callback('Hubo un error',null);
                         });
+                },
+                togglePublicacion:function (publicacion_id, callback) {
+                    $http.get('/api/pagina/publicacion/'+publicacion_id+'/toggle').success(function (data) {
+                        // return data;                        
+                          callback(null,data);
+                     }).error(function (err) {
+                       console.log(err);
+                        callback('Error',null);
+                     });
                 },
                 getMensajes:function (id,callback) { 
 
@@ -269,6 +279,14 @@ angular.module('ModeloPagina',  ['ngRoute'])
                 getImagenes:function (pagina,id,callback) {        
 
                   $http.get('/api/pagina/'+pagina+'/galeria/'+id+'/imagenes').success(function (data) {
+                        // return data;                        
+                          callback(null,data);
+                     }).error(function (err) {
+                       console.log(err);
+                     });
+                },
+                seguidores:function (pagina_id,callback) {
+                  $http.get('/api/pagina/'+pagina_id+'/seguidores').success(function (data) {
                         // return data;                        
                           callback(null,data);
                      }).error(function (err) {

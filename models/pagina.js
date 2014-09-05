@@ -22,7 +22,7 @@ Pagina.getPaquetes = function(callback){
 }
 
 Pagina.getPagina = function(pagina_id, usuario_id ,callback){
-	connection.query('SELECT *, (SELECT count(*) FROM pagina_cuenta WHERE cuenta_pagina_id = ?) as pagina_cuentas_usadas,  (SELECT count(*) FROM pagina_publicacion WHERE publicacion_pagina_id = ?) as pagina_publicaciones, (SELECT count(*) FROM pagina_mensaje WHERE mensaje_pagina_id = ?) as pagina_mensajes,(SELECT count(imagen_id) FROM pagina_galeria_imagen WHERE imagen_galeria_id IN (SELECT galeria_id FROM pagina_galeria where galeria_pagina_id = ?)) as pagina_imagenes from pagina p INNER JOIN usuario_pagina up on up.pagina_id = p.pagina_id INNER JOIN pagina_tipo pt ON p.pagina_tipo_id = pt.tipo_id   where p.pagina_id = ? and up.usuario_id = ?',[pagina_id,pagina_id,pagina_id,pagina_id,pagina_id,usuario_id], function(err, rows){        
+	connection.query('SELECT *, (SELECT count(*) FROM pagina_cuenta WHERE cuenta_pagina_id = ?) as pagina_cuentas_usadas,  (SELECT count(*) FROM pagina_publicacion WHERE publicacion_pagina_id = ?) as pagina_publicaciones, (SELECT count(*) FROM pagina_mensaje WHERE mensaje_pagina_id = ?) as pagina_mensajes,(SELECT count(imagen_id) FROM pagina_galeria_imagen WHERE imagen_galeria_id IN (SELECT galeria_id FROM pagina_galeria where galeria_pagina_id = ?)) as pagina_imagenes, (SELECT count(seguidor_id) FROM pagina_seguidor WHERE seguidor_pagina_id = ?) as seguidores from pagina p INNER JOIN usuario_pagina up on up.pagina_id = p.pagina_id INNER JOIN pagina_tipo pt ON p.pagina_tipo_id = pt.tipo_id   where p.pagina_id = ? and up.usuario_id = ?',[pagina_id,pagina_id,pagina_id,pagina_id,pagina_id,pagina_id,usuario_id], function(err, rows){        
         if (err) 
             callback(err,null);
         else
@@ -126,6 +126,22 @@ Pagina.owner = function (usuario_id, pagina_id, callback) {
     });  
 }
 
+/*
+Suscriptores :)
+*/
+
+Pagina.seguidores = function (pagina_id,callback) {
+	console.log(pagina_id);
+	connection.query("SELECT * FROM pagina_seguidor WHERE seguidor_pagina_id = ?",pagina_id,function (err,rows) {
+		if (err)
+			callback(err,null);
+		else{			
+			callback(null,rows);
+		}			
+	});
+}
+
+
 
 //	Borrar página D:
 Pagina.deletePagina = function(id,callback){	
@@ -139,6 +155,7 @@ Pagina.deletePagina = function(id,callback){
 		}
 	});
 }
+
 
 
 /*============================================================== Operaciones con secciones ===============================================================*/
@@ -266,7 +283,18 @@ Pagina.addBloque = function(documento, seccion, datos, callback){
 
 
 Pagina.getPublicaciones = function(pagina_id,callback){
-	connection.query('SELECT * FROM pagina_publicacion where publicacion_pagina_id = ?  ORDER BY publicacion_fecha DESC', pagina_id, function(err, rows){        
+	connection.query('SELECT publicacion_id,publicacion_pagina_id,publicacion_titulo,publicacion_destacada, publicacion_destacada as destacar FROM pagina_publicacion where publicacion_pagina_id = ?  ORDER BY publicacion_fecha DESC', pagina_id, function(err, rows){        
+		if (err) 
+			callback(err,null);
+		else{				
+			callback(null,rows);    				         
+		}			
+			
+    });	
+}
+
+Pagina.togglePublicacionDestacada = function(publicacion_id,callback){
+	connection.query('UPDATE pagina_publicacion SET publicacion_destacada = !publicacion_destacada WHERE publicacion_id =?', publicacion_id, function(err, rows){        
 		if (err) 
 			callback(err,null);
 		else{				

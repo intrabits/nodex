@@ -5,6 +5,8 @@ angular.module('app', ['ngRoute','ngSanitize','angular-loading-bar', 'ngAnimate'
       redirectTo: '/dashboard'
     }).when('/dashboard', {
       templateUrl: 'views/dashboard.html'    
+    }).when('/contacto', {
+      templateUrl: 'views/soporte/contacto.html'    
     }).when('/usuario/perfil', {
       templateUrl: 'views/usuario/perfil.html',
       controller: 'UsuarioCtrl'    
@@ -52,6 +54,9 @@ angular.module('app', ['ngRoute','ngSanitize','angular-loading-bar', 'ngAnimate'
     }).when('/pagina/:pagina_id/config', {
       templateUrl: 'views/paginas/pagina.html',
       controller: 'PaginaCtrl'
+    }).when('/pagina/:pagina_id/seguidores', {
+      templateUrl: 'views/paginas/seguidores.html',
+      controller: 'SeguidoresCtrl'
     }).when('/pagina/:pagina_id/success', {
       templateUrl: 'views/paginas/success.html',
       controller: 'PaginaCtrl'

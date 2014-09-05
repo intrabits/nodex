@@ -4,6 +4,7 @@ angular.module('app.controllers', []).controller('AppCtrl', [
     var base;
     //  Configuración global de nodex
     $scope.main = {};
+    localStorage.removeItem('alerted');
       $http.get('/config').success(function (data,status,headers,config) {        
         $scope.config = data;        
         var base = $scope.config[1].config_valor;
@@ -111,8 +112,14 @@ angular.module('app.controllers', []).controller('AppCtrl', [
       Pagina.getMensajesAll(function (err,data) {
         if (err) {
           $scope.notify('danger','No se pudieron cargar tus notificaciones');
-          alert('Ocurrió un error dentro del sistema, lo estamos reparando en este momento. Por favor vuelve a iniciar sesión, lamentamos los inconvenientes');
-          window.location = 'http://panel.nodex.mx/';
+          // alert('Ocurrió un error dentro del sistema, lo estamos reparando en este momento. Por favor vuelve a iniciar sesión, lamentamos los inconvenientes');
+          
+            var alerted = localStorage.getItem('alerted') || '';
+            if (alerted != 'yes') {
+             alert("Ocurrió un error dentro del sistema, lo estamos reparando en este momento. Por favor vuelve a iniciar sesión, lamentamos los inconvenientes");
+             localStorage.setItem('alerted','yes');
+             window.location = 'http://panel.nodex.mx/';
+            }          
         } else{
           $scope.notificacionesMensajes = data;                  
           $scope.notificacionesMensajesTotal = $scope.notificacionesMensajes.length;          

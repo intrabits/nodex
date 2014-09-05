@@ -3,13 +3,16 @@ var server = require('http').Server(app.app);
 var io = require('socket.io')(server);
 
 
+//  Modelos
+Soporte = require('./../models/soporte.js');
+
 var usernames = {};
 var numUsers = 0;
 
 var sockets = function (socket) {
   var addedUser = false;
   socket.on('prueba',function (data) {
-    console.log("nooo");
+    console.log("nooo");    
     setInterval(function() {
       console.log("si llegó");  
     }, 1000);
@@ -23,6 +26,16 @@ var sockets = function (socket) {
       message: data,
       foto: socket.foto
     });
+
+    var datos_mensaje = {
+      chat_usuario_nombre:socket.username,
+      chat_mensaje:data      
+    }
+    Soporte.addMensaje(datos_mensaje,function (err,data) {
+      if (err) {console.log(err);};
+    });
+    var clients = io.sockets.clients(usernames);
+    console.log(clients);
   });
 
   // when the client emits 'add user', this listens and executes
@@ -43,6 +56,8 @@ var sockets = function (socket) {
       numUsers: numUsers,
       foto: socket.foto
     });
+
+    
   });
 
   // when the client emits 'typing', we broadcast it to others
@@ -58,6 +73,8 @@ var sockets = function (socket) {
       username: socket.username
     });
   });
+
+
 
   // when the user disconnects.. perform this
   socket.on('disconnect', function () {

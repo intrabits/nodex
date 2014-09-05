@@ -41,7 +41,7 @@
                     </li>    
                 </ul>
             </div>            
-            <div class="panel" ng-if="FormEditPagina.pagina_status != 1">
+            <div class="panel" ng-if="FormEditPagina.pagina_status == 1">
                 <div class="panel-body">
                     <div class="row">
                     <div class="col-md-6">
@@ -65,6 +65,7 @@
                         <input type="hidden" name="amount" value="{{ FormEditPagina.tipo_precio }}">
                         <input type="hidden" name="hosted_button_id" value="Z7FEFNFU356NE">
                         <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+                        <input type="hidden" name="return" value="http://panel.nodex.mx/#/pagina/{{ FormEditPagina.pagina_id }}/success">
                         <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
                         </form>
                     </div>
@@ -99,21 +100,20 @@
                 </div>
                 <div class="col-sm-6">
                     <section class="panel panel-box">
-                        <div class="panel-top bg-twitter">
+                        <div class="panel-top bg-youtube">
+                            <a href="#/pagina/{{ FormEditPagina.pagina_id }}/seguidores">
                             <div class="divider divider"></div>
-                            <i class="fa fa-twitter size-h1"></i>
+                            <i class="fa fa-male size-h1"></i>
                             <div class="divider divider"></div>
+                            </a>
                         </div>
                         <div class="list-justified-container">
                             <ul class="list-justified text-center">
-                                <li>
-                                    <p class="size-h3">X</p>
-                                    <p class="text-muted">Seguidores</p>
-                                </li>
-                                <li>
-                                    <p class="size-h3">Y</p>
-                                    <p class="text-muted">Siguiendo</p>
-                                </li>
+                                <li>                                    
+                                    <p class="size-h3">{{ FormEditPagina.seguidores }}</p>
+                                    <p class="text-muted">Suscriptores</p>
+
+                                </li>                                
                             </ul>
                         </div>
                     </section>                        
