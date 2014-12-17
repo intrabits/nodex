@@ -84,6 +84,15 @@ p{
 		<div class="featureswrap">
 			<div class="container">
 				<div class="row">
+					<h2 class="text-center">¿Qué es Nodex?</h2>
+					<div class="col-lg-12">
+						<p class="lead">
+							Nodex es una herramienta para crear páginas web dinámicas con tienda en línea, blog y aplicación móvil de manera fácil e intuitiva.
+						</p>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
 					<h2 class="text-center">¿Cómo funciona?</h2>
 					<hr>
 					<br>
@@ -182,7 +191,7 @@ p{
 						</ul>
 						<h3 style="color:#e22">¿Qué paquete es el adecuado para mi negocio?</h3>
 						<p>Si tu negocio está iniciando y tienes aún poca información para mostrar te recomendamos empezar con el paquete básico.</p>
-						<p>Si tu negocio tiene muchos contenidos, necesitas varias cuentas de corre empresariales y te gustaría que nosotros nos encargaramos de armar tu página, entonces los paquetes Premium son lo que tu negocio necesita</p>
+						<p>Si tu negocio tiene muchos contenidos, necesitas varias cuentas de correo empresariales y te gustaría que nosotros nos encargaramos de armar tu página, entonces los paquetes Premium son lo que tu negocio necesita</p>
 						<h3 style="color:#e22">¿Cada cuando hay que pagar?</h3>
 						<p>Los pagos se hacen de manera anual en la mayoría de los casos, pero si lo deseas puedes hacer pagos semestrales.</p>					
 						<h3 style="color:#e22"></h3>	

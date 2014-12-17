@@ -45,6 +45,13 @@ angular.module('ModeloProducto',  ['ngRoute'])
                           callback(data,null);
                      });
                 },
+                deleteImagen:function (id,callback) {                  
+                  $http.delete('/api/producto/imagen/'+id).success(function (data) {
+                          callback(null,data);                       
+                     }).error(function (data) {
+                          callback(data,null);
+                     });
+                },
                 detail:function (producto_id,callback) {                  
                   $http.get('/api/producto/'+producto_id).success(function (data) {
                           callback(null,data);                       
@@ -65,7 +72,7 @@ angular.module('ModeloProducto',  ['ngRoute'])
                         });
                 },
 
-                update:function (id, datos, callback) {
+                update:function ( datos, id, callback) {
                     $http({
                           data    :  datos,
                           method  : 'PUT',

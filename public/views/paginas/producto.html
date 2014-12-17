@@ -4,7 +4,7 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Detalles del producto</strong></div>
-                <div class="panel-body">
+                <div class="panel-body">                
                     <form  class="form-horizontal" role="form" ng-submit="editarProducto()">                        
                         <div class="form-group">
                         <label for="inputEmail3" class="col-sm-4 control-label">Nombre</label>
@@ -25,7 +25,7 @@
                         </div>
                         </div>                        
                         <p>
-                        <input type="submit" value="Crear" class="btn btn-primary"> 
+                        <input type="submit" value="Editar" class="btn btn-primary"> 
                         <button go-back class="btn btn-warning">Cancelar</button>
                         </p>
 
@@ -59,6 +59,10 @@
                 <div class="panel-body">
                     <div class="col-md-6" ng-repeat="i in fotos">                        
                         <img alt="" ng-src="websites/paginas/{{ i.imagen_url }}" class="img-rounded" width="300px">
+                        <br>
+                        <button class="btn btn-default" ng-click="deleteImagen(i.imagen_id)">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
                     </div>                    
                 </div>
             </div>

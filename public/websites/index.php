@@ -95,7 +95,8 @@
 				<div class="text-center">
 					<h2>¡Inicia con una prueba gratuita!</h2>
 					<br>
-					<a href="http://panel.nodex.mx/auth/facebook" class="btn btn-lg btn-primary" style="padding:20px;"> Regístrate GRATIS con Facebook</a><br>
+					<a class="btn btn-primary btn-lg" style="padding:20px;" data-toggle="modal" href='#modal-id'>Crea tu primera página</a>
+					<!-- <a href="http://panel.nodex.mx/auth/facebook" class="btn btn-lg btn-primary" style="padding:20px;"> Regístrate GRATIS con Facebook</a><br> -->
 					<h3>Crear tu página te tomará tan solo unos minutos</h3>
 					<div class="fb-share-button btn btn-default btn-lg" data-href="http://nodex.mx" data-width="100%"></div>
 				</div>
@@ -188,7 +189,7 @@
 							<br>
 
 						</div><!-- /accordion -->
-						<a href="faqs.php" class="btn btn-lg btn-danger" align="center">Preguntas frecuentes</a>
+						<a href="faqs" class="btn btn-lg btn-danger" align="center">Preguntas frecuentes</a>
 					</div>
 				</div><!-- /row -->
 
@@ -383,6 +384,6 @@
 			</div><!-- /container -->
 		</div><!-- /pricingwrap -->
 
-
+<?php include 'modal.php'; ?>
 
 <?php include 'footer.php'; ?>

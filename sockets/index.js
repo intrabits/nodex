@@ -34,8 +34,8 @@ var sockets = function (socket) {
     Soporte.addMensaje(datos_mensaje,function (err,data) {
       if (err) {console.log(err);};
     });
-    var clients = io.sockets.clients(usernames);
-    console.log(clients);
+    // var clients = io.sockets.clients(usernames);
+    // console.log(clients);
   });
 
   // when the client emits 'add user', this listens and executes

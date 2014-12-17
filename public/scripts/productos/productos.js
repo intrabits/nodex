@@ -17,6 +17,7 @@ angular.module('app.producto', [])
         if (err) {alert(err);} else{
           $scope.notify('success',"Producto agregado a tu tienda");
           $scope.FormAddProducto = {};
+          getProductos();
         };
       })
     }
@@ -58,6 +59,21 @@ angular.module('app.producto', [])
       };
     });
 
+    $scope.deleteImagen = function  (id) {
+      var si = confirm('¿Estas seguro que deseas eliminar esta imagen?');
+
+      if (si) {
+        Producto.deleteImagen(id,function  (err,data) {
+          if (err) {
+            alert(err);
+          } else{
+            $scope.notify('success','Listo');
+            getImagenes();
+          };
+        });
+      };
+    }
+
     $scope.uploadImage = function(files) {        
         var fd = new FormData();
         //Take the first selected file
@@ -80,7 +96,8 @@ angular.module('app.producto', [])
     };
 
     $scope.editarProducto = function () {
-      Producto.update($routeParams.producto_id,function (err,data) {
+      console.log("Editando producto");
+      Producto.update($scope.FormEditarProducto,$routeParams.producto_id,function (err,data) {
         if (err) {
           alert('Error al intentar editar el producto');
         } else{

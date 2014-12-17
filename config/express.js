@@ -24,7 +24,7 @@ var passport = auth.passport;
   app.use(cookieParser());
   app.use(methodOverride());
 
-  app.use(session({ secret: 'keyboard cat' }));
+  app.use(session({ secret: 'okletstrythis' }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());

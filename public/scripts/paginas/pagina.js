@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app.pagina', [])
-  .controller('PaginasCtrl',function($scope,$modal,$log,Pagina){    
+  .controller('PaginasCtrl',function($scope,$modal,$log,Pagina){
 
     Pagina.all(function (err, data) {
       if (err) {
@@ -10,7 +10,7 @@ angular.module('app.pagina', [])
       };
     });
 
-}).controller('PaginaCtrl',['$scope','$modal','$window','Pagina','$routeParams','$http',function($scope,$modal,$window,Pagina,$routeParams,$http){    
+}).controller('PaginaCtrl',['$scope','$modal','$window','Pagina','$routeParams','$http',function($scope,$modal,$window,Pagina,$routeParams,$http){
 
   var pagina_id = $routeParams.pagina_id;
   $scope.hoy = Date();
@@ -22,10 +22,10 @@ angular.module('app.pagina', [])
       var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
           to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
           mapping = {};
-     
+
       for(var i = 0, j = from.length; i < j; i++ )
           mapping[ from.charAt( i ) ] = to.charAt( i );
-     
+
       return function( str ) {
           var ret = [];
           for( var i = 0, j = str.length; i < j; i++ ) {
@@ -37,13 +37,13 @@ angular.module('app.pagina', [])
           }
           return ret.join( '' ).replace( /[^-A-Za-z0-9]+/g, '-' ).toLowerCase();
       }
-     
+
     })();
 
-  $scope.subdominio = function  (nombre) {    
+  $scope.subdominio = function  (nombre) {
     $scope.FormAddPagina.pagina_subdominio = normalize(nombre)+"."+$scope.main.dominio;
   }
-  
+
 
   Pagina.getPaquetes(function (err, data) {
     if (err) {console.log(err);}
@@ -52,16 +52,16 @@ angular.module('app.pagina', [])
     };
   });
 
-  $scope.buscarFB = function () {    
+  $scope.buscarFB = function () {
 
-    var facebookID = $('#facebookID').val();        
-    var partir = facebookID.split( 'facebook.com/' );    
+    var facebookID = $('#facebookID').val();
+    var partir = facebookID.split( 'facebook.com/' );
     if (partir[1]) {
       partir = partir[1];
       partir = partir.split('?');
       partir = partir[0];
       partir = partir.split('/');
-      partir = partir[0];  
+      partir = partir[0];
       $http.get("http://graph.facebook.com/"+partir).success(function (data) {
         $scope.facebook = data;
         $scope.FormAddPagina.pagina_logo = "http://graph.facebook.com/"+facebookID+"/picture";
@@ -69,23 +69,23 @@ angular.module('app.pagina', [])
         $scope.FormAddPagina.pagina_nombre = data.name;
         $scope.FormAddPagina.pagina_descripcion = data.about;
         $scope.FormAddPagina.pagina_telefono = data.phone;
-        $scope.FormAddPagina.pagina_facebook = $('#facebookID').val();        
+        $scope.FormAddPagina.pagina_facebook = $('#facebookID').val();
         // $scope.FormAddPagina.pagina_subdominio = data.name+"."+$scope.main.dominio;
         $scope.subdominio(data.name)
       }).error(function () {
         console.log("error");
         $scope.notify('danger','La URL ingresada no es válida');
-      });    
+      });
     }else{
       $scope.notify('danger','La URL ingresada no es válida');
     }
-    
-    
-    
+
+
+
 
   }
 
-    if (pagina_id) {            
+    if (pagina_id) {
       Pagina.getOne(pagina_id,function (err, data) {
         if (err) {console.log("Error al cargar la página");}
         else{
@@ -99,20 +99,20 @@ angular.module('app.pagina', [])
             Pagina.getFacebook(data.pagina_facebook,function (err,data) {
               if (err) {console.log(err);}
               else{
-                $scope.facebook = data;              
+                $scope.facebook = data;
               };
             });
           };
-            
+
         };
       });
-   
+
     };
 
 
       $scope.editPagina = function() {
         var datos;
-        datos = $scope.FormEditPagina      
+        datos = $scope.FormEditPagina
         Pagina.update(pagina_id,datos,function (err, data) {
           if (err) {alert(err);} else{
             $('#result').html('<div class="alert alert-success">Editado correctamente</div>').delay(3000).hide('explode');
@@ -120,29 +120,29 @@ angular.module('app.pagina', [])
           };
         });
       };
-           
-      $scope.crearPagina = function() {                
-        var datos = $scope.FormAddPagina;      
+
+      $scope.crearPagina = function() {
+        var datos = $scope.FormAddPagina;
         if (datos.pagina_dominio&&datos.pagina_nombre) {
         Pagina.create(datos,function (err, data) {
           if (err) {console.log(alert);} else{
             $scope.notify('success','Página creada correctamente');
-            console.log(data);            
-            
-              $window.location.href= "#/pagina/"+data;  
-            
-            
+            console.log(data);
+
+              $window.location.href= "#/pagina/"+data;
+
+
           };
-        });  
+        });
         };
-        
+
       }
 
 
       $scope.uploadFile = function(files) {
             var fd = new FormData();
             //Take the first selected file
-            fd.append("file", files[0]);            
+            fd.append("file", files[0]);
 
             $http.post('/api/upload/'+$routeParams.pagina_id, fd, {
                 withCredentials: true,
@@ -154,8 +154,8 @@ angular.module('app.pagina', [])
               $scope.notify('danger','Todo salió mal');
             });
 
-        };        
-        
+        };
+
 
       $scope.uploadLogo = function(files) {
             var fd = new FormData();
@@ -176,7 +176,7 @@ angular.module('app.pagina', [])
         };
 
 
-}]).controller('EstiloCtrl',['$scope','$routeParams','Pagina','$http','$route',function($scope,$routeParams,Pagina,$http,$route){    
+}]).controller('EstiloCtrl',['$scope','$routeParams','Pagina','$http','$route',function($scope,$routeParams,Pagina,$http,$route){
     var pagina_id = $routeParams.pagina_id
     $scope.estilo = {};
 
@@ -186,12 +186,12 @@ angular.module('app.pagina', [])
             console.log(err);
             $scope.notify('dange','Error al cargar la página');
           }
-          else{          
-            $scope.estilo = data;                      
+          else{
+            $scope.estilo = data;
           };
         });
     }
-      
+
     getEstilo();
 
       $scope.upImg = function(files, tipo) {
@@ -215,15 +215,15 @@ angular.module('app.pagina', [])
         $scope.vistaPrevia = function(dominio,size) {
           dominio = 'http://'+dominio;
             if (size=='phone') {
-              var myWindow = window.open(dominio, "MsgWindow", "width=480, height=700");              
+              var myWindow = window.open(dominio, "MsgWindow", "width=480, height=700");
             }else{
-              var myWindow = window.open(dominio, "MsgWindow", "width=1200, height=800");              
+              var myWindow = window.open(dominio, "MsgWindow", "width=1200, height=800");
             }
-            
+
         }
 
 
-}]).controller('PaginaCuentasCtrl',['$scope','$modal','Pagina','$routeParams','$http',function($scope,$modal,Pagina,$routeParams,$http){    
+}]).controller('PaginaCuentasCtrl',['$scope','$modal','Pagina','$routeParams','$http',function($scope,$modal,Pagina,$routeParams,$http){
 
   var pagina_id = $routeParams.pagina_id;
   $scope.FormAddCuenta = {};
@@ -265,7 +265,7 @@ angular.module('app.pagina', [])
   getCuentas();
   getCuentasDisponibles();
 
-}]).controller('PublicacionesCtrl',['$scope','Pagina','$routeParams','$http','$route',function($scope,Pagina,$routeParams,$http,$route){    
+}]).controller('PublicacionesCtrl',['$scope','Pagina','$routeParams','$http','$route',function($scope,Pagina,$routeParams,$http,$route){
 
   var pagina_id = $routeParams.pagina_id;
   $scope.FormAddPublicacion = {};
@@ -275,14 +275,14 @@ angular.module('app.pagina', [])
     Pagina.getPublicaciones(pagina_id,function (err, data) {
       if (err) {console.log(err);}
       else{
-        console.log(data);
-        console.log(data[2].publicacion_destacada);
-        console.log(data[1].publicacion_destacada);
-        console.log(data[0].publicacion_destacada);
+        // console.log(data);
+        // console.log(data[2].publicacion_destacada);
+        // console.log(data[1].publicacion_destacada);
+        // console.log(data[0].publicacion_destacada);
         $scope.publicaciones = data;
       };
     })
-  } 
+  }
   function getPublicacion () {
     Pagina.getPublicacion($routeParams.pagina_id,$routeParams.publicacion_id,function (err, data) {
       if (err) {console.log(err);}
@@ -291,7 +291,7 @@ angular.module('app.pagina', [])
         $('#myCode').html('<iframe width="560" height="315" src="//www.youtube.com/embed/' + $scope.FormEditPublicacion.publicacion_video + '" frameborder="0" allowfullscreen></iframe>');
       };
     })
-  } 
+  }
 
   $scope.addPublicacion = function () {
     var pagina_id = $routeParams.pagina_id;
@@ -299,7 +299,7 @@ angular.module('app.pagina', [])
       if (err) {
         $scope.notify('danger','Algo salió mal')
       } else{
-        getPublicaciones();        
+        getPublicaciones();
         $scope.notify('success','Publicación agregada exitosamente');
         $scope.FormAddPublicacion = {};
         $('#myCode').html('.');
@@ -310,7 +310,7 @@ angular.module('app.pagina', [])
   $scope.upImg = function(files) {
            var fd = new FormData();
             //Take the first selected file
-            fd.append("file", files[0]);            
+            fd.append("file", files[0]);
             $http.post('/api/pagina/publicacion/'+$routeParams.publicacion_id +'/upload', fd, {
                 withCredentials: true,
                 headers: {'Content-Type': undefined },
@@ -324,7 +324,7 @@ angular.module('app.pagina', [])
 
         };
 
-  $scope.togglePublicacion = function (publicacion_id) {    
+  $scope.togglePublicacion = function (publicacion_id) {
     Pagina.togglePublicacion(publicacion_id,function (err,data) {
       if (err) {
         $scope.notify('danger','Ocurrió un error');
@@ -341,7 +341,7 @@ angular.module('app.pagina', [])
       if (err) {
         $scope.notify('danger','Algo salió mal')
       } else{
-        getPublicaciones();        
+        getPublicaciones();
         $scope.notify('success','Publicación editada exitosamente');
         $scope.FormAddPublicacion = {};
       };
@@ -351,7 +351,7 @@ angular.module('app.pagina', [])
   if ($routeParams.publicacion_id) {
     getPublicacion();
   }else{
-    getPublicaciones();    
+    getPublicaciones();
   }
 
 
@@ -377,11 +377,11 @@ angular.module('app.pagina', [])
     }
 
 
-  
-}]).controller('PaginaMensajesCtrl',['$scope','Pagina','$routeParams',function($scope,Pagina,$routeParams){    
 
-  var pagina_id = $routeParams.pagina_id;  
-  $scope.pagina_id = pagina_id;  
+}]).controller('PaginaMensajesCtrl',['$scope','Pagina','$routeParams',function($scope,Pagina,$routeParams){
+
+  var pagina_id = $routeParams.pagina_id;
+  $scope.pagina_id = pagina_id;
 
   function getMensajes() {
     Pagina.getMensajes(pagina_id,function (err, data) {
@@ -390,17 +390,17 @@ angular.module('app.pagina', [])
         $scope.mensajes = data;
       };
     })
-  } 
+  }
   function getNotificacionesMensajesPagina(){
     Pagina.getMensajesAll(function (err,data) {
       if (err) {
         $scope.notify('danger','No se pudieron cargar tus notificaciones');
       } else{
-        $scope.notificacionesMensajes = data;                  
+        $scope.notificacionesMensajes = data;
         $scope.notificacionesMensajesTotal = $scope.notificacionesMensajes.length;
       };
     });
-  }     
+  }
   function getMensajesStats() {
     Pagina.getMensajesStats(pagina_id,function (err, data) {
       if (err) {console.log(err);}
@@ -408,7 +408,7 @@ angular.module('app.pagina', [])
         $scope.stats = data;
       };
     })
-  } 
+  }
   function getMensaje () {
     Pagina.getMensaje($routeParams.pagina_id,$routeParams.mensaje_id,function (err, data) {
       if (err) {console.log(err);}
@@ -417,54 +417,54 @@ angular.module('app.pagina', [])
         $scope.mensaje = data;
         getNotificacionesMensajesPagina();
       };
-    });    
-  } 
+    });
+  }
 
 
 
   if ($routeParams.mensaje_id) {
     getMensaje();
   }else{
-    getMensajes();    
-    getMensajesStats();    
+    getMensajes();
+    getMensajesStats();
   }
 
-  
-}]).controller('GaleriasCtrl',['$scope','$window','Pagina','$routeParams','$route','$http',function($scope,$window,Pagina,$routeParams,$route,$http){    
+
+}]).controller('GaleriasCtrl',['$scope','$window','Pagina','$routeParams','$route','$http',function($scope,$window,Pagina,$routeParams,$route,$http){
 
   var pagina_id = $routeParams.pagina_id;
   var galeria_id = $routeParams.galeria_id;
-  $scope.pagina_id = pagina_id;  
+  $scope.pagina_id = pagina_id;
   $scope.FormAddGaleria = {};
   $scope.FormEditGaleria = {};
 
-  function getGalerias() {    
+  function getGalerias() {
     Pagina.getGalerias(pagina_id,function (err, data) {
       if (err) {console.log(err);}
-      else{        
+      else{
         $scope.galerias = data;
       };
     })
   }
 
-        
 
-  function getGaleria() {    
+
+  function getGaleria() {
     Pagina.getGaleria(pagina_id,galeria_id,function (err, data) {      ;
       if (err) {console.log(err);}
-      else{        
+      else{
         $scope.FormEditGaleria = data;
       };
     })
-  } 
-  function getImagenes() {    
+  }
+  function getImagenes() {
     Pagina.getImagenes(pagina_id,galeria_id,function (err, data) {      ;
       if (err) {console.log(err);}
-      else{        
+      else{
         $scope.imagenes = data;
       };
     })
-  } 
+  }
 
   $scope.addGaleria = function () {
     var pagina_id = $routeParams.pagina_id;
@@ -472,7 +472,7 @@ angular.module('app.pagina', [])
       if (err) {
         $scope.notify('danger','Algo salió mal')
       } else{
-        getGalerias();        
+        getGalerias();
         $scope.notify('success','Galería agregada exitosamente');
         $scope.FormAddGaleria = {};
       };
@@ -485,7 +485,7 @@ angular.module('app.pagina', [])
       if (err) {
         $scope.notify('danger','Algo salió mal')
       } else{
-        getGalerias();        
+        getGalerias();
         $scope.notify('success','Galería editada exitosamente');
         $scope.FormAddGaleria = {};
       };
@@ -517,23 +517,23 @@ angular.module('app.pagina', [])
     getGalerias();
   };
 
-  $scope.uploadImage = function(files) {        
+  $scope.uploadImage = function(files) {
         var fd = new FormData();
         //Take the first selected file
-        fd.append("file", files[0]);                        
+        fd.append("file", files[0]);
         $http.post('/api/pagina/'+ pagina_id +'/galeria/'+galeria_id+'/upload', fd, {
             withCredentials: true,
             headers: {'Content-Type': undefined },
             transformRequest: angular.identity
-        }).success(function () {              
+        }).success(function () {
           $scope.notify('success','Se subió correctamente!');
-          getImagenes();              
+          getImagenes();
 
         }).error(function () {
           $route.reload();
           getImagenes();
-          $scope.notify('danger','Se subió la imágen correctamente');
-          
+          $scope.notify('warning','Error al subir la imagen');
+
         });
 
     };
@@ -550,15 +550,30 @@ angular.module('app.pagina', [])
       Pagina.updateImagen(datos,id,function (err, data) {
         if (err) {
           $scope.notify('danger',"Ocurrió un error");
-        } else{          
+        } else{
           $scope.notify('success',"Imágen editada");
           $route.reload();
 
         };
       });
     }
-  
-}]).controller('SeguidoresCtrl',['$scope','Pagina','$routeParams',function($scope,Pagina,$routeParams){    
+
+    $scope.deleteImg = function (id) {
+
+      var si = confirm("¿Realmente deseas eliminar la imágen?");
+      if (si) {
+        Pagina.deleteImg(id,function (err, data) {
+          if (err) {
+            $scope.notify('danger',"Ocurrió un error");
+          } else{
+            $scope.notify('success',"Imágen eliminada");
+            $route.reload();
+          };
+        });
+      }
+    }
+
+}]).controller('SeguidoresCtrl',['$scope','Pagina','$routeParams',function($scope,Pagina,$routeParams){
 
   var pagina_id = $routeParams.pagina_id;
   Pagina.seguidores(pagina_id,function (err,data) {
@@ -566,9 +581,78 @@ angular.module('app.pagina', [])
       console.log(err);
       $scope.notify('danger','Error al recuperar los registros');
     } else{
-      $scope.seguidores = data;      
+      $scope.seguidores = data;
     };
   })
-  
-}]);
 
+}]).controller('BannersCtrl',['$scope','Pagina','$routeParams','$http',function($scope,Pagina,$routeParams,$http){
+
+  var pagina_id = $routeParams.pagina_id;
+
+  $scope.uploadBanner = function(files) {
+        var fd = new FormData();
+        //Take the first selected file
+        fd.append("file", files[0]);
+
+        $http.post('/api/pagina/banners/pbanner/'+pagina_id, fd, {
+            withCredentials: true,            
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+        }).success(function () {
+          $scope.notify('success','Se subió correctamente!');
+          getBanners();
+
+        }).error(function () {
+          $scope.notify('warning','Error al subir la imagen');
+        });
+
+    };
+
+    $scope.deleteBanner = function (banner_id) {
+      var si = confirm('Realmente deseas eliminar este banner?');
+      if (si) {
+        Pagina.deleteBanner(banner_id,function (err,data) {
+          if (err) {
+            $scope.notify('warning',err);
+          } else {
+            $scope.notify("success",data);
+            getBanners();
+          }
+        });
+      }
+    }
+
+    $scope.updateBanner = function (banner_id) {
+        var texto = prompt("Ingresa un texto para el banner");
+        var url   = prompt("Ingresa una URL para el banner");
+        var datos = {
+          banner_texto:texto,
+          banner_url:url,
+          banner_pagina_id:pagina_id
+        };
+
+        Pagina.updateBanner(datos,banner_id,function (err,data) {
+          if (err) {
+            $scope.notify('warning',err);
+          } else {
+            $scope.notify("success",data);
+            getBanners();
+          }
+        });
+
+    }
+
+
+    function getBanners() {
+      Pagina.getBanners(pagina_id,function (err,data) {
+        if (err) {
+          $scope.notify("error",err);
+        } else {
+          $scope.banners = data;
+        }
+      });
+    }
+    getBanners();
+
+
+}]);

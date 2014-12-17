@@ -55,7 +55,7 @@
 						<p>2014 | &copy;Intrabits | Todos los derechos reservados.</p>
 					</div>
 					<div class="col-lg-4">
-						<p><!--<a href="#">Terms</a> | --><a href="faqs.php">Preguntas frecuentes</a> </p>
+						<p><!--<a href="#">Terms</a> | --><a href="faqs">Preguntas frecuentes</a> </p>
 					</div>
 				</div><!-- /row -->
 			</div><!-- /container -->
@@ -78,7 +78,7 @@
 
 			$('.nav li a').on('click',function(){
 				$('.navbar-collapse').collapse('hide');
-			})
-		</script>
+			})			
+		</script>		
 	</body>
 </html>

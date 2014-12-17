@@ -17,6 +17,25 @@ Producto.save = function(datos,callback){
     );
 }
 
+Producto.update = function(datos,id,callback){
+    connection.query('UPDATE pagina_producto SET ? WHERE producto_id = ?',[datos,id], 
+        function (err, result) {
+            if (err)
+                callback(err,null);
+            else
+                callback(null,datos.insertId);
+                
+        }
+    );
+}
+
+Producto.delete = function  (id,usuario_id,callback) {
+    connection.query("DELETE FROM pagina_producto WHERE producto_id = ? and producto_usuario_id = ?",[id,usuario_id],function (err,result) {
+            if(err) callback(err);
+            else callback(null,result);
+        });
+}
+
 Producto.getProducto = function (id,callback) {
     connection.query('SELECT prod.*,pagina_nombre from pagina_producto prod INNER JOIN pagina p on producto_pagina_id = pagina_id  WHERE producto_id =  ?', id, 
         function (err, result) {
@@ -67,6 +86,13 @@ Producto.imagen = function (data,callback) {
         else
             callback(null,rows);
     });
+}
+
+Producto.deleteImagen = function  (id,usuario_id,callback) {    
+    connection.query("DELETE FROM pagina_producto_imagen WHERE imagen_id = ? and imagen_usuario_id = ?",[id,usuario_id],function (err,result) {
+            if(err) callback(err);
+            else callback(null,result);
+        });
 }
 
 Producto.owner = function (usuario_id, producto_id, done) {

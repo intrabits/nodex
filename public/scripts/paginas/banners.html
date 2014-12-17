@@ -1,0 +1,42 @@
+
+<div class="page">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Banners</strong></div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="lead">
+
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <div id="subirBanner" style="">
+                        <p>
+                          Agregar banner
+                        </p>
+                        <input type="file" name="file" onchange="angular.element(this).scope().uploadBanner(this.files)" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                    <div class="media col-md-12" ng-repeat="b in banners">
+                        <a class="pull-left" href="javascript:;">
+                            <img alt="" ng-src="websites/paginas/{{ b.banner_img }}" class="img-rounded" width="300px">
+                        </a>
+                        <div class="media-body">
+                          <h4 class="media-heading">{{ b.banner_texto }}</h4>
+                          <p>{{ b.banner_url }}</p>
+                          <button class="btn btn-primary" ng-click="updateBanner(b.banner_id)"><i class="fa fa-edit"></i> Editar título</button>
+                          <button class="btn btn-default" ng-click="deleteBanner(b.banner_id)"><i class="fa fa-trash-o"></i> Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,19 +4,19 @@ angular.module('app', ['ngRoute','ngSanitize','angular-loading-bar', 'ngAnimate'
     return $routeProvider.when('/', {
       redirectTo: '/dashboard'
     }).when('/dashboard', {
-      templateUrl: 'views/dashboard.html'    
+      templateUrl: 'views/dashboard.html'
     }).when('/contacto', {
-      templateUrl: 'views/soporte/contacto.html'    
+      templateUrl: 'views/soporte/contacto.html'
     }).when('/usuario/perfil', {
       templateUrl: 'views/usuario/perfil.html',
-      controller: 'UsuarioCtrl'    
+      controller: 'UsuarioCtrl'
     }).when('/usuario/password', {
       templateUrl: 'views/usuario/pass.html',
       controller:'UsuarioCtrl'
     }).when('/pagos', {
-      templateUrl: 'views/pagos/pagos.html'    
+      templateUrl: 'views/pagos/pagos.html'
     }).when('/upload', {
-      templateUrl: 'views/upload/test.html'        
+      templateUrl: 'views/upload/test.html'
     }).when('/ui/typography', {
       templateUrl: 'views/pages/lock-screen.html'
     }).when('/pages/profile', {
@@ -32,7 +32,7 @@ angular.module('app', ['ngRoute','ngSanitize','angular-loading-bar', 'ngAnimate'
     }).when('/pages/invoice', {
       templateUrl: 'views/pages/invoice.html'
     }).when('/tasks', {
-      templateUrl: 'views/tasks/tasks.html'    
+      templateUrl: 'views/tasks/tasks.html'
     }).when('/tienda', {
       templateUrl: 'views/tienda/inicio.html',
       controller: ''
@@ -44,7 +44,7 @@ angular.module('app', ['ngRoute','ngSanitize','angular-loading-bar', 'ngAnimate'
       controller: 'PaginasCtrl'
     }).when('/pagina/add', {
       templateUrl: 'views/paginas/addPagina.html',
-      controller: 'PaginaCtrl'    
+      controller: 'PaginaCtrl'
     }).when('/pagina/:pagina_id/textos', {
       templateUrl: 'views/paginas/textos.html',
       controller:'PaginaCtrl'
@@ -57,6 +57,9 @@ angular.module('app', ['ngRoute','ngSanitize','angular-loading-bar', 'ngAnimate'
     }).when('/pagina/:pagina_id/seguidores', {
       templateUrl: 'views/paginas/seguidores.html',
       controller: 'SeguidoresCtrl'
+    }).when('/pagina/:pagina_id/banners', {
+      templateUrl: 'scripts/paginas/banners.html',
+      controller: 'BannersCtrl'
     }).when('/pagina/:pagina_id/success', {
       templateUrl: 'views/paginas/success.html',
       controller: 'PaginaCtrl'
@@ -65,16 +68,16 @@ angular.module('app', ['ngRoute','ngSanitize','angular-loading-bar', 'ngAnimate'
       controller: 'EstiloCtrl'
     }).when('/pagina/:pagina_id/publicaciones', {
       templateUrl: 'views/paginas/publicaciones.html',
-      controller: 'PublicacionesCtrl'    
+      controller: 'PublicacionesCtrl'
     }).when('/pagina/:pagina_id/productos', {
       templateUrl: 'views/paginas/productos.html',
-      controller: 'ProductoCtrl' 
+      controller: 'ProductoCtrl'
     }).when('/pagina/:pagina_id/producto/:producto_id', {
       templateUrl: 'views/paginas/producto.html',
-      controller: 'ProductoDetalleCtrl' 
+      controller: 'ProductoDetalleCtrl'
     }).when('/pagina/producto/:producto_id', {
       templateUrl: 'views/paginas/producto.html',
-      controller: 'ProductoCtrl'    
+      controller: 'ProductoCtrl'
     }).when('/pagina/:pagina_id/publicacion/:publicacion_id', {
       templateUrl: 'views/paginas/publicacion.html',
       controller: 'PublicacionesCtrl'

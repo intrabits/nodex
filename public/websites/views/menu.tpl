@@ -5,27 +5,27 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="<?=$meta_description?>">
+        <meta name="author" content="<?=$pagina['pagina_nombre']?>">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?=$base?>/static/ico/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?=$base?>/static/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?=$base?>/static/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="<?=$base?>/static/ico/apple-touch-icon-57-precomposed.png">
-        
+
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-            
+
         <link rel="shortcut icon" href="static/ico/favicon.png">
         <title> <?=$pagina['pagina_nombre']?> </title>
-        <link href="<?=$base?>static/css/bootstrap.css" type="text/css" rel="stylesheet">        
-        <link href="<?=$base?>static/css/bigbox.css" rel="stylesheet">        
+        <link href="<?=$base?>static/css/bootstrap.css" type="text/css" rel="stylesheet">
+        <link href="<?=$base?>static/css/bigbox.css" rel="stylesheet">
         <link href="<?=$base?>static/css/styles.css" rel="stylesheet">
         <link href="<?=$base?>static/css/nodex.css" rel="stylesheet">
         <link class="nav" href="<?=$base?>static/css/leftmenu.css" rel="stylesheet">
         <!--[if lt IE 9]>
         <script src="<?=$base?>static/js/html5shiv.js"></script>
         <script src="<?=$base?>static/js/respond.min.js"></script>
-        <![endif]-->        
-        
+        <![endif]-->
+
         <style>
         .fa{
             color: #777;
@@ -34,7 +34,7 @@
         body{
             <?php if (!isMobile()): ?>
             background-image: url( <?=$base.'paginas/'.$pagina['pagina_fondo']?> );
-            <?php endif ?>            
+            <?php endif ?>
             /*background-color: #<?=$base.$pagina['pagina_color']?>;*/
         }
 
@@ -45,18 +45,18 @@
         }
         #changer {
             bottom: -100px;
-            transition: bottom 0.5s ease; 
+            transition: bottom 0.5s ease;
             -o-transition: bottom 0.5s ease;
             -ms-transition: bottom 0.5s ease;
             -moz-transition: bottom 0.5s ease;
             -webkit-transition: bottom 0.5s ease;
-            position: fixed; 
-            text-align: center; 
-            background: #fff; 
-            right: 200px; 
-            border: 1px solid #777; 
-            padding: 10px; 
-            color: #777; 
+            position: fixed;
+            text-align: center;
+            background: #fff;
+            right: 200px;
+            border: 1px solid #777;
+            padding: 10px;
+            color: #777;
             border-radius: 4px 4px 0 0;
             z-index: 99999999999;
         }
@@ -69,7 +69,7 @@
         #changer:hover {
             bottom: 0;
         }
-        </style>        
+        </style>
             <div id="fb-root"></div>
         <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -88,8 +88,8 @@
                     $("link.nav").attr("href",$.cookie("css"));
                     $("body").attr("class",$.cookie("id"));
                 }
-            $(document).ready(function() { 
-                $("#navorin li a").click(function() { 
+            $(document).ready(function() {
+                $("#navorin li a").click(function() {
                     $("link.nav").attr("href",$(this).attr('rel'));
                     $.cookie("css",$(this).attr('rel'), {expires: 365, path: '/'});
                     $("body").attr("class",$(this).attr('id'));
@@ -114,9 +114,9 @@
                   $(".sidenav").addClass('hd');
                   $(".sidenav.left").removeClass('hd');
               });
-              
+
             });
-        </script>        
+        </script>
         <nav class="sidenav left" role="navigation">
             <ul class="menu">
                 <li class="user" >
@@ -125,7 +125,7 @@
                         <span>Search <i class="fa fa-search"></i></span>
                     </div> -->
                     <div class="content logo" >
-                        <?php if ($pagina['pagina_logo']){ 
+                        <?php if ($pagina['pagina_logo']){
                             if (strpos($pagina['pagina_logo'],'http') !== false) {
                                 $logo = $pagina['pagina_logo'];
                             }else{
@@ -133,15 +133,15 @@
                             }
                             ?>
                             <?php if (isset($logo)): ?>
-                                
+
                             <?php endif ?>
                         <img src="<?=$logo?>" width="170px">
                         <h1 class="hidden"><?=$pagina['pagina_nombre']?></h1>
                         <?php }else{ ?>
-                        
+
                         <h1><?=$pagina['pagina_nombre']?></h1>
                         <?php } ?>
-                    </div>                    
+                    </div>
                 </li>
                 <li>
                     <a href="?p=inicio">
@@ -160,7 +160,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="?p=publicacion">
+                    <a href="?p=blog">
                         Publicaciones
                         <div>
                             <i class="fa fa-suitcase fa-2x"></i>
@@ -200,7 +200,7 @@
                         <li><a href="topmenufixed.html">Top Menu Fixed</a></li>
                     </ul> -->
                 </li>
-                <?php endif ?>                
+                <?php endif ?>
                 <li>
                     <a href="?p=contacto">
                         Contacto
@@ -209,12 +209,12 @@
                         </div>
                     </a>
                 </li>
-                
+
                 </li>
-               
+
                 <li class="logout">
                     <a href="http://nodex.mx?ref=<?php echo $pagina_id ?>">
-                        Crea un perfil NODEX 
+                        Crea un perfil NODEX
                         <div>
                             <i class="fa fa-globe fa-2x"></i>
                         </div>
@@ -234,26 +234,26 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </button>      
+      </button>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <div class="container">
-        <ul class="nav navbar-nav navbar-right">        
+        <ul class="nav navbar-nav navbar-right">
         <?php foreach ($menu as $m): ?>
         <li><a href="?p=publicacion&id=<?=$m['publicacion_id']?>"><?=$m['publicacion_titulo']?></a></li>
         <?php endforeach ?>
-        <li><a href="?p=contacto">Contacto</a></li>     
+        <li><a href="?p=contacto">Contacto</a></li>
         </ul>
-      </div>      
+      </div>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<br>    
+<br>
 <?php endif ?>
 
-   
+
         <!-- <div id="changer">
             <i class="fa fa-cog"></i>
             <ul id="navorin" class="list-unstyled">

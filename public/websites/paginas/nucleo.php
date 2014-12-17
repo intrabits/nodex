@@ -1,6 +1,6 @@
 <?php
 define('INCLUDE_CHECK',true);
-header('Content-Type: text/html; charset=UTF-8'); 
+header('Content-Type: text/html; charset=UTF-8');
 require './../../core/database.class.php';
 require './../../core/funciones.php';
 require './../../core/config.php';
@@ -17,14 +17,19 @@ $bootstrap_class = ['info','primary','danger','warning','success'];
 
 $pagina = $db ->fields("pagina","pagina_id = $pagina_id",'pagina_nombre,pagina_dominio,pagina_descripcion,pagina_descripcion_larga,pagina_descripcion_larga,pagina_nosotros,pagina_tipo_id,pagina_logo,pagina_portada,pagina_fondo,pagina_video_fondo,pagina_telefono,pagina_direccion,pagina_email,pagina_facebook,pagina_twitter,pagina_instagram,pagina_google,pagina_youtube,pagina_mapa,pagina_conversion,pagina_conversion_titulo,pagina_paypal');
 
+//	Utilizaremos esta variable para el tag description (SEO stuff)
+$meta_description = $pagina['pagina_descripcion'];
+
 //	Sumar una visita :)
 $db->query("UPDATE pagina set pagina_visitas = pagina_visitas+1 WHERE pagina_id = $pagina_id");
+$banners = $db->select_sql("SELECT * FROM pagina_banner WHERE banner_pagina_id = $pagina_id ");
 
 $tpl = new TemplateEngine();
 //	Mandar correo
 require './../../core/send.php';
 // $tpl->pagina=$pagina;
 
+$tpl->banners 	= $banners;
 $tpl->url 		= $url="http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
 $tpl->base 		= $base;
 $tpl->pagina_id = $pagina_id;
@@ -33,7 +38,7 @@ $tpl->colores 	= $colores;
 $tpl->bootstrap_class = $bootstrap_class;
 
 $tpl->pagina 	= $pagina;
-if (isset($respuesta)) {	
+if (isset($respuesta)) {
 	$tpl->respuesta= $respuesta;
 }
 
@@ -48,7 +53,7 @@ $tpl->publicaciones = $publicaciones;
 $menu = $db->select('pagina_publicacion',"publicacion_pagina_id=$pagina_id and publicacion_destacada=1",'publicacion_id,publicacion_titulo');
 $tpl->menu = $menu;
 
-if (isset($_GET['p'])) {	
+if (isset($_GET['p'])) {
 	$p = $_GET['p'];
 	switch ($p) {
 		case 'galeria':
@@ -65,28 +70,35 @@ if (isset($_GET['p'])) {
 				$unica_galeria = $db->field("SELECT galeria_id from galeria WHERE galeria_pagina_id = $pagina_id");
 				// header('Location:'.$base_pagina."?p=galeria&id=".$unica_galeria);
 			}
-			
-				
-			if ($id!='') {				
+
+
+			if ($id!='') {
 				$imagenes = $db->select('pagina_galeria_imagen',"imagen_galeria_id = $id",'imagen_url,imagen_titulo');
 				$tpl->imagenes = $imagenes;
 			}
 			$tpl->fetch('galeria.tpl');
 			break;
 		case 'publicacion':
-			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC");
-			$tpl->publicaciones = $publicaciones;
+
 
 			$id = get('id');
 			if ($id!='') {
 				$db->query("UPDATE pagina_publicacion set publicacion_visitas = publicacion_visitas+1 WHERE publicacion_id = $id");
 				$publicacion = $db->select('pagina_publicacion',"publicacion_id=$id",'publicacion_id,publicacion_titulo,publicacion_contenido,publicacion_fecha,publicacion_video,publicacion_imagen');
 				$tpl->publicacion = $publicacion[0];
+
+				$tpl->meta_description = strip_tags(substr($publicacion[0]['publicacion_titulo'].$publicacion[0]['publicacion_contenido']	, 0, 140));
+				$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen,publicacion_comentarios FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 5");
+				$tpl->publicaciones = $publicaciones;
 				$tpl->fetch('post.tpl');
-			} else {
-				$tpl->fetch('blog.tpl');
 			}
-						
+
+			break;
+
+		case 'blog':
+			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC");
+			$tpl->publicaciones = $publicaciones;
+			$tpl->fetch('blog.tpl');
 			break;
 
 		case 'nosotros':
@@ -107,37 +119,38 @@ if (isset($_GET['p'])) {
 				$tpl->productos = $productos;
 				$tpl->fetch('tienda.tpl');
 			}
-				
+
 			break;
 
 		case 'contacto':
 			$tpl->fetch('contacto.tpl');
 			break;
-		
-		default:						
+
+		default:
 			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
 			$tpl->publicaciones = $publicaciones;
-			
+
 
 			if ($pagina['pagina_video_fondo']!='') {
 				if (isMobile()) {$tpl->fetch('inicio.tpl');}
-				else{$tpl->fetch('inicio_alternativo.tpl');}	
+				else{$tpl->fetch('inicio_alternativo.tpl');}
 			}else{
-				$tpl->fetch('inicio.tpl'); 	
+				$tpl->fetch('inicio.tpl');
 			}
 			break;
 	}
 }else{
-	
+
 
 	if ($pagina['pagina_video_fondo']!='') {
 		if (isMobile()) {$tpl->fetch('inicio.tpl');}
-		else{$tpl->fetch('inicio_alternativo.tpl'); 	}		
+		else{$tpl->fetch('inicio_alternativo.tpl'); 	}
 	}else{
-		$tpl->fetch('inicio.tpl'); 	
+
+		$tpl->fetch('inicio.tpl');
 	}
 }
 
- 
+
 
 ?>

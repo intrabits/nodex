@@ -17,12 +17,12 @@
 }
 .TextoEntrada{
     text-align: center;
-    margin-top: 20%;
+    margin-top: 13%;
     z-index: 90;
     position: absolute;
     padding: 100px;        
     color: #fff;    
-    text-shadow: 2px 2px #333;
+    text-shadow: 2px 2px 6px #111;
 
 }
 .wrap{
