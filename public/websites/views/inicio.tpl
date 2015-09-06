@@ -16,7 +16,7 @@
         <section class="wrap">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                    <!-- <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
                         <a href="?p=publicacion">
                         <div class="well text-center">
                             <p align="center"><i class="fa fa-suitcase fa-2x text-muted"></i><br>
@@ -52,10 +52,9 @@
                             </p>
                         </div>
                         </a>
-                    </div>
-                    <h1>
+                    </div> -->
 
-                  </h1>
+                  <h1></h1>
                   <?php if (count($banners)>0): ?>
 
                   <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -76,8 +75,8 @@
                     <?php $i=1;endforeach ?>
 
                     </div><!-- End Carousel Inner -->
-                    <?php if (count($banners)>1): ?>
-                      <ul class="nav nav-pills nav-justified">
+                    <?php if (count($banners)>1&&count($banners)<4): ?>
+                      <ul class="nav nav-pills nav-justified">                        
                       <?php $j=0;foreach ($banners as $key => $banner): ?>
                         <li style="width:25%" data-target="#myCarousel" data-slide-to="<?=$j?>" <?php if($j==0) echo 'class="active"'?>>
                           <a href="#" style="color:#333"><?php
@@ -108,7 +107,7 @@
 
 
 
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="bienvenida">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="bienvenida">
                         <?php if ($pagina['pagina_descripcion_larga']): ?>
                         <div class="well">
                              <?=$pagina['pagina_descripcion_larga']?>
@@ -158,50 +157,32 @@
                                   <?php endif ?>
                             </div>
                         </div>
-                        <div class="well hidden">
-                            <div class="header">Chat <span class="pull-right muted"><small><i class="fa fa-user"></i> Chatting with user Stan Smith</small></span></div>
-                            <div class="chat">
-                                <div class="chat-right">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget viverra tortor.</p>
-                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 2 days ago</small></p>
-                                </div>
-                                <div class="chat-left">
-                                    <p>Ut interdum varius arcu at ultrices. Duis in dui sem.</p>
-                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 2 days ago</small></p>
-                                </div>
-                                <div class="chat-right">
-                                    <p>Vestibulum suscipit rutrum nunc. Donec est lacus, tempor id rutrum id, semper ac purus.</p>
-                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 1 days ago</small></p>
-                                </div>
-                                <div class="chat-left">
-                                    <p>Curabitur dictum, mi sed tempor facilisis, enim turpis varius tortor.</p>
-                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 1 days ago</small></p>
-                                </div>
-                                <div class="chat-right">
-                                    <p>Donec bibendum tristique ullamcorper. In hac habitasse platea dictumst.</p>
-                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 2 hours ago</small></p>
-                                </div>
-                                <div class="chat-left">
-                                    <p>Phasellus quis erat adipiscing libero congue vulputate auctor non dui.</p>
-                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 1 hour ago</small></p>
-                                </div>
-                                <div class="chat-left">
-                                    <p>Sed fringilla elit risus, a tempor tortor cursus ac. Aliquam erat volutpat.</p>
-                                    <p class="pull-right muted"><small><i class="fa fa-time"></i> 35 minutes ago</small></p>
-                                </div>
-                            </div>
 
-                        </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <?php if (count($publicaciones)>0): ?>
-                        <div class="well">
-                            <h3>Últimas publicaciones</h3>
+                        <div class="">
+                            <h3 align="center">Últimas publicaciones</h3>
                             <hr>
-                            <?php foreach ($publicaciones as $p): ?>
                             <div class="row">
+                            <?php foreach ($publicaciones as $p): ?>
 
-                                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                              <div class="col-md-6">
+                                <div class="well well-sm">
+
+                                  <p class="text-muted">
+                                    <a
+                                      style="font-size:21px"
+                                      href="?p=publicacion&id=<?=$p['publicacion_id']?>">
+                                        <!-- <img class="img-responsive" src="http://placehold.it/150/<?=$colores[array_rand($colores)]; ?>&text=Leer más"> -->
+                                        <?=$p['publicacion_titulo']?>
+                                    </a>
+                                  </p>
+                                  <p class="text-muted text-right"><small>- <i class="fa fa-clock-o"></i>  <?=$p['publicacion_fecha']?> </small></p>
+                                </div>
+                              </div>
+
+                                <!-- <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                                     <a href="?p=publicacion&id=<?=$p['publicacion_id']?>">
                                         <img class="img-responsive" src="http://placehold.it/150/<?=$colores[array_rand($colores)]; ?>&text=Leer más">
                                     </a>
@@ -209,10 +190,9 @@
                                 <div class="col-xs-8 col-sm-9 col-md-9 col-lg-9">
                                     <p class="text-muted"> <?=$p['publicacion_titulo']?>  </p>
                                     <p class="text-muted text-right"><small>- <i class="fa fa-clock-o"></i>  <?=$p['publicacion_fecha']?> </small></p>
-                                </div>
-                            </div>
-                            <hr>
+                                </div> -->
                             <?php endforeach ?>
+                            </div>
                             <?php if (count($publicaciones)>3): ?>
                                 <a href="?p=publicacion" class="btn btn-info" align="right">Ver todas las publicaciones</a>
                             <?php endif ?>
@@ -242,18 +222,6 @@
                         </div>
                         <?php endif ?>
 
-                        <div class="well hidden">
-                            <span class="text-warning" id="clock"></span>
-                            <div class="header">To Do <a class="headerrefresh"><i class="fa fa-refresh pull-right"></i></a></div>
-                            <ul class="list todo">
-                                <li><a class="dark"><i class="fa fa-circle-o check"></i> Make a huge admin theme <i class="todo-remove fa fa-times pull-right"></i></a></li>
-                                <li><a class="dark"><i class="fa fa-circle-o check"></i> Stroke my cat <i class="todo-remove fa fa-times pull-right"></i></a></li>
-                                <li><a class="dark"><i class="fa fa-circle-o check"></i> Make something amazing <i class="todo-remove fa fa-times pull-right"></i></a></li>
-                                <li><a class="dark"><i class="fa fa-circle-o check"></i> Make email templates<i class="todo-remove fa fa-times pull-right"></i></a></li>
-                                <li><a class="dark"><i class="fa fa-circle-o check"></i> Work hard <i class="todo-remove fa fa-times pull-right"></i></a></li>
-                                <li><a class="dark"><i class="fa fa-circle-o check"></i> Play harder <i class="todo-remove fa fa-times pull-right"></i></a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
 
@@ -335,7 +303,5 @@
             });
           });
         </script>
-        <style type="text/css">
-        </style>
     </body>
 </html>
