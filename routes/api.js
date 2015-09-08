@@ -58,7 +58,7 @@ router.post('/upload/:pagina_id',ensureAuthenticated, function(req, res) {
                         if (err) {console.log(err);}
                         else{
                             console.log("Imágen guardada en BD");
-                        };
+                        }
                     });
                     res.redirect('back');
                 });
@@ -107,7 +107,7 @@ router.use('/producto/',ProductoCtrl);
 router.get('/pagos',ensureAuthenticated, function (req,res) {
     var condicion = {
         pago_usuario_id: req.user.usuario_id,
-    }
+    };
 
     Pago.getAll(condicion, function ( err, data) {
         if (err) {
@@ -115,7 +115,7 @@ router.get('/pagos',ensureAuthenticated, function (req,res) {
         }else{
             res.json(data);
         }
-    })
+    });
 });
 
 /*===============================================   Market   ==================================================*/

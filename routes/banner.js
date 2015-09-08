@@ -62,7 +62,7 @@ router.post('/pbanner/:pagina_id',ensureAuthenticated,function (req,res) {
   req.pipe(req.busboy);
   try {
 
-    var pagina_id = req.params.pagina_id
+    var pagina_id = req.params.pagina_id;
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
         console.log("mimetype:");
         console.log(mimetype);
@@ -90,7 +90,7 @@ router.post('/pbanner/:pagina_id',ensureAuthenticated,function (req,res) {
             });
             fstream.on('error', function(err) {
               console.log("ERROR:" + err);
-              res.send(500,"Error al subir el archivo")
+              res.send(500,"Error al subir el archivo");
             });
         }else{
             console.log("Alguien intentó subir un archivo inválido");

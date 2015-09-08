@@ -1,11 +1,11 @@
-// Desarrollo 
+// Desarrollo
 var mysql   = require('mysql');
 
 var db={
 	host: 'localhost',
 	user: 'root',
 	password: ''
-}
+};
 
 var database = 'mydb'; // si quisieramos usar una dirección para mongo podríamos hacerlo : username:password@example.com/mydb"
 
@@ -27,7 +27,7 @@ var webfaction = new Webfaction(wf_user, wf_pass);
 var production = false;
 var PORT = 3000;
 
-var FACEBOOK_APP_ID = "1428911074031766"
+var FACEBOOK_APP_ID = "1428911074031766";
 var FACEBOOK_APP_SECRET = "36a956725f0457d574ae81ab536b8fcd";
 var callbackURL = "http://panel.nodex.mx/auth/facebook/callback";
 

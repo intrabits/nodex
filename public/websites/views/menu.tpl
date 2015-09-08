@@ -135,7 +135,7 @@
                             <?php if (isset($logo)): ?>
 
                             <?php endif ?>
-                        <img src="<?=$logo?>" width="170px">
+                        <img src="<?=$logo?>" alt="Logo" width="170px">
                         <h1 class="hidden"><?=$pagina['pagina_nombre']?></h1>
                         <?php }else{ ?>
 
@@ -224,7 +224,7 @@
             </ul>
         </nav>
 
-<?php if (count($menu)>0): ?>
+<?php if (count($menu)>0||1): ?>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="menu">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -240,6 +240,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <div class="container">
+        <?php if (isset($logo)): ?>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="/">
+              <img src="<?=$logo?>" width="70px">
+            </a></li>
+          </ul>
+        <?php endif; ?>
+
         <ul class="nav navbar-nav navbar-right">
         <?php foreach ($menu as $m): ?>
         <li><a href="?p=publicacion&id=<?=$m['publicacion_id']?>"><?=$m['publicacion_titulo']?></a></li>
