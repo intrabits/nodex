@@ -25,7 +25,7 @@ var Webfaction = require('./../lib/webfaction');
 var webfaction = new Webfaction(config.webfaction.user,config.webfaction.password);
 
 var production = false;
-var PORT = 3000;
+var PORT = config.port;
 
 var FACEBOOK_APP_ID = config.facebook.id;
 var FACEBOOK_APP_SECRET = config.facebook.secret;
