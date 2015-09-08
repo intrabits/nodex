@@ -1,7 +1,7 @@
 // Desarrollo
 var mysql   = require('mysql2');
-
-var db={
+var config 	= require('./config.json');
+var db ={
 	host: 'localhost',
 	user: 'root',
 	password: ''
@@ -9,8 +9,8 @@ var db={
 
 var database = 'mydb'; // si quisieramos usar una dirección para mongo podríamos hacerlo : username:password@example.com/mydb"
 
-var connection = mysql.createConnection(db);
-connection.query('USE ' + database);
+var connection = mysql.createConnection(config.db);
+connection.query('USE ' + config.db.database);
 
 //configuración de mongo db, voy a usar el mismo nombre para la BD que MySQL
 
@@ -22,14 +22,14 @@ var wf_pass= 'Intra071';
 var wf_ip	= '75.126.173.142';
 
 var Webfaction = require('./../lib/webfaction');
-var webfaction = new Webfaction(wf_user, wf_pass);
+var webfaction = new Webfaction(config.webfaction.user,config.webfaction.password);
 
 var production = false;
 var PORT = 3000;
 
-var FACEBOOK_APP_ID = "1428911074031766";
-var FACEBOOK_APP_SECRET = "36a956725f0457d574ae81ab536b8fcd";
-var callbackURL = "http://panel.nodex.mx/auth/facebook/callback";
+var FACEBOOK_APP_ID = config.facebook.id;
+var FACEBOOK_APP_SECRET = config.facebook.secret;
+var callbackURL = config.facebook.callback;
 
 
 exports.FACEBOOK_APP_ID = FACEBOOK_APP_ID;
