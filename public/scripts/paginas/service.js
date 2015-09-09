@@ -1,14 +1,11 @@
 
-/* Modelo pagos */
 
-angular.module('ModeloPagina',  ['ngRoute'])
-        //esto se queda, pero solo como adorno para futuras referencias
+angular.module('app.pagina.service',  ['ngRoute'])
+
         .factory ('Pagina', ['$http',function ($http) {
 
             return {
-                test:function (nada) {
-                  alert('holaaa');
-                },
+
                 all:function (callback) {
                   $http.get('/api/pagina/misPaginas').success(function (data) {
                         // return data;
@@ -143,6 +140,9 @@ angular.module('ModeloPagina',  ['ngRoute'])
                             console.log(err);
                             callback('Hubo un error',null);
                         });
+                },
+                deletePublicacion:function (id) {
+                  return $http.delete('/api/publicaciones/' + id);
                 },
                 updatePublicacion:function (pagina_id, publicacion_id, datos, callback) {
                     $http({
@@ -329,5 +329,5 @@ angular.module('ModeloPagina',  ['ngRoute'])
                             callback(err,null);
                         });
                 }
-            }
+            };
 }]);

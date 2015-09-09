@@ -19,19 +19,19 @@
                                     <label for="mail_subject" class="col-xs-2">Imágen:</label>
                                     <div class="col-xs-10">
                                         <input type="file" name="file" onchange="angular.element(this).scope().upImg(this.files)"/>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <img src="{{ main.base }}{{ FormEditPublicacion.publicacion_imagen }}" width="170px" ng-if="FormEditPublicacion.publicacion_imagen">
                             </div>
                         </div>
-                                
-                                
+
+
                         <div text-angular ng-model="FormEditPublicacion.publicacion_contenido" class="ui-editor"></div>
                         <hr>
-                        
-                        <hr>            
+
+                        <hr>
 
                         <div class="form-group">
                             <label for="mail_subject" class="col-xs-2">Video de youtube:</label>
@@ -42,10 +42,11 @@
                         </div>
                         <hr>
                         <div id="myCode"></div>
-                                    
-                    <div class="mail-actions">                        
-                         <input type="submit" value="Aceptar" class="btn btn-primary"> 
-                         <input type="button" value="Cancelar" class="btn btn-default"> 
+
+                    <div class="mail-actions">
+                         <input type="submit" value="Aceptar" class="btn btn-primary">
+                         <input type="button" value="Cancelar" class="btn btn-default">
+                         <input type="button" value="Eliminar" class="btn btn-default" ng-click="deletePublicacion()"> 
                     </div>
                     </form>
                 </div>

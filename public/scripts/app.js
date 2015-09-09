@@ -1,5 +1,5 @@
 (function () {
-  'use strict';  
+  'use strict';
   angular.module('app', [
     'ngRoute',
     'ngSanitize',
@@ -12,8 +12,7 @@
     'app.servicios',
     'app.pagina',
     'app.soporte',
-    'app.chat',
-    'ModeloPagina',
+    'app.chat',    
     'app.ui.ctrls',
     'app.ui.services',
     'app.usuario',

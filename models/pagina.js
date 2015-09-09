@@ -1,7 +1,9 @@
 
+// TODO separar esto en varios modelos
 var config  = require('../config/config.js');
 var fs 		= require('fs');
 var db  = config.connection;
+var Promise = require('bluebird');
 
 // No estoy seguro de que este sea el mejor lugar para poner esto, pero se requiere para poder buscar por "_id"
 // var mongojs = require('mongojs');
@@ -19,7 +21,7 @@ Pagina.getPaquetes = function(callback){
 		}
 
     });
-}
+};
 
 Pagina.getPagina = function(pagina_id, usuario_id ,callback){
 	db.query('SELECT *, (SELECT count(*) FROM pagina_cuenta WHERE cuenta_pagina_id = ?) as pagina_cuentas_usadas,  (SELECT count(*) FROM pagina_publicacion WHERE publicacion_pagina_id = ?) as pagina_publicaciones, (SELECT count(*) FROM pagina_mensaje WHERE mensaje_pagina_id = ?) as pagina_mensajes,(SELECT count(imagen_id) FROM pagina_galeria_imagen WHERE imagen_galeria_id IN (SELECT galeria_id FROM pagina_galeria where galeria_pagina_id = ?)) as pagina_imagenes, (SELECT count(seguidor_id) FROM pagina_seguidor WHERE seguidor_pagina_id = ?) as seguidores from pagina p INNER JOIN usuario_pagina up on up.pagina_id = p.pagina_id INNER JOIN pagina_tipo pt ON p.pagina_tipo_id = pt.tipo_id   where p.pagina_id = ? and up.usuario_id = ?',[pagina_id,pagina_id,pagina_id,pagina_id,pagina_id,pagina_id,usuario_id], function(err, rows){
@@ -28,7 +30,7 @@ Pagina.getPagina = function(pagina_id, usuario_id ,callback){
         else
             callback(null,rows[0]);
     });
-}
+};
 
 
 Pagina.getPaginas = function(usuario_id,callback){
@@ -38,7 +40,7 @@ Pagina.getPaginas = function(usuario_id,callback){
         else
             callback(null,rows);
     });
-}
+};
 
 //	Crear una página nueva
 
@@ -50,9 +52,9 @@ Pagina.subdominio = function (subdominio,id, callback) {
         else{
         		console.log(rows);
         		var nuevo;
-        		if (rows[0]==undefined) {
+        		if (rows[0]===undefined) {
 
-        			nuevo = subdominio
+        			nuevo = subdominio;
         		}else{
         			nuevo = rows[0].pagina_subdominio +'2';
         		}
@@ -62,7 +64,7 @@ Pagina.subdominio = function (subdominio,id, callback) {
         				console.log(err);
         			} else{
 						callback(null,nuevo);
-        			};
+        			}
         		});
 
 
@@ -71,7 +73,7 @@ Pagina.subdominio = function (subdominio,id, callback) {
         }
 
     });
-}
+};
 
 Pagina.addPagina = function (datos, callback) {
 	db.query('INSERT INTO pagina SET ?',datos, function(err, result){
@@ -92,7 +94,7 @@ Pagina.addPagina = function (datos, callback) {
 	                    		else{
 			                        console.log("Página guardada!");
 	                        		callback(null,result.insertId);
-	                    		};
+	                    		}
 	                    	});
 
 	                    }
@@ -100,15 +102,15 @@ Pagina.addPagina = function (datos, callback) {
 
 	            } else {
 	                //debug
-	                callback(err,null)
+	                callback(err,null);
 	                console.log(e);
 	            }
 	        });
-        };
+        }
         // res.send('Página agregada con el ID: ' + result.insertId);
 
     });
-}
+};
 
 // Revisar si un usuario tiene permisos para modificar una página
 Pagina.owner = function (usuario_id, pagina_id, callback) {
@@ -116,7 +118,7 @@ Pagina.owner = function (usuario_id, pagina_id, callback) {
         if (err)
             callback(err,null);
         else{
-        	if (rows[0]==undefined) {
+        	if (rows[0]===undefined) {
 				callback('No es el dueño',null);
 			}else{
 				callback(null,rows[0]);
@@ -124,7 +126,7 @@ Pagina.owner = function (usuario_id, pagina_id, callback) {
         }
 
     });
-}
+};
 
 /*
 Suscriptores :)
@@ -139,7 +141,7 @@ Pagina.seguidores = function (pagina_id,callback) {
 			callback(null,rows);
 		}
 	});
-}
+};
 
 
 
@@ -154,7 +156,7 @@ Pagina.deletePagina = function(id,callback){
 			console.log("Página eliminada T.T");
 		}
 	});
-}
+};
 
 
 
@@ -168,7 +170,7 @@ Pagina.addSeccion = function (datos, callback) {
 			callback(null,result);
 		}
     });
-}
+};
 
 
 //	Borrar sección D:
@@ -183,7 +185,7 @@ Pagina.deleteSeccion = function(documento,id,callback){
 			callback(null,'ok');
 		}
 	});
-}
+};
 
 //	Esta función guarda el ID de MySQL para facilitarnos la vida en angular y en ruteo en general :)
 Pagina.setPagina_id = function(id,nuevo ,callback){
@@ -197,7 +199,7 @@ Pagina.setPagina_id = function(id,nuevo ,callback){
 			callback(null,saved._id);
 		}
 	});
-}
+};
 
 Pagina.addUsuario = function (usuario_id,pagina_id,callback) {
 	db.query('INSERT INTO usuario_pagina SET usuario_id = ? , pagina_id = ? ',[usuario_id,pagina_id], function(err, result){
@@ -206,7 +208,7 @@ Pagina.addUsuario = function (usuario_id,pagina_id,callback) {
 		else
 			callback(null,result.insertId);
     });
-}
+};
 
 
 /*------------------------------------------Cuentas de usuario---------------------------------------------*/
@@ -218,7 +220,7 @@ Pagina.addCuenta = function (email, pass, pagina_id, callback) {
 		else
 			callback(null,result.insertId);
     });
-}
+};
 
 Pagina.getCuentas = function(pagina_id,callback){
 	db.query('SELECT cuenta_email, cuenta_status FROM pagina_cuenta WHERE cuenta_pagina_id = ?',pagina_id, function(err, rows){
@@ -227,7 +229,7 @@ Pagina.getCuentas = function(pagina_id,callback){
         else
             callback(null,rows);
     });
-}
+};
 
 
 Pagina.getExpired = function (usuario_id, callback) {
@@ -237,7 +239,7 @@ Pagina.getExpired = function (usuario_id, callback) {
         else
         	callback(null,rows);
     });
-}
+};
 
 Pagina.update = function (pagina_id, usuario_id, datos, callback) {
 
@@ -245,7 +247,7 @@ Pagina.update = function (pagina_id, usuario_id, datos, callback) {
 	db.query("SELECT usuario_id from usuario_pagina WHERE usuario_id = ? and pagina_id = ?",[usuario_id, pagina_id], function (err, result) {
 		if (err) {
 			console.log("Usuario no tiene los permisos adecuados");
-			callback(err,null)}
+			callback(err,null);}
 		if (result){
 			db.query("UPDATE pagina set ? WHERE pagina_id = ?",[datos, pagina_id], function(err, result){
 				if (err)
@@ -253,10 +255,10 @@ Pagina.update = function (pagina_id, usuario_id, datos, callback) {
 				else
 					callback(null,result);
 		    });
-		};
+		}
 	});
 
-}
+};
 
 Pagina.editRedes = function(id,datos,callback){
 	db.pagina.update({_id:new ObjectId(id)},{$set:{redes:datos}}, function(err, data) {
@@ -267,7 +269,7 @@ Pagina.editRedes = function(id,datos,callback){
 			callback(null,'Ok');
 		}
 	});
-}
+};
 
 
 Pagina.addBloque = function(documento, seccion, datos, callback){
@@ -276,10 +278,10 @@ Pagina.addBloque = function(documento, seccion, datos, callback){
 		if (err) {console.log(err);callback(err,null);}
 		else{
 			console.log(data);
-			callback(null,data)
-		};
+			callback(null,data);
+		}
 	});
-}
+};
 
 
 Pagina.getPublicaciones = function(pagina_id,callback){
@@ -291,7 +293,7 @@ Pagina.getPublicaciones = function(pagina_id,callback){
 		}
 
     });
-}
+};
 
 Pagina.togglePublicacionDestacada = function(publicacion_id,callback){
 	db.query('UPDATE pagina_publicacion SET publicacion_destacada = !publicacion_destacada WHERE publicacion_id =?', publicacion_id, function(err, rows){
@@ -302,7 +304,7 @@ Pagina.togglePublicacionDestacada = function(publicacion_id,callback){
 		}
 
     });
-}
+};
 
 Pagina.getPublicacion = function(publicacion_id,callback){
 	db.query('SELECT * FROM pagina_publicacion where publicacion_id = ?', publicacion_id, function(err, rows){
@@ -313,7 +315,7 @@ Pagina.getPublicacion = function(publicacion_id,callback){
 		}
 
     });
-}
+};
 
 Pagina.addPublicacion = function (data, callback) {
 	db.query('INSERT INTO pagina_publicacion SET ?',data, function(err, result){
@@ -322,7 +324,7 @@ Pagina.addPublicacion = function (data, callback) {
 		else
 			callback(null,result.insertId);
     });
-}
+};
 
 Pagina.imgPublicacion = function (data, id, callback) {
 	console.log("editando publicacion "+id);
@@ -331,10 +333,10 @@ Pagina.imgPublicacion = function (data, id, callback) {
 			callback(err,null);
 		else{
 			console.log(result);
-			callback(null,result)
+			callback(null,result);
 		}
     });
-}
+};
 
 Pagina.getPublicacionPagina = function(publicacion_id,callback){
 	db.query('SELECT publicacion_pagina_id FROM pagina_publicacion where publicacion_id = ?', publicacion_id, function(err, rows){
@@ -345,7 +347,7 @@ Pagina.getPublicacionPagina = function(publicacion_id,callback){
 		}
 
     });
-}
+};
 
 Pagina.updatePublicacion = function (publicacion_id, datos, callback) {
 
@@ -356,7 +358,7 @@ Pagina.updatePublicacion = function (publicacion_id, datos, callback) {
 			callback(null,result);
     });
 
-}
+};
 
 /*------------------------------	Mensajes	------------------------------*/
 Pagina.getMensajes = function(pagina_id,callback){
@@ -368,7 +370,7 @@ Pagina.getMensajes = function(pagina_id,callback){
 		}
 
     });
-}
+};
 
 //	Traer un res
 Pagina.getMensajesLatest = function(usuario_id,callback){
@@ -378,7 +380,7 @@ Pagina.getMensajesLatest = function(usuario_id,callback){
 		else
 			callback(null,rows);
     });
-}
+};
 
 Pagina.getMensajesPaginas = function(id,callback){
 	db.query('SELECT mensaje_id,mensaje_asunto, mensaje_fecha, mensaje_pagina_id, pagina_color FROM pagina_mensaje INNER JOIN pagina on mensaje_pagina_id = pagina_id where mensaje_pagina_id IN (SELECT pagina_id FROM usuario_pagina WHERE usuario_id = ? and mensaje_leido="mail-unread") ORDER BY mensaje_fecha DESC LIMIT 7', id, function(err, rows){
@@ -388,7 +390,7 @@ Pagina.getMensajesPaginas = function(id,callback){
 			callback(null,rows);
 
     });
-}
+};
 
 
 Pagina.getMensajesStats = function(pagina_id,callback){
@@ -400,7 +402,7 @@ Pagina.getMensajesStats = function(pagina_id,callback){
 		}
 
     });
-}
+};
 
 Pagina.getMensaje = function(id,callback){
 	db.query('SELECT * FROM pagina_mensaje where mensaje_id = ?', id, function(err, rows){
@@ -411,7 +413,7 @@ Pagina.getMensaje = function(id,callback){
 		}
 
     });
-}
+};
 
 Pagina.mensajeLeido = function(id,callback){
 	db.query('UPDATE pagina_mensaje set mensaje_leido = "0" where mensaje_id = ?', id, function(err, rows){
@@ -422,7 +424,7 @@ Pagina.mensajeLeido = function(id,callback){
 		}
 
     });
-}
+};
 
 Pagina.getGalerias = function(id,callback){
 	db.query('SELECT *,(SELECT imagen_url from pagina_galeria_imagen WHERE imagen_galeria_id = galeria_id LIMIT 1) as galeria_imagen FROM pagina_galeria where galeria_pagina_id = ? ',[id,id], function(err, rows){
@@ -431,7 +433,7 @@ Pagina.getGalerias = function(id,callback){
 		else
 			callback(null,rows);
     });
-}
+};
 
 
 Pagina.getGaleria = function(id,callback){
@@ -441,7 +443,7 @@ Pagina.getGaleria = function(id,callback){
 		else
 			callback(null,rows[0]);
     });
-}
+};
 
 Pagina.addGaleria = function (data, callback) {
 	db.query('INSERT INTO pagina_galeria SET ?',data, function(err, result){
@@ -450,7 +452,7 @@ Pagina.addGaleria = function (data, callback) {
 		else
 			callback(null,result.insertId);
     });
-}
+};
 
 Pagina.getImagenes = function(id,callback){
 	db.query('SELECT * FROM pagina_galeria_imagen where imagen_galeria_id = ? ORDER BY imagen_fecha DESC',id, function(err, rows){
@@ -459,14 +461,14 @@ Pagina.getImagenes = function(id,callback){
 		else
 			callback(null,rows);
     });
-}
+};
 
 Pagina.deleteImagen = function (id,user_id,callback) {
 	db.query("DELETE FROM pagina_galeria_imagen WHERE imagen_id = ? and imagen_usuario_id = ?",[id,user_id],function (err,data) {
-		if(err) callback(err)
+		if(err) callback(err);
 		else callback(null,data);
 	});
-}
+};
 
 Pagina.addImagen = function (data, callback) {
 	db.query('INSERT INTO pagina_galeria_imagen SET ?',data, function(err, result){
@@ -475,7 +477,7 @@ Pagina.addImagen = function (data, callback) {
 		else
 			callback(null,result.insertId);
     });
-}
+};
 
 Pagina.updateGaleria = function (galeria_id, datos, callback) {
 
@@ -485,7 +487,7 @@ Pagina.updateGaleria = function (galeria_id, datos, callback) {
 			callback(null,result);
     });
 
-}
+};
 
 Pagina.updateImagen = function (datos, id, usuario_id, callback) {
 
@@ -496,7 +498,7 @@ Pagina.updateImagen = function (datos, id, usuario_id, callback) {
 			callback(null,result);
     });
 
-}
+};
 
 
 Pagina.getSeccion = function(condicion,callback){
@@ -504,27 +506,27 @@ Pagina.getSeccion = function(condicion,callback){
 		if (err)
 			callback(err,null);
 		else
-			if (rows[0]==undefined) {
+			if (rows[0]===undefined) {
 				callback(null,null);
 			}else{
 				callback(null,rows);
-				console.log(rows[0])
+				console.log(rows[0]);
            }
     });
-}
+};
 
 Pagina.getBloques = function(condicion,callback){
 	db.query('SELECT * FROM pagina_seccion_bloque where  ? ', condicion, function(err, rows){
 		if (err)
 			callback(err,null);
 		else
-			if (rows[0]==undefined) {
+			if (rows[0]===undefined) {
 				callback(null,null);
 			}else{
 				callback(null,rows);
            }
     });
-}
+};
 
 /*-----------		Banners		-------------*/
 
@@ -533,27 +535,36 @@ Pagina.addBanner = function (data,callback) {
 		if(err)callback(err);
 		else callback(null,data);
 	});
-}
+};
 
 Pagina.getBanners = function (pagina_id,callback) {
 	db.query("SELECT * FROM pagina_banner WHERE banner_pagina_id = ?",pagina_id,function (err,data) {
 		if(err)callback(err);
 		else callback(null,data);
 	});
-}
+};
 
 Pagina.deleteBanner = function (id,callback) {
 	db.query("DELETE FROM pagina_banner WHERE banner_id = ?",id,function (err,data) {
 		if(err)callback(err);
 		else callback(null,data);
 	});
-}
+};
+
+Pagina.deletePublicacion = function (id,callback) {
+	db.query("DELETE FROM pagina_publicacion WHERE publicacion_id = ?",id,function (err,data) {
+		if(err)callback(err);
+		else callback(null,data);
+	});
+};
 
 Pagina.updateBanner = function (data,id,callback) {
 	db.query("UPDATE pagina_banner set ? WHERE banner_id = ?",[data,id],function (err,data) {
 		if(err)callback(err);
 		else callback(null,data);
 	});
-}
+};
+
+Promise.promisifyAll(Pagina);
 
 module.exports = Pagina;

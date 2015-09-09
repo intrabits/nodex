@@ -1,5 +1,7 @@
 'use strict';
-angular.module('app.pagina', [])
+angular.module('app.pagina', [
+  'app.pagina.service'
+])
   .controller('PaginasCtrl',function($scope,$modal,$log,Pagina){
 
     Pagina.all(function (err, data) {
@@ -7,7 +9,7 @@ angular.module('app.pagina', [])
         $scope.notify('danger','Ocurrió un error al cargar las páginas');
       } else{
         $scope.paginas = data;
-      };
+      }
     });
 
 }).controller('PaginaCtrl',['$scope','$modal','$window','Pagina','$routeParams','$http',function($scope,$modal,$window,Pagina,$routeParams,$http){
@@ -36,20 +38,20 @@ angular.module('app.pagina', [])
                   ret.push( c );
           }
           return ret.join( '' ).replace( /[^-A-Za-z0-9]+/g, '-' ).toLowerCase();
-      }
+      };
 
     })();
 
   $scope.subdominio = function  (nombre) {
     $scope.FormAddPagina.pagina_subdominio = normalize(nombre)+"."+$scope.main.dominio;
-  }
+  };
 
 
   Pagina.getPaquetes(function (err, data) {
     if (err) {console.log(err);}
     else{
       $scope.tipos = data;
-    };
+    }
   });
 
   $scope.buscarFB = function () {
@@ -71,7 +73,7 @@ angular.module('app.pagina', [])
         $scope.FormAddPagina.pagina_telefono = data.phone;
         $scope.FormAddPagina.pagina_facebook = $('#facebookID').val();
         // $scope.FormAddPagina.pagina_subdominio = data.name+"."+$scope.main.dominio;
-        $scope.subdominio(data.name)
+        $scope.subdominio(data.name);
       }).error(function () {
         console.log("error");
         $scope.notify('danger','La URL ingresada no es válida');
@@ -83,7 +85,7 @@ angular.module('app.pagina', [])
 
 
 
-  }
+  };
 
     if (pagina_id) {
       Pagina.getOne(pagina_id,function (err, data) {
@@ -93,31 +95,31 @@ angular.module('app.pagina', [])
           if (data.pagina_portada) {
             if (data.pagina_portada.length<50) {
               $scope.FormEditPagina.pagina_portada = $scope.main.base+data.pagina_portada;
-            };
-          };
+            }
+          }
           if (data.pagina_facebook) {
             Pagina.getFacebook(data.pagina_facebook,function (err,data) {
               if (err) {console.log(err);}
               else{
                 $scope.facebook = data;
-              };
+              }
             });
-          };
+          }
 
-        };
+        }
       });
 
-    };
+    }
 
 
       $scope.editPagina = function() {
         var datos;
-        datos = $scope.FormEditPagina
+        datos = $scope.FormEditPagina;
         Pagina.update(pagina_id,datos,function (err, data) {
           if (err) {alert(err);} else{
             $('#result').html('<div class="alert alert-success">Editado correctamente</div>').delay(3000).hide('explode');
             $scope.notify('success','Editado correctamente');
-          };
+          }
         });
       };
 
@@ -132,11 +134,11 @@ angular.module('app.pagina', [])
               $window.location.href= "#/pagina/"+data;
 
 
-          };
+          }
         });
-        };
+        }
 
-      }
+      };
 
 
       $scope.uploadFile = function(files) {
@@ -177,7 +179,7 @@ angular.module('app.pagina', [])
 
 
 }]).controller('EstiloCtrl',['$scope','$routeParams','Pagina','$http','$route',function($scope,$routeParams,Pagina,$http,$route){
-    var pagina_id = $routeParams.pagina_id
+    var pagina_id = $routeParams.pagina_id;
     $scope.estilo = {};
 
     function getEstilo () {
@@ -188,7 +190,7 @@ angular.module('app.pagina', [])
           }
           else{
             $scope.estilo = data;
-          };
+          }
         });
     }
 
@@ -214,13 +216,14 @@ angular.module('app.pagina', [])
 
         $scope.vistaPrevia = function(dominio,size) {
           dominio = 'http://'+dominio;
+          var myWindow;
             if (size=='phone') {
-              var myWindow = window.open(dominio, "MsgWindow", "width=480, height=700");
+              myWindow = window.open(dominio, "MsgWindow", "width=480, height=700");
             }else{
-              var myWindow = window.open(dominio, "MsgWindow", "width=1200, height=800");
+              myWindow = window.open(dominio, "MsgWindow", "width=1200, height=800");
             }
 
-        }
+        };
 
 
 }]).controller('PaginaCuentasCtrl',['$scope','$modal','Pagina','$routeParams','$http',function($scope,$modal,Pagina,$routeParams,$http){
@@ -233,8 +236,8 @@ angular.module('app.pagina', [])
       if (err) {console.log(err);}
       else{
         $scope.cuentas = data;
-      };
-    })
+      }
+    });
   }
 
   function getCuentasDisponibles(){
@@ -243,7 +246,7 @@ angular.module('app.pagina', [])
         else{
           $scope.disponibles = data.pagina_cuentas_disponibles;
           $scope.usadas = data.pagina_cuentas_usadas;
-        };
+        }
     });
   }
 
@@ -251,21 +254,21 @@ angular.module('app.pagina', [])
     var pagina_id = $routeParams.pagina_id;
     Pagina.addCuenta($scope.FormAddCuenta,pagina_id,function (err, data) {
       if (err) {
-        $scope.notify('danger','Algo salió mal')
+        $scope.notify('danger','Algo salió mal');
       } else{
         getCuentas();
         getCuentasDisponibles();
         $scope.notify('success','Cuenta agregada exitosamente');
         $scope.FormAddCuenta = {};
-      };
+      }
     })
 
-  }
+  };
 
   getCuentas();
   getCuentasDisponibles();
 
-}]).controller('PublicacionesCtrl',['$scope','Pagina','$routeParams','$http','$route',function($scope,Pagina,$routeParams,$http,$route){
+}]).controller('PublicacionesCtrl',['$scope','Pagina','$routeParams','$http','$route','$window',function($scope,Pagina,$routeParams,$http,$route,$window){
 
   var pagina_id = $routeParams.pagina_id;
   $scope.FormAddPublicacion = {};
@@ -280,8 +283,8 @@ angular.module('app.pagina', [])
         // console.log(data[1].publicacion_destacada);
         // console.log(data[0].publicacion_destacada);
         $scope.publicaciones = data;
-      };
-    })
+      }
+    });
   }
   function getPublicacion () {
     Pagina.getPublicacion($routeParams.pagina_id,$routeParams.publicacion_id,function (err, data) {
@@ -289,15 +292,29 @@ angular.module('app.pagina', [])
       else{
         $scope.FormEditPublicacion = data;
         $('#myCode').html('<iframe width="560" height="315" src="//www.youtube.com/embed/' + $scope.FormEditPublicacion.publicacion_video + '" frameborder="0" allowfullscreen></iframe>');
-      };
-    })
+      }
+    });
   }
+
+  $scope.deletePublicacion = function () {
+    var confirmar = confirm('¿Realmente deseas eliminar esta publicación?');
+    if (confirmar) {
+      Pagina.deletePublicacion($routeParams.publicacion_id)
+        .success(function (data) {
+          $window.location = '#/pagina/' + FormEditPublicacion.publicacion_pagina_id + '/publicaciones';
+          $scope.notify('success',data);
+        })
+        .error(function (err) {
+          $scope.notify('danger',err);
+        });
+    }
+  };
 
   $scope.addPublicacion = function () {
     var pagina_id = $routeParams.pagina_id;
     Pagina.addPublicacion($scope.FormAddPublicacion,pagina_id,function (err, data) {
       if (err) {
-        $scope.notify('danger','Algo salió mal')
+        $scope.notify('danger','Algo salió mal');
       } else{
         getPublicaciones();
         $scope.notify('success','Publicación agregada exitosamente');
@@ -595,7 +612,7 @@ angular.module('app.pagina', [])
         fd.append("file", files[0]);
 
         $http.post('/api/pagina/banners/pbanner/'+pagina_id, fd, {
-            withCredentials: true,            
+            withCredentials: true,
             headers: {'Content-Type': undefined },
             transformRequest: angular.identity
         }).success(function () {

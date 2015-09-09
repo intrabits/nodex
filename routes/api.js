@@ -27,7 +27,9 @@ var SoporteCtrl     = require('./../routes/soporte.js');
 var UsuarioCtrl     = require('./../routes/usuario.js');
 // var ProductoCtrl    = require('./../routes/producto.js');
 var ProductoCtrl    = require('./../api/productos');
+var PublicacionCtrl = require('./../api/publicaciones');
 var AdminCtrl       = require('./../routes/admin.js');
+
 
 /*===============================================   Usuario  ==================================================*/
 
@@ -94,6 +96,8 @@ router.use('/usuario/',UsuarioCtrl);
 /*===============================================   Páginas  ==================================================*/
 
 router.use('/pagina/',PaginaCtrl);
+
+router.use('/publicaciones/',PublicacionCtrl);
 
 /*===============================================   Soporte  ==================================================*/
 

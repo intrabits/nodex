@@ -119,7 +119,7 @@ router.post('/:pagina_id/upload/:tipo', ensureAuthenticated,function(req, res) {
                                                                     Imagen.fondo(ruta_corta,pagina_id,function (err) {
                                                                         if (err) {console.log(err);res.send(500);}
                                                                         else{res.json('ok');} });
-                                                                };
+                                                                }
                                                             });
                                                         }
 
@@ -130,7 +130,7 @@ router.post('/:pagina_id/upload/:tipo', ensureAuthenticated,function(req, res) {
                                                 });
                                         }
 
-                                    };
+                                    }
                                     res.redirect('back');
                                 });
                             });
@@ -227,7 +227,7 @@ router.post('/publicacion/:publicacion_id/upload', ensureAuthenticated,function(
        } else{
         console.log("TOdo bien"+result);
         res.json('ok');
-       };
+       }
     });
 
 });
@@ -378,11 +378,11 @@ router.post('/:pagina_id/cuentas',ensureAuthenticated, function (req, res){
                                     }
                                     else{
                                         callback(null, 'done');
-                                    };
+                                    }
                                 });
-                            };
+                            }
                         });
-                    };
+                    }
                 });
 
             }
@@ -393,7 +393,7 @@ router.post('/:pagina_id/cuentas',ensureAuthenticated, function (req, res){
             res.send(500);
        } else{
             res.json('ok');
-       };
+       }
     });
 
 
@@ -414,8 +414,8 @@ router.get('/:pagina_id/seguidores',ensureAuthenticated, function (req, res){
                         callback(null,pagina_id);
                     } else{
                         callback('No tienes los permisos necesarios');
-                    };
-                };
+                    }
+                }
             });
         },
         function(pagina_id,callback){
@@ -429,7 +429,7 @@ router.get('/:pagina_id/seguidores',ensureAuthenticated, function (req, res){
                         callback(null,data);
                     else
                         callback('No hay tal',null);
-                };
+                }
             });
         },
     ], function (err, result) {
@@ -438,7 +438,7 @@ router.get('/:pagina_id/seguidores',ensureAuthenticated, function (req, res){
         res.send(500);
        } else{
         res.json(result);
-       };
+       }
     });
 } );
 
@@ -519,14 +519,14 @@ router.post('/:pagina_id/publicaciones',ensureAuthenticated, function (req, res)
     Pagina.owner(usuario_id, pagina_id, function (err, data) {
         if (err) {console.log(err);}
         else{
-            var data = {
+            var pub = {
                 publicacion_usuario_id:     usuario_id,
                 publicacion_pagina_id:      pagina_id,
                 publicacion_titulo:         sanitizer.sanitize(req.body.publicacion_titulo),
                 publicacion_contenido:      sanitizer.sanitize(req.body.publicacion_contenido),
                 publicacion_video:          sanitizer.sanitize(req.body.publicacion_video)
-            }
-            Pagina.addPublicacion(data, function( err, data){
+            };
+            Pagina.addPublicacion(pub, function( err, data){
                 if (err) {
                     // error handling code goes here
                     console.log("ERROR : ",err);
@@ -536,7 +536,7 @@ router.post('/:pagina_id/publicaciones',ensureAuthenticated, function (req, res)
                     res.json(data);
                 }
             });
-        };
+        }
     });
 
 } );
@@ -558,7 +558,7 @@ router.put('/:pagina_id/publicacion/:publicacion_id',ensureAuthenticated, functi
 
         if (data){
 
-            if (data==null) {
+            if (data===null) {
                 console.log("No tiene permisos");
                 res.send(400,"Ops, error al guardar la publicación");
             }else{
@@ -571,7 +571,7 @@ router.put('/:pagina_id/publicacion/:publicacion_id',ensureAuthenticated, functi
                     }
                 });
             }
-        };
+        }
     });
 
 } );
@@ -607,13 +607,13 @@ router.post('/:pagina_id/galerias',ensureAuthenticated, function (req, res){
     Pagina.owner(usuario_id, pagina_id, function (err, data) {
         if (err) {console.log(err);}
         else{
-            var data = {
+            var gal = {
                 galeria_usuario_id:     usuario_id,
                 galeria_pagina_id:      pagina_id,
                 galeria_nombre:         sanitizer.sanitize(req.body.galeria_nombre),
                 galeria_descripcion:    sanitizer.sanitize(req.body.galeria_descripcion)
-            }
-            Pagina.addGaleria(data, function( err, data){
+            };
+            Pagina.addGaleria(gal, function( err, data){
                 if (err) {
                     // error handling code goes here
                     console.log("ERROR : ",err);
@@ -622,7 +622,7 @@ router.post('/:pagina_id/galerias',ensureAuthenticated, function (req, res){
                     res.json(data);
                 }
             });
-        };
+        }
     });
 });
 
@@ -663,7 +663,7 @@ router.put('/:pagina_id/galeria/:galeria_id',ensureAuthenticated, function (req,
                     res.json(data);
                 }
             });
-        };
+        }
     });
 
 } );
@@ -677,7 +677,7 @@ router.get('/:pagina_id/galeria/:galeria_id/imagenes',ensureAuthenticated, funct
             res.send(500,"Ops, algo salió mal");
         } else{
             res.json(data);
-        };
+        }
     });
 
 } );
@@ -686,7 +686,7 @@ router.post('/:pagina_id/galeria/:galeria_id/upload', ensureAuthenticated,functi
     var fstream;
     var base = "public/websites/paginas/";
     var pagina_id = req.params.pagina_id;
-    var galeria_id = req.params.galeria_id
+    var galeria_id = req.params.galeria_id;
     var date = moment().format('YYYY-MM-DD_HH:mm:ss');
     var name = req.user.usuario_id+"_"+ date +".png";
     req.pipe(req.busboy);
@@ -700,14 +700,14 @@ router.post('/:pagina_id/galeria/:galeria_id/upload', ensureAuthenticated,functi
                     gm(base+path)
                       .gravity('Center')
                       .write(base+ path, function (error) {
-                        if (error) console.log('Error - ', error)
+                        if (error) console.log('Error - ', error);
                         else {
 
                             var data = {
                                 imagen_usuario_id:  req.user.usuario_id,
                                 imagen_galeria_id:  galeria_id,
                                 imagen_url:         path
-                            }
+                            };
                             Pagina.addImagen(data,function (err, data) {
                                 if (err) {console.log(err);}
                                 else{
@@ -770,8 +770,9 @@ router.post('',ensureAuthenticated, function (req, res) {
     async.waterfall([
         function(callback){
             try {
+              var logo;
                 if(req.body.pagina_nombre){
-                    var logo;
+
                     if (req.body.pagina_facebook_id) {
                         logo = "http://graph.facebook.com/"+sanitizer.sanitize(req.body.pagina_facebook);
                     }
@@ -805,7 +806,7 @@ router.post('',ensureAuthenticated, function (req, res) {
                 } else{
                     console.log('Página agregada: '+result_pid);
                     callback(null,result_pid);
-                };
+                }
             });
 
         },
@@ -816,8 +817,8 @@ router.post('',ensureAuthenticated, function (req, res) {
                     else{
                         console.log("Usuario agregado");
                         callback(null,result_pid);
-                    };
-                })
+                    }
+                });
         },
         function (result_pid,callback) {
             Pagina.subdominio(req.body.pagina_subdominio,result_pid, function (err, data) {
@@ -825,7 +826,7 @@ router.post('',ensureAuthenticated, function (req, res) {
                     callback(err, null);
                 } else{
                     callback(null,result_pid,data);
-                };
+                }
             });
         },
         function (result_pid,subdominio_final,callback) {
@@ -905,7 +906,7 @@ router.post('',ensureAuthenticated, function (req, res) {
        } else{
         console.log("Listo caleeeexto"+result);
         res.json(result);
-       };
+       }
     });
 
 });
