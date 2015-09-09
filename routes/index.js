@@ -29,12 +29,6 @@ router.get('/admin/', function(req, res){
     res.sendFile(path.join(__dirname, './../','/public/admin.html'));
 });
 
-router.get('/gatos',function ( req, res) {
-  res.send("hola bartola");
-  setInterval(function() {
-    console.log("hola :)");
-  }, 1000);
-});
 
 // router.get('/login', function(req, res){  res.sendfile(__dirname+'public/start.html');  });
 router.get('/login', function(req, res){

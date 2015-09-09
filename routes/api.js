@@ -25,7 +25,8 @@ var moment = require('moment');
 var PaginaCtrl      = require('./../routes/pagina.js');
 var SoporteCtrl     = require('./../routes/soporte.js');
 var UsuarioCtrl     = require('./../routes/usuario.js');
-var ProductoCtrl    = require('./../routes/producto.js');
+// var ProductoCtrl    = require('./../routes/producto.js');
+var ProductoCtrl    = require('./../api/productos');
 var AdminCtrl       = require('./../routes/admin.js');
 
 /*===============================================   Usuario  ==================================================*/

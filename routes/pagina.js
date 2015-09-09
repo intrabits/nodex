@@ -80,7 +80,7 @@ router.post('/:pagina_id/upload/:tipo', ensureAuthenticated,function(req, res) {
                                         if (tipo=='logo') {
                                             Imagen.logo(ruta_corta,pagina_id,function (err) {
                                                 if (err) {console.log(err);res.send(500);}else{res.json('ok');} });
-                                        };
+                                        }
                                         if (tipo=='portada') {
                                             Imagen.portada(ruta_corta,pagina_id,function (err) {
                                                 if (err) {console.log(err);res.send(500);}else{res.json('ok');} });
@@ -90,7 +90,7 @@ router.post('/:pagina_id/upload/:tipo', ensureAuthenticated,function(req, res) {
                                               banner_img:   ruta_corta
                                             };
                                             Pagina.addBanner();
-                                        };
+                                        }
                                         if (tipo=='fondo') {
                                             //  Primero checamos su tamaño
                                             gm(ruta)
@@ -108,7 +108,7 @@ router.post('/:pagina_id/upload/:tipo', ensureAuthenticated,function(req, res) {
                                                                     Imagen.fondo(ruta_corta,pagina_id,function (err) {
                                                                         if (err) {console.log(err);res.send(500);}
                                                                         else{res.json('ok');} });
-                                                                };
+                                                                }
                                                             });
                                                         }else{
                                                         gm(ruta)
@@ -128,7 +128,7 @@ router.post('/:pagina_id/upload/:tipo', ensureAuthenticated,function(req, res) {
                                                     }
 
                                                 });
-                                        };
+                                        }
 
                                     };
                                     res.redirect('back');
@@ -168,7 +168,7 @@ router.post('/publicacion/:publicacion_id/upload', ensureAuthenticated,function(
                         callback("No existe la página",null);
                     }
 
-                };
+                }
             });
         },
         function(pagina_id,callback){
@@ -191,12 +191,12 @@ router.post('/publicacion/:publicacion_id/upload', ensureAuthenticated,function(
                             imagen_ruta         :ruta_corta
                         },function (err, data) {
                             if (err) {
-                                callback(err, null)
+                                callback(err, null);
                             }else{
                                 console.log("Imágen guardada... teóricamente");
                                 callback(null,ruta_corta);
 
-                            };
+                            }
                         });
                     });
 
@@ -350,7 +350,7 @@ router.post('/:pagina_id/cuentas',ensureAuthenticated, function (req, res){
                     callback(err,null);
                 else
                     callback(null,pagina_id);
-            })
+            });
         },
         function(pagina_id, callback){
             //ya creada la cuentaprocedemos a agregar el usuario
@@ -365,7 +365,7 @@ router.post('/:pagina_id/cuentas',ensureAuthenticated, function (req, res){
                         data = {
                             usuario_email:       sanitizer.sanitize(req.body.cuenta_email),
                             usuario_password:     password
-                        }
+                        };
 
                         Usuario.addUsuario(data,function (err, new_usuario_id) {
                             if (err)

@@ -71,8 +71,8 @@ passport.use(new FacebookStrategy({
                          console.log("=============================    Ya inició     =============================");
                          done(null,data_login);
                       }else{
-                          return done(err,null);
-                          console.log("============================== Falló el inicio de sesión ===================");
+                        console.log(err);
+                        return done(err,null);
                       }
                    }
                 });
@@ -89,7 +89,7 @@ passport.use(new FacebookStrategy({
                     // lo logueamos... porque es cool
                         Usuario.loginFB(profile.id,function(err,data_login){
                              if (err) {
-                                  console.log("======================   ERROR    =============================",err);
+                                  console.log(err);
                                   callback(err);
                              } else {
                                 if (data_login) {
@@ -145,8 +145,15 @@ passport.use(new LocalStrategy({
 
 function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/login');
 }
+
+exports.isLogged = function(req,res,next) {
+  if (req.isAuthenticated()) { return next(); }
+  else{
+    res.status(401).send('Permiso denegado');
+  }
+};
 
 function validateAuthenticated(req,res,next) {
   if (req.isAuthenticated()) { return next(); }

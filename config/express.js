@@ -7,12 +7,22 @@ var busboy  = require('connect-busboy');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var auth    = require('./auth');
+var SessionStore = require('express-mysql-session');
+var config = require('./config.json');
 
 
+var options = {
+    host: config.db.host,
+    port: 3306,
+    user: config.db.user,
+    password: config.db.password,
+    database: config.db.database
+};
 
+var sessionStore = new SessionStore(options);
 var passport = auth.passport;
 
-  
+
 
 
   var app = express();
@@ -24,7 +34,13 @@ var passport = auth.passport;
   app.use(cookieParser());
   app.use(methodOverride());
 
-  app.use(session({ secret: 'okletstrythis' }));
+  app.use(session({
+    key: 'SpaceShuttle:3',
+    secret: 'ShuttleSpace3:',
+    store: sessionStore,
+    resave: true,
+    saveUninitialized: true
+  }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
@@ -36,9 +52,9 @@ var passport = auth.passport;
         limit: 10000000, // 10M limit
         uploadDir: __dirname +'/temp' }));
   app.use(busboy());
-  
+
   app.use(express.static(__dirname + './../public'));
 
 
-  
+
   module.exports.app = app;
