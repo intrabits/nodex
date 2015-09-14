@@ -22,16 +22,16 @@ var moment = require('moment');
 
 
 //  Controladores
-var PaginaCtrl      = require('./../routes/pagina.js');
+var PaginaCtrl      = require('./../api/pagina');
 var SoporteCtrl     = require('./../routes/soporte.js');
 var UsuarioCtrl     = require('./../routes/usuario.js');
 // var ProductoCtrl    = require('./../routes/producto.js');
 var ProductoCtrl    = require('./../api/productos');
-var PublicacionCtrl = require('./../api/publicaciones');
+var PublicacionCtrl = require('./../api/pagina/publicacion.routes');
 var AdminCtrl       = require('./../routes/admin.js');
 
 
-/*===============================================   Usuario  ==================================================*/
+/*=========================   Usuario  ====================*/
 
 router.get('/cuenta', ensureAuthenticated, function(req, res){res.json(req.user);  });
 
@@ -84,30 +84,30 @@ router.post('/upload', ensureAuthenticated,function(req, res) {
     });
 });
 
-/*===============================================   Admin    ==================================================*/
+/*========================   Admin    ============================*/
 
 router.use('/admin/',AdminCtrl);
 
 
-/*===============================================   Usuario  ==================================================*/
+/*========================   Usuario  ============================*/
 
 router.use('/usuario/',UsuarioCtrl);
 
-/*===============================================   Páginas  ==================================================*/
+/*========================   Páginas  ============================*/
 
 router.use('/pagina/',PaginaCtrl);
 
 router.use('/publicaciones/',PublicacionCtrl);
 
-/*===============================================   Soporte  ==================================================*/
+/*========================   Soporte  ============================*/
 
 router.use('/soporte/',SoporteCtrl);
 
-/*===============================================   Tienda   ==================================================*/
+/*========================   Tienda   ============================*/
 
 router.use('/producto/',ProductoCtrl);
 
-/*===============================================   Pagos    ==================================================*/
+/*========================   Pagos    ============================*/
 
 router.get('/pagos',ensureAuthenticated, function (req,res) {
     var condicion = {
@@ -123,7 +123,7 @@ router.get('/pagos',ensureAuthenticated, function (req,res) {
     });
 });
 
-/*===============================================   Market   ==================================================*/
+/*========================   Market   ============================*/
 
 
 

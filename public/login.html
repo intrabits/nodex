@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html> 
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Intrabits</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <!--Place favicon.ico and apple-touch-icon.png in the root directory 
+    <!--Place favicon.ico and apple-touch-icon.png in the root directory
     -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
-    <!--needs images, font... therefore can not be part of ui.css 
+    <!--needs images, font... therefore can not be part of ui.css
     -->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css">
-    <!--end needs images 
+    <!--end needs images
     -->
     <link rel="stylesheet" href="styles/ui.css">
     <link rel="stylesheet" href="styles/main.css">
   </head>
-  <body id="app" data-ng-app="app" data-custom-background="" data-off-canvas-nav="">    
+  <body id="app" data-ng-app="app" data-custom-background="" data-off-canvas-nav="">
     <!--if lt IE 9
     p.browsehappy
       | You are using an
@@ -26,24 +26,77 @@
       | browser. Please
       a(href='http://browsehappy.com/') upgrade your browser
       | to improve your experience.
-    -->    
-    <div data-ng-controller="AppCtrl">
-      <div data-ng-include=" 'views/pages/signin.html'">
-        <section id="content" data-ng-view="" class="animate-fade-up"></section>
-      </div>
+    -->
+    <div class="page-signin">
+
+        <div class="signin-header">
+            <div class="container text-center">
+                <section class="logo">
+                    <a href="#/">Nodex</a>
+                </section>
+            </div>
+        </div>
+
+        <div class="signin-body">
+            <div class="container">
+                <div class="form-container">
+
+                    <section class="row signin-social text-center hidden">
+                        <a href="/auth/facebook" class="btn-twitter-round"><i class="fa fa-twitter"></i></a>
+                        <div class="space"></div>
+                        <a href="/auth/facebook" class="btn-facebook-round"><i class="fa fa-facebook"></i></a>
+                        <div class="space"></div>
+                        <a href="/auth/facebook" class="btn-google-plus-round"><i class="fa fa-google-plus"></i></a>
+                    </section>
+
+                    <span class="line-thru hidden">O</span>
+
+                    <form class="form-horizontal" action="/login" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Email"
+                                           name="correo"
+                                           >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </span>
+                                    <input type="password"
+                                           class="form-control"
+                                           placeholder="password"
+                                           name="password"
+                                           >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                            <div class="form-group">
+                                <!-- <a href="#/" class="btn btn-primary btn-lg btn-block">Log in</a> -->
+                                <input type="submit" class="btn btn-info btn-lg btn-block" value="Entrar">
+                                <a class="btn btn-primary btn-lg btn-block" href="/auth/facebook">Entrar con facebook</a>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <section>
+                        <p class="text-center"><a href="javascript:;">¿Olvidaste tu contraseña?</a></p>
+                        <p class="text-center text-muted text-small">¿Aún no tienes una cuenta? <a href="#/pages/signup">Regístrate</a></p>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+
     </div>
-    <script src="scripts/vendor.js"></script>
-    <script src="//intrabits.net/js/quo.js"></script>
-    <script src="//localhost/quo.js"></script>
-    <script src="scripts/ui2.js"></script>
-    <script src="scripts/app4.js"></script>
-    <script src="scripts/shared/main.js"></script>    
-    <script src="scripts/shared/directives.js"></script>
-    <script src="scripts/paginas/pagina.js"></script>
-    <script src="scripts/paginas/service.js"></script>
-    <script src="scripts/shared/localize.js"></script>
-    <script src="scripts/UI/UICtrl.js"></script>
-    <script src="scripts/UI/UIDirective.js"></script>
-    <script src="scripts/UI/UIService.js">   </script>
+
   </body>
 </html>

@@ -1,11 +1,11 @@
-var config = require('./config.js');
+var config = require('./config.json');
 var bcrypt = require('bcrypt');
-var passport = require('passport')
-  , util = require('util')
-  , FacebookStrategy = require('passport-facebook').Strategy
-  , LocalStrategy    = require('passport-local').Strategy;
-
-var Usuario = require('./../models/usuario');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var LocalStrategy    = require('passport-local').Strategy;
+var sanitizer = require('sanitizer');
+var Usuario = require('./../api/usuario/usuario.model');
+var Promise = require('bluebird');
 
 
 // Passport session setup.
@@ -24,122 +24,124 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
-
-
 // Use the FacebookStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and Facebook
 //   profile), and invoke a callback with a user object.
 passport.use(new FacebookStrategy({
-    clientID: config.FACEBOOK_APP_ID,
-    clientSecret: config.FACEBOOK_APP_SECRET,
-    callbackURL: config.callbackURL
+    clientID: config.facebook.id,
+    clientSecret: config.facebook.secret,
+    callbackURL: config.facebook.callback,
+    passReqToCallback: true
   },
-  function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
+  function(req,accessToken, refreshToken, profile, done) {
+
     process.nextTick(function () {
-      // To keep the example simple, the user's Facebook profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Facebook account with a user record in your database,
-      // and return that user instead.
+
+      nark.log('Usuario se intenta registrar utilizando facebook ');
+      nark.log(profile);
+
       var datos = {
-        usuario_apellido_paterno  : profile.name.familyName,
-        usuario_nombre    : profile.name.givenName,
-        usuario_nivel_id  :1,
-        usuario_facebook  : profile.id,
-        usuario_email: profile._json.email,
-        usuario_genero: profile.gender,
-      }
+        nombre : profile.name.familyName,
+        apellidoPaterno    : profile.name.givenName,
+        email   : profile.emails[0].value,
+        facebook : profile.id
+      };
 
-      console.log("-----------------datos de facebook------------------");
-      console.log(profile);
-      console.log("-----------------datos de facebook------------------");
+      datos.raw = JSON.stringify(profile);
 
-      var username={usuario_facebook:profile.id};
-      Usuario.existFB(profile.id,function(err,data){
-        if (err) {
-          console.log("======================= ERROR =========================: ",err);
-          done(err,null);
-        } else {
-            if (data) {
-              console.log("=======================  YA EXISTE =============================");
-              Usuario.loginFB(profile.id,function(err,data_login){
-                   if (err) {
-                        console.log("======================   ERROR    =============================",err);
-                   } else {
-                      if (data_login) {
-                         console.log("=============================    Ya inició     =============================");
-                         done(null,data_login);
-                      }else{
-                        console.log(err);
-                        return done(err,null);
-                      }
-                   }
-                });
-
-
-
-            }else{
-              Usuario.addUsuario(datos,function(err,data){
-                  if (err) {
-                    done(err,null);
-                  } else {
-                    console.log("======================= Agregado correctamente ========================================");
-
-                    // lo logueamos... porque es cool
-                        Usuario.loginFB(profile.id,function(err,data_login){
-                             if (err) {
-                                  console.log(err);
-                                  callback(err);
-                             } else {
-                                if (data_login) {
-                                   console.log("=============================    Ya inició     =============================");
-                                   done(null,data_login);
-                                }else{
-                                    return done('Ops, algo salió mal',null);
-                                    console.log("============================== Falló el inicio de sesión ===================");
-                                }
-                             }
-                          });
-
-
-
-                    }
-                  });
-            }
+      console.log(datos.email);
+      Usuario.find({
+        where:{
+          email:datos.email
+        }
+      })
+        .then(function (user) {
+          console.log(user);
+          if (user) {
+            return user;
+          }else{
+            return Usuario.create(datos);
           }
+        })
+        .then(function (data) {
+          done(null,data)
+        })
+        .catch(function (err) {
+          console.error(err);
+          done('Error al inciar sesión');
         });
-
     });
   }
 ));
+
 
 passport.use(new LocalStrategy({
   usernameField : 'correo',
   passwordField : 'password'
 },
-  function(correo, password, done) {
+  function(user_email, user_password, done) {
+    console.log("login");
     // asynchronous verification, for effect...
-    process.nextTick(function () {
-      Usuario.login(correo,password,function(err,data){
-         if (err) {
-              console.log("=================   ERROR    =============================",err);
-              return done(err,null);
-         } else {
-            if (data) {
-               console.log("================    Se loguea correctamente     ==============");
-               return done(null,data);
-            }else{
-                return done('error',null);
-               console.log("=============== Falló el inicio de sesión ===============");
-            }
-         }
-      });
+    user_email = sanitizer.sanitize(user_email);
+    console.log(user_password);
 
+    process.nextTick(function () {
+
+      var current = Promise.resolve();
+
+      Usuario.find({where:{email:user_email}})
+          .then(function (user) {
+            if (user) {
+              current = bcrypt.compare(user_password, user.password, function(err, isPasswordMatch) {
+                if (isPasswordMatch) {
+                  console.log('Contraseña correcta'.blue);
+                  done(null,user);
+                } else {
+                  console.log('Contraseña incorrecta'.red);
+                  done(null,false);
+                }
+              });
+            }else{
+              return done(null,false);
+            }
+
+          })
+          .catch(function (err) {
+            console.log('Error al iniciar sesión');
+            console.log(err);
+            done('Error al iniciar sesión');
+          });
 
     });
   }
 ));
+
+// passport.use(new LocalStrategy({
+//   usernameField : 'correo',
+//   passwordField : 'password'
+// },
+//   function(correo, password, done) {
+//     // asynchronous verification, for effect...
+//     process.nextTick(function () {
+//       Usuario.login(correo,password,function(err,data){
+//          if (err) {
+//               console.log("=================   ERROR    =============================",err);
+//               return done(err,null);
+//          } else {
+//             if (data) {
+//              console.log("================    Se loguea correctamente     ==============");
+//              return done(null,data);
+//             }else{
+//               return done('error',null);
+//             }
+//          }
+//       });
+//
+//
+//     });
+//   }
+// ));
 
 
 

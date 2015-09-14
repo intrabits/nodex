@@ -1,6 +1,8 @@
 {
   "name": "Nodex",
   "version": "1.0.0",
+  "description": "Plataforma para la creación de páginas web",
+  "repository": "git@bitbucket.org:cedric_luckie/nodex.git",
   "dependencies": {
     "async": "^0.9.0",
     "bcrypt": "^0.7.8",
@@ -19,8 +21,8 @@
     "morgan": "~1.0.0",
     "mysql": "^2.3.0",
     "nodemailer": "^1.0.3",
-    "passport": ">= 0.0.0",
-    "passport-facebook": ">= 0.0.0",
+    "passport": "0.3.0",
+    "passport-facebook": "^1.0.3",
     "passport-local": "^1.0.0",
     "sanitizer": "^0.1.2",
     "sequelize": "3.5.1",
