@@ -1,6 +1,6 @@
 /node_modules
-/public/websites/
 /controllers/page.js
 /models/pagina2.js
 /respaldos/paginas.sql
 /config/config.json
+/public/websites/paginas
