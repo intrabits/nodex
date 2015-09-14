@@ -8,14 +8,12 @@ var sanitizer = require('sanitizer');
 var gm      = require('gm').subClass({ imageMagick: true });
 var moment  = require('moment');
 
-var passport        = auth.passport;
-ensureAuthenticated = auth.ensureAuthenticated;
 
-var Pagina = require('./../models/pagina.js');
+var Pagina = require('./../api/pagina/pagina.queries');
 
 
 
-router.get('/:pagina_id',ensureAuthenticated,function (req,res) {
+router.get('/:pagina_id',auth.isLogged,function (req,res) {
   Pagina.getBanners(req.params.pagina_id,function (err,data) {
     if (err) {
       res.send(500,"Error al cargar los banners");
@@ -26,7 +24,7 @@ router.get('/:pagina_id',ensureAuthenticated,function (req,res) {
   });
 });
 
-router.delete('/:pagina_id',ensureAuthenticated,function (req,res) {
+router.delete('/:pagina_id',auth.isLogged,function (req,res) {
   Pagina.deleteBanner(req.params.pagina_id,function (err,data) {
     if (err) {
       res.send(500,"Error al cargar los banners");
@@ -37,7 +35,7 @@ router.delete('/:pagina_id',ensureAuthenticated,function (req,res) {
   });
 });
 
-router.put('/:pagina_id',ensureAuthenticated,function (req,res) {
+router.put('/:pagina_id',auth.isLogged,function (req,res) {
   var data = {
     banner_texto:     sanitizer.sanitize(req.body.banner_texto),
     banner_url:       sanitizer.sanitize(req.body.banner_url)
@@ -53,7 +51,7 @@ router.put('/:pagina_id',ensureAuthenticated,function (req,res) {
 });
 
 //  Crear banner y asignarlo a una página
-router.post('/pbanner/:pagina_id',ensureAuthenticated,function (req,res) {
+router.post('/pbanner/:pagina_id',auth.isLogged,function (req,res) {
 
   console.log("Subiendo banner");
 

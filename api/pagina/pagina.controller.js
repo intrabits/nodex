@@ -5,7 +5,8 @@ exports.paquetes = function (req,res) {
   Pagina.getPaquetes(function( err, data){
       if (err) {
           // error handling code goes here
-          console.log("ERROR : ",err);
+          console.error(err);
+          res.status(500).send('Error al cargar los paquetes');
       } else {
           // code to execute on data retrieval
           res.json(data);
@@ -14,23 +15,22 @@ exports.paquetes = function (req,res) {
 };
 
 exports.misPaginas = function (req,res) {
-  Pagina.getPaginas(req.user.usuario_id, function( err, data){
+  Pagina.getPaginas(req.user.id, function( err, data){
       if (err) {
-          // error handling code goes here
-          res.send(500);
-          console.log("ERROR : ",err);
+          console.error(err);
+          res.status(500).send('Error al cargar las páginas de tu cuenta');
       } else {
-          // code to execute on data retrieval
           res.json(data);
       }
   });
 };
 
 exports.vencidas = function (req, res){
-    Pagina.getExpired(req.user.usuario_id, function( err, data){
+    Pagina.getExpired(req.user.id, function( err, data){
         if (err) {
             // error handling code goes here
-            console.log("ERROR : ",err);
+            console.error(err);
+            res.status(500).send('Error al comprobar si hay páginas con renovación pendiente');
         } else {
             // code to execute on data retrieval
             res.json(data);
@@ -39,7 +39,7 @@ exports.vencidas = function (req, res){
 };
 
 exports.show = function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
     Pagina.getPagina(pagina_id,usuario_id, function( err, data){
         if (err) {
@@ -54,7 +54,7 @@ exports.show = function (req, res){
 };
 
 exports.update = function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
     var datos = {
         pagina_nombre: sanitizer.sanitize(req.body.pagina_nombre),
@@ -82,7 +82,7 @@ exports.update = function (req, res){
 };
 
 exports.cuentas = function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
     Pagina.getCuentas(pagina_id, function( err, data){
         if (err) {
@@ -97,7 +97,7 @@ exports.cuentas = function (req, res){
 };
 
 exports.publicacion = function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var publicacion_id  = req.params.publicacion_id;
 
 
@@ -114,7 +114,7 @@ exports.publicacion = function (req, res){
 };
 
 exports.togglePublicacion = function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var publicacion_id  = req.params.publicacion_id;
 
 
@@ -131,7 +131,7 @@ exports.togglePublicacion = function (req, res){
 };
 
 exports.addCuenta = function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
 
     async.waterfall([
@@ -149,7 +149,7 @@ exports.addCuenta = function (req, res){
         },
         function(pagina_id, callback){
             //  Revisamos que sea el dueño de la página
-            Pagina.owner(req.user.usuario_id,req.params.pagina_id,function (err,data) {
+            Pagina.owner(req.user.id,req.params.pagina_id,function (err,data) {
                 if(err)
                     callback(err,null);
                 else
@@ -201,4 +201,4 @@ exports.addCuenta = function (req, res){
     });
 
 
-}
+};

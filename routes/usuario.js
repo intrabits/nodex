@@ -5,28 +5,29 @@ var auth    = require('./../config/auth.js');
 
 var Usuario     = require('./../models/usuario.js');
 
-var passport        = auth.passport;
-ensureAuthenticated = auth.ensureAuthenticated;
 
 
 
-router.get('/perfil', ensureAuthenticated, function(req, res){
-    Usuario.perfil(req.user.usuario_id,function (err, data) {
-        if (err) {console.log(err);}
-        else{
+router.get('/perfil', auth.isLogged, function(req, res){
+    Usuario.perfil(req.user.id,function (err, data) {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error al cargar los datos de tu perfil');
+        } else {
             res.json(data);
-        };
+        }
     })
 });
 
 
-router.get('/:id',ensureAuthenticated, function (req, res) {
+router.get('/:id',auth.isLogged, function (req, res) {
 
     var id = req.params.id;
     Usuario.getUsuario(id, function( err, data){
         if (err) {
             // error handling code goes here
-            console.log("ERROR : ",err);
+            console.error(err);
+            res.status(500).send('Error al cargar el usuario');
         } else {
             // code to execute on data retrieval
             res.json(data);
@@ -34,7 +35,7 @@ router.get('/:id',ensureAuthenticated, function (req, res) {
     });
 });
 
-router.post('/edit',ensureAuthenticated,function (req, res) {
+router.post('/edit',auth.isLogged,function (req, res) {
     //  Revisamos que haya información que agregar
     if (req.body.usuario_nombre && req.body.usuario_email) {
         data = {
@@ -45,14 +46,13 @@ router.post('/edit',ensureAuthenticated,function (req, res) {
             usuario_direccion_fiscal: req.body.usuario_direccion_fiscal,
             usuario_rfc:            req.body.usuario_rfc,
             usuario_razon_social:   req.body.usuario_razon_social
-        }
-        console.log(data);
+        };
 
-        Usuario.update(data,req.user.usuario_id,function (err, data) {
+        Usuario.update(data,req.user.id,function (err, data) {
             if (err) {
-                res.send(500);
-                console.log(err);}
-            else{
+                res.status(500).send('Error al actualizar el perfil');
+                console.error(err);
+            } else {
                 console.log(data);
                 res.json('OK');
             };
@@ -102,7 +102,7 @@ router.post('/add',function (req, res) {
 });
 
 
-router.post('/password',ensureAuthenticated,function (req, res) {
+router.post('/password',auth.isLogged,function (req, res) {
 
     //  Revisamos que hayan enviado TODA la info necesaria
     console.log(req.body.new_password);
@@ -115,12 +115,12 @@ router.post('/password',ensureAuthenticated,function (req, res) {
                 console.log(err);}
             else{
                 console.log("En teoría ya están editadas"+data);
-                res.json('OK');
-            };
+                res.send('Contraseña actualizada')
+            }
         });
     }else{
         console.log("No esta toda la info");
-        res.send(500)
+        res.status(500).send('Error al actualizar la contraseña');
     }
 
 });

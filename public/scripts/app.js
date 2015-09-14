@@ -7,20 +7,21 @@
     'ngAnimate',
     'ui.bootstrap',
     'mgo-angular-wizard',
-    'textAngular', 'app.controllers',
-    'app.directives', 'app.localization',
+    'textAngular',
+    'app.controllers',
+    'app.directives',
+    'app.localization',
     'app.servicios',
     'app.pagina',
     'app.soporte',
-    'app.chat',    
-    'app.ui.ctrls',
+    'app.chat',
     'app.ui.services',
     'app.usuario',
     'ModeloUsuario',
     'app.producto',
     'app.tienda',
     'app.admin',
-    'ModeloAdmin']).config([
+    ]).config([
     '$routeProvider', function($routeProvider) {
       return $routeProvider.when('/', {
         redirectTo: '/dashboard'
@@ -52,8 +53,6 @@
         templateUrl: 'views/pages/blank.html'
       }).when('/pages/invoice', {
         templateUrl: 'views/pages/invoice.html'
-      }).when('/tasks', {
-        templateUrl: 'views/tasks/tasks.html'
       }).when('/tienda', {
         templateUrl: 'views/tienda/inicio.html',
         controller: ''

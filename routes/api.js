@@ -9,13 +9,11 @@ var auth    = require('./../config/auth.js');
 
 //  Modelos
 var Usuario = require('./../models/usuario.js');
-var Pagina  = require('./../models/pagina.js');
+var Pagina  = require('./../api/pagina/pagina.queries');
 var Pago    = require('./../models/pago.js');
 var Soporte = require('./../models/soporte.js');
 var Imagen  = require('./../models/imagen.js');
 
-var passport        = auth.passport;
-ensureAuthenticated = auth.ensureAuthenticated;
 var gm      = require('gm').subClass({ imageMagick: true });
 var moment = require('moment');
 
@@ -33,14 +31,14 @@ var AdminCtrl       = require('./../routes/admin.js');
 
 /*=========================   Usuario  ====================*/
 
-router.get('/cuenta', ensureAuthenticated, function(req, res){res.json(req.user);  });
+router.get('/cuenta', auth.isLogged, function(req, res){res.json(req.user);  });
 
 
-router.post('/upload/:pagina_id',ensureAuthenticated, function(req, res) {
+router.post('/upload/:pagina_id',auth.isLogged, function(req, res) {
 
     //  Revisamos que el usuario actual tenga permisos sobre la página
     console.log(req.params.pagina_id);
-    Pagina.owner(req.user.usuario_id,req.params.pagina_id,function (err, data) {
+    Pagina.owner(req.user.id,req.params.pagina_id,function (err, data) {
         if (err) {console.log(err);}
         else{
             pagina_id = req.params.pagina_id;
@@ -54,7 +52,7 @@ router.post('/upload/:pagina_id',ensureAuthenticated, function(req, res) {
                 fstream.on('close', function () {
                     Imagen.save({
                         imagen_titulo       :req.body.imagen_nombre,
-                        imagen_usuario_id   :req.user.usuario_id,
+                        imagen_usuario_id   :req.user.id,
                         imagen_pagina_id    :pagina_id,
                         imagen_ruta         :ruta
                     },function (err, data) {
@@ -71,7 +69,7 @@ router.post('/upload/:pagina_id',ensureAuthenticated, function(req, res) {
 });
 
 
-router.post('/upload', ensureAuthenticated,function(req, res) {
+router.post('/upload', auth.isLogged,function(req, res) {
     var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
@@ -87,7 +85,6 @@ router.post('/upload', ensureAuthenticated,function(req, res) {
 /*========================   Admin    ============================*/
 
 router.use('/admin/',AdminCtrl);
-
 
 /*========================   Usuario  ============================*/
 
@@ -109,14 +106,15 @@ router.use('/producto/',ProductoCtrl);
 
 /*========================   Pagos    ============================*/
 
-router.get('/pagos',ensureAuthenticated, function (req,res) {
+router.get('/pagos',auth.isLogged, function (req,res) {
     var condicion = {
-        pago_usuario_id: req.user.usuario_id,
+        pago_usuario_id: req.user.id,
     };
 
     Pago.getAll(condicion, function ( err, data) {
         if (err) {
-            console.log('Error',err);
+            console.error(err);
+            res.status(500).send('Error al cargar los pagos');
         }else{
             res.json(data);
         }
