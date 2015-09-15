@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
   concat = require('gulp-concat'),
-  uglify = require('gulp-uglify');
+  uglify = require('gulp-uglify'),
   watch = require('gulp-watch'),
   nodemon = require('gulp-nodemon'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -28,7 +28,7 @@ gulp.task('default', function () {
       'public/scripts/**/*.js',
       ],{base: 'public/scripts/'})
     .pipe(sourcemaps.init())
-    .pipe(concat('build.js'))
+    .pipe(concat('final.js'))
     .pipe(uglify())
     .on('error', function(){
       console.log('Whoa whoa, hubo un error al minificar el JS');

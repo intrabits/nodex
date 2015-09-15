@@ -2,7 +2,6 @@ var express = require('express');
 var router  = express.Router();
 var async   = require('async');
 var fs 		= require('fs');
-var config  = require('./../config/config.js');
 var auth    = require('./../config/auth.js');
 var sanitizer = require('sanitizer');
 var gm      = require('gm').subClass({ imageMagick: true });
@@ -16,8 +15,8 @@ var Pagina = require('./../api/pagina/pagina.queries');
 router.get('/:pagina_id',auth.isLogged,function (req,res) {
   Pagina.getBanners(req.params.pagina_id,function (err,data) {
     if (err) {
-      res.send(500,"Error al cargar los banners");
-      console.log(err);
+      res.status(500).send('Error al cargar los banners');
+      console.error(err);
     } else {
       res.json(data);
     }
@@ -27,8 +26,8 @@ router.get('/:pagina_id',auth.isLogged,function (req,res) {
 router.delete('/:pagina_id',auth.isLogged,function (req,res) {
   Pagina.deleteBanner(req.params.pagina_id,function (err,data) {
     if (err) {
-      res.send(500,"Error al cargar los banners");
-      console.log(err);
+      res.status(500).send('Error al eliminar el banenr');
+      console.error(err);
     } else {
       res.json("Banner eliminado");
     }
@@ -42,10 +41,10 @@ router.put('/:pagina_id',auth.isLogged,function (req,res) {
   };
   Pagina.updateBanner(data,req.params.pagina_id,function (err,data) {
     if (err) {
-      res.send(500,"Error al cargar los banners");
-      console.log(err);
+      console.error(err);
+      res.status(500).send('Error al editar el banner');
     } else {
-      res.json("Banner eliminado");
+      res.json("Banner editado correctamente");
     }
   });
 });
@@ -76,30 +75,31 @@ router.post('/pbanner/:pagina_id',auth.isLogged,function (req,res) {
                 // banner_url:   sanitizer.sanitize(req.body.banner_url),
                 banner_pagina_id:sanitizer.sanitize(pagina_id),
                 banner_img:   sanitizer.sanitize(ruta_corta),
-                banner_usuario_id:req.user.usuario_id
+                banner_usuario_id:req.user.id
               };
               Pagina.addBanner(banner,function (err,data) {
                 if (err) {
-                  res.send(500,"Error al guardar el banner");
+                  console.error(err);
+                  res.status(500).send('Error al guardar el banner');
                 } else {
                   res.json("Banner guardado exitosamente");
                 }
               });
             });
             fstream.on('error', function(err) {
-              console.log("ERROR:" + err);
-              res.send(500,"Error al subir el archivo");
+              console.error(err);
+              res.status(500).send('Error al subir el archivo');
             });
         }else{
             console.log("Alguien intentó subir un archivo inválido");
-            res.send(500,"Formato de imagen no permitido");
+            res.status(500).send('Archivo inválido');
         }
 
     });
 
   } catch (e) {
-      console.log(e);
-      res.send(500,"Ocurrió un error al subir el archivo");
+      console.error(e);
+      res.status(500).send('Ocurrió un error al subir el archivo');
   }
 });
 
