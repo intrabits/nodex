@@ -24,6 +24,7 @@ var MensajesCtrl       = require('./../../routes/mensaje.js');
 var BannersCtrl        = require('./../../routes/banner.js');
 var PaginaCtrl = require('./pagina.controller');
 var GaleriaCtrl = require('./galeria.controller');
+var PublicacionCtrl = require('./publicacion.controller');
 
 
 
@@ -143,84 +144,7 @@ router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
     });
 });
 
-router.post('/publicacion/:publicacion_id/upload', auth.isLogged,function(req, res) {
-
-
-    async.waterfall([
-        function (callback) {
-            Pagina.getPublicacionPagina(req.params.publicacion_id,function (err,data) {
-                if (err) {
-                    callback(err, null);
-                } else{
-                    if (data) {
-                        callback(null,data);
-                    }else{
-                        callback("No existe la página",null);
-                    }
-
-                }
-            });
-        },
-        function(pagina_id,callback){
-            var fstream;
-            try {
-                req.pipe(req.busboy);
-                req.busboy.on('file',function (fieldname, file, filename) {
-                    var date = moment().format('YYYY-MM-DD_HH:mm:ss');
-                    var name = req.user.usuario_id+"_"+ date +".png";
-
-                    var ruta = 'public/websites/paginas/'+ pagina_id + '/' + name;
-                    var ruta_corta = pagina_id + '/' + name;
-                    fstream = fs.createWriteStream(ruta);
-                    file.pipe(fstream);
-                    fstream.on('close', function () {
-                        Imagen.save({
-                            imagen_titulo       :req.params.publicacion_id+'_foto',
-                            imagen_usuario_id   :req.user.usuario_id,
-                            imagen_pagina_id    :pagina_id,
-                            imagen_ruta         :ruta_corta
-                        },function (err, data) {
-                            if (err) {
-                                callback(err, null);
-                            }else{
-                                console.log("Imágen guardada... teóricamente");
-                                callback(null,ruta_corta);
-
-                            }
-                        });
-                    });
-
-                });
-
-            } catch (e) {
-                callback(e,null);
-            }
-
-
-        },
-        function (ruta,callback) {
-            console.log("tres");
-            Pagina.imgPublicacion(ruta,req.params.publicacion_id,function (err, data) {
-                if (err) {
-                    callback(err, null);
-                }else{
-                    callback(null,ruta);
-                }
-            });
-            }
-    ], function (err, result) {
-        console.log("Resultado");
-
-       if (err) {
-        console.log(err);
-        res.send(500);
-       } else{
-        console.log("TOdo bien"+result);
-        res.json('ok');
-       }
-    });
-
-});
+router.post('/publicacion/:publicacion_id/upload', auth.isLogged,PublicacionCtrl.imagen);
 
 
 

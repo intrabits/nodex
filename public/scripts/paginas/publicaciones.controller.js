@@ -62,11 +62,11 @@
                     withCredentials: true,
                     headers: {'Content-Type': undefined },
                     transformRequest: angular.identity
-                }).success(function () {
-                  $scope.notify('success','Listo');
+                }).success(function (data) {
+                  $scope.notify('success',data);
                   $route.reload();
                 }).error(function (err) {
-                  $scope.notify('danger','Algo salió mal');
+                  $scope.notify('danger',err);
                 });
 
             };

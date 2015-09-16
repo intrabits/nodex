@@ -8,7 +8,7 @@
     'app.pagina.publicacion',
     'app.pagina.mensajes'
   ])
-    .controller('PaginasCtrl',function($scope,$modal,$log,Pagina){
+    .controller('PaginasCtrl',['$scope','Pagina',function($scope,Pagina){
 
       Pagina.all(function (err, data) {
         if (err) {
@@ -18,7 +18,7 @@
         }
       });
 
-  }).controller('PaginaCtrl',['$scope','$modal','$window','Pagina','$routeParams','$http',function($scope,$modal,$window,Pagina,$routeParams,$http){
+  }]).controller('PaginaCtrl',['$scope','$modal','$window','Pagina','$routeParams','$http',function($scope,$modal,$window,Pagina,$routeParams,$http){
 
     var pagina_id = $routeParams.pagina_id;
     $scope.hoy = Date();

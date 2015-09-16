@@ -123,7 +123,7 @@
 
       setInterval(function() {
         getNotificacionesMensajesPagina();
-      }, 20000);
+      }, 120000);
       getNotificacionesMensajesPagina();
 
 

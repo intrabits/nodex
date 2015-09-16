@@ -327,14 +327,10 @@ Pagina.addPublicacion = function (data, callback) {
 };
 
 Pagina.imgPublicacion = function (data, id, callback) {
-	console.log("editando publicacion "+id);
+
 	db.query('UPDATE pagina_publicacion SET publicacion_imagen = ? WHERE publicacion_id = ?  LIMIT 1',[data, id], function(err, result){
-		if (err)
-			callback(err,null);
-		else{
-			console.log(result);
-			callback(null,result);
-		}
+		if (err) callback(err,null); 
+		else callback(null,result);
     });
 };
 
