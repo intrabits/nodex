@@ -42,7 +42,7 @@
                               callback('Hubo un error',null);
                           });
                   },
-                  deletePublicacion:function (id) {
+                  delete:function (id) {
                     return $http.delete('/api/publicaciones/' + id);
                   },
                   update:function ( publicacion_id, datos, callback) {

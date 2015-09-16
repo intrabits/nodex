@@ -119,27 +119,5 @@ exports.update = function (req,res) {
       console.log(err);
       res.status(500).send('Error al actualizar la publicación');
     });
-
-  // Pagina.owner(usuario_id,pagina_id,function (err,data) {
-  //     if (err) {
-  //       res.send(400,"Ops, error");
-  //       console.log(err);}
-  //
-  //     if (data){
-  //
-  //         if (data===null) {
-  //             console.log("No tiene permisos");
-  //             res.send(400,"Ops, error al guardar la publicación");
-  //         }else{
-  //             Pagina.updatePublicacion(publicacion_id,datos, function( err, data){
-  //                 if (err) {
-  //                     console.log("ERROR : ",err);
-  //                     res.send(400,"Ops, error al guardar la publicación");
-  //                 } else {
-  //                     res.json(data);
-  //                 }
-  //             });
-  //         }
-  //     }
-  // });
+  
 };

@@ -1,5 +1,6 @@
 var Pagina = require('./pagina.queries');
 var Lib     = require('./../../lib/index.js');
+var sanitizer = require('sanitizer');
 
 exports.paquetes = function (req,res) {
   Pagina.getPaquetes(function( err, data){
@@ -63,8 +64,8 @@ exports.update = function (req, res){
         pagina_telefono: sanitizer.sanitize(req.body.pagina_telefono),
         pagina_direccion:sanitizer.sanitize(req.body.pagina_direccion),
         pagina_email:    sanitizer.sanitize(req.body.pagina_email),
-        pagina_descripcion_larga: sanitizer.sanitize(req.body.pagina_descripcion_larga),
-        pagina_nosotros: sanitizer.sanitize(req.body.pagina_nosotros),
+        pagina_descripcion_larga: req.body.pagina_descripcion_larga,
+        pagina_nosotros: req.body.pagina_nosotros,
         pagina_facebook:    sanitizer.sanitize(req.body.pagina_facebook),
         pagina_twitter:     sanitizer.sanitize(req.body.pagina_twitter),
         pagina_youtube:     sanitizer.sanitize(req.body.pagina_youtube),

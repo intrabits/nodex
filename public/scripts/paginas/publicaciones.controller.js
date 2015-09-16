@@ -29,7 +29,7 @@
       $scope.deletePublicacion = function () {
         var confirmar = confirm('¿Realmente deseas eliminar esta publicación?');
         if (confirmar) {
-          Publicacion.deletePublicacion($routeParams.publicacion_id)
+          Publicacion.delete($routeParams.publicacion_id)
             .success(function (data) {
               $window.location = '#/pagina/' + FormEditPublicacion.publicacion_pagina_id + '/publicaciones';
               $scope.notify('success',data);
