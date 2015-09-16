@@ -66,7 +66,7 @@
                   $scope.notify('success',data);
                   $route.reload();
                 }).error(function (err) {
-                  $scope.notify('danger',err);
+                  alert(err);
                 });
 
             };
@@ -84,15 +84,13 @@
 
       $scope.editPublicacion = function () {
         var pagina_id = $routeParams.pagina_id;
-        Publicacion.updatePublicacion(pagina_id,$routeParams.publicacion_id,$scope.FormEditPublicacion,function (err, data) {
-          if (err) {
-            $scope.notify('danger',err);
-          } else{
-            getPublicaciones();
-            $scope.notify('success','Publicación editada exitosamente');
-            $scope.FormAddPublicacion = {};
-          }
-        });
+        Publicacion.update($routeParams.publicacion_id,$scope.FormEditPublicacion)
+          .success(function (data) {
+            $scope.notify('success',data);
+          })
+          .error(function (err) {
+            $scope.notify('warning',err);
+          });
 
       };
       if ($routeParams.publicacion_id) {

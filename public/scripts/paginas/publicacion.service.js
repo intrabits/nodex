@@ -45,17 +45,12 @@
                   deletePublicacion:function (id) {
                     return $http.delete('/api/publicaciones/' + id);
                   },
-                  updatePublicacion:function (pagina_id, publicacion_id, datos, callback) {
-                      $http({
+                  update:function ( publicacion_id, datos, callback) {
+                    return $http({
                             data    :  datos,
                             method  : 'PUT',
-                            url     : '/api/pagina/'+ pagina_id + '/publicacion/' + publicacion_id
-                        })
-                          .success(function(data) {
-                              callback(null,'Ok');
-                          }).error(function(err){
-                              callback('Hubo un error',null);
-                          });
+                            url     : '/api/publicaciones/' + publicacion_id
+                        });
                   },
                   togglePublicacion:function (publicacion_id, callback) {
                       $http.get('/api/pagina/publicacion/'+publicacion_id+'/toggle').success(function (data) {

@@ -6,7 +6,7 @@ var Promise = require('bluebird');
 
 var Imagen = {};
 
-Imagen.save = function (datos,callback) {
+Imagen.save = function (datos,callback) {  
     connection.query('INSERT INTO imagen SET ?', datos, function(err, rows){
         if (err)
             callback(err,null);

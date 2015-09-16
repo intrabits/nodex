@@ -3,6 +3,7 @@
   angular.module('app', [
     'ngRoute',
     'ngSanitize',
+    'summernote',
     'angular-loading-bar',
     'ngAnimate',
     'ui.bootstrap',

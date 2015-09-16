@@ -4,6 +4,7 @@ var colors = require('colors');
 var gm      = require('gm').subClass({ imageMagick: true });
 var fs 		= require('fs');
 var moment = require('moment');
+var sanitizer = require('sanitizer');
 
 exports.index = function (req,res) {
   var usuario_id = req.user.usuario_id;
@@ -41,9 +42,18 @@ exports.imagen = function (req,res) {
     .then(function (pagina_id) {
       var fstream;
       req.pipe(req.busboy);
-      req.busboy.on('file',function (fieldname, file, filename) {
+      req.busboy.on('file',function (fieldname, file, filename, encoding, mimetype) {
+
+          console.log(mimetype);
+          if (mimetype=='image/png'||mimetype=='image/jpeg'){
+
+          }else{
+            console.log('Tipo de archivo no válido');
+            return ;
+          }
+
           var date = moment().format('YYYY-MM-DD_HH:mm:ss');
-          var name = req.user.usuario_id+"_"+ date +".png";
+          var name = req.user.id+"_"+ date +".png";
 
           var ruta = 'public/websites/paginas/'+ pagina_id + '/' + name;
           var ruta_corta = pagina_id + '/' + name;
@@ -51,7 +61,7 @@ exports.imagen = function (req,res) {
           file.pipe(fstream);
           fstream.on('close', function () {
             console.log('Archivo subido correctamente, procedemos a guardar la imagen');
-            return Imagen.saveAsync({
+            Imagen.saveAsync({
                   imagen_titulo       :req.params.publicacion_id+'_foto',
                   imagen_usuario_id   :req.user.id,
                   imagen_pagina_id    :pagina_id,
@@ -76,4 +86,60 @@ exports.imagen = function (req,res) {
       console.error(err);
       res.status(500).send('Error al subir el archivo');
     });
+};
+
+exports.update = function (req,res) {
+
+
+
+
+  Pagina.getPublicacionPaginaAsync(req.params.id)
+    .then(function (pagina_id) {
+
+      return Pagina.ownerAsync(req.user.id,pagina_id);
+
+    })
+    .then(function (data) {
+      if (data) {
+        var datos = {
+            publicacion_titulo:   sanitizer.sanitize(req.body.publicacion_titulo),
+            publicacion_video:    sanitizer.sanitize(req.body.publicacion_video),
+            publicacion_contenido:req.body.publicacion_contenido
+        };
+        var publicacion_id  = req.params.id;
+
+        return Pagina.updatePublicacionAsync(publicacion_id,datos);
+      }
+
+    })
+    .then(function (data) {
+      res.send('Publicación actualizada');
+    })
+    .catch(function (err) {
+      console.log(err);
+      res.status(500).send('Error al actualizar la publicación');
+    });
+
+  // Pagina.owner(usuario_id,pagina_id,function (err,data) {
+  //     if (err) {
+  //       res.send(400,"Ops, error");
+  //       console.log(err);}
+  //
+  //     if (data){
+  //
+  //         if (data===null) {
+  //             console.log("No tiene permisos");
+  //             res.send(400,"Ops, error al guardar la publicación");
+  //         }else{
+  //             Pagina.updatePublicacion(publicacion_id,datos, function( err, data){
+  //                 if (err) {
+  //                     console.log("ERROR : ",err);
+  //                     res.send(400,"Ops, error al guardar la publicación");
+  //                 } else {
+  //                     res.json(data);
+  //                 }
+  //             });
+  //         }
+  //     }
+  // });
 };

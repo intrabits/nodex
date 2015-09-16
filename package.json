@@ -16,6 +16,7 @@
     "express-session": "~1.0.0",
     "gm": "^1.16.0",
     "jade": "latest",
+    "lwip": "0.0.7",
     "method-override": "~1.0.0",
     "moment": "^2.7.0",
     "morgan": "~1.0.0",

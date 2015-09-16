@@ -264,8 +264,8 @@ router.post('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
             Pagina.addPublicacion(pub, function( err, data){
                 if (err) {
                     // error handling code goes here
-                    console.log("ERROR : ",err);
-                    res.send(400,"Error al agregar la publicación");
+                    console.error(err);
+                    res.status(500).send('Error al agregar la publicación');
                 } else {
                     // code to execute on data retrieval
                     res.json(data);
