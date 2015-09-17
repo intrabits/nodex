@@ -23,7 +23,7 @@ class database extends pdo{
 		$this->database = $database;
 		$this->username = $username;
 		$this->password = $password;
-		
+
 		/* Try to connect else catch the failure */
 		try {
 			$this->pdo = new PDO("mysql:host={$this->hostname};port={$this->port};dbname={$this->database};charset=utf8", $this->username, $this->password, array(PDO::ATTR_PERSISTENT => true,PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
@@ -32,7 +32,7 @@ class database extends pdo{
 			die();
 		}
 	}
-	
+
 	/* Build Query based on $query variable */
 	/* Example of Bind array(":id" => "1", ":soemthing" => "The value") */
 	public function query($query, $bind = null) {
@@ -44,8 +44,8 @@ class database extends pdo{
 	}
 
 	public function insert($tabla,$datos,$depurar='') {
-		global $pdo;		
-		$fields = array_keys($datos);		
+		global $pdo;
+		$fields = array_keys($datos);
 		$query="INSERT INTO ".$tabla."
 	    (`".implode('`,`', $fields)."`)
 	    VALUES('".implode("','", $datos)."')";
@@ -54,9 +54,9 @@ class database extends pdo{
 	    }
 		$this->statement = $this->pdo->prepare($query);
 		/* Execute Query */
-		$result=$this->statement->execute();			
+		$result=$this->statement->execute();
 		$insertedId = $this->field("SELECT LAST_INSERT_ID() from $tabla") ;
-		
+
 		return $insertedId;
 	}
 	public function update($table_name, $form_data,$where_clause,$depurar='') {
@@ -91,7 +91,7 @@ class database extends pdo{
 		}
 		$this->statement = $this->pdo->prepare($sql);
 		/* Execute Query */
-		$result=$this->statement->execute();			
+		$result=$this->statement->execute();
 		/*$insertedId = $this->statement->lastInsertId() ;
 		*/
 		return $result;
@@ -101,21 +101,21 @@ class database extends pdo{
 		global $pdo;
 	    $sql = "SELECT $campos FROM $tabla WHERE $condicion";
 	    $this->statement = $this->pdo->prepare($sql);
-	    $this->statement->execute();	
-	    if($depurar)echo "$sql<br>";    
+	    $this->statement->execute();
+	    if($depurar)echo "$sql<br>";
 	    // here you go:
-	    $arreglo=$this->statement->fetchAll();		    
+	    $arreglo=$this->statement->fetchAll();
 
 	    return $arreglo;
 	}
 
 	public function select_sql($sql,$depurar=''){
-		global $pdo;	    
+		global $pdo;
 	    $this->statement = $this->pdo->prepare($sql);
-	    $this->statement->execute();	
-	    if($depurar)echo "$sql<br>";    
+	    $this->statement->execute();
+	    if($depurar)echo "$sql<br>";
 	    // here you go:
-	    $arreglo=$this->statement->fetchAll();		    
+	    $arreglo=$this->statement->fetchAll();
 
 	    return $arreglo;
 	}
@@ -124,23 +124,24 @@ class database extends pdo{
 		global $pdo;
 	    $sql = "SELECT $campos FROM $tabla WHERE $condicion LIMIT 1";
 	    $this->statement = $this->pdo->prepare($sql);
-	    $this->statement->execute();	
-	    if($depurar)echo "$sql<br>";    
-	    // here you go:	    
-	    $arreglo=$this->statement->fetchAll();		
+	    $this->statement->execute();
+	    if($depurar)echo "$sql<br>";
+	    // here you go:
+	    $arreglo=$this->statement->fetchAll();
 
+			if ($arreglo) {
+				return $arreglo[0];
+			}
 
-
-	    return $arreglo[0];
 	}
 
 	public function field($query,$depurar=''){
-		global $pdo;	    
+		global $pdo;
 	    $this->statement = $this->pdo->prepare($query);
-	    $this->statement->execute();	
-	    if($depurar)echo "$query<br>";    
-	    // here you go:	    
-	    $arreglo=$this->statement->fetchAll();		
+	    $this->statement->execute();
+	    if($depurar)echo "$query<br>";
+	    // here you go:
+	    $arreglo=$this->statement->fetchAll();
 
 
 
@@ -148,7 +149,7 @@ class database extends pdo{
 	}
 
 
-	
+
 	/* Return row Count */
 	public function count() {
 		/* Return Count */
