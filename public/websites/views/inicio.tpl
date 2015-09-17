@@ -168,7 +168,7 @@
                             <?php foreach ($publicaciones as $p): ?>
 
                               <div class="col-md-6">
-                                <div class="well well-sm">
+                                <div class="well well-sm" style="min-height:200px">
 
                                   <p class="text-muted">
                                     <a
@@ -178,23 +178,16 @@
                                         <?=$p['publicacion_titulo']?>
                                     </a>
                                   </p>
-                                  <p class="text-muted text-right"><small>- <i class="fa fa-clock-o"></i>  <?=$p['publicacion_fecha']?> </small></p>
+                                  <!-- <p class="text-muted text-right"><small>- <i class="fa fa-clock-o"></i>  <?=$p['publicacion_fecha']?> </small></p> -->
                                 </div>
                               </div>
 
-                                <!-- <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="?p=publicacion&id=<?=$p['publicacion_id']?>">
-                                        <img class="img-responsive" src="http://placehold.it/150/<?=$colores[array_rand($colores)]; ?>&text=Leer más">
-                                    </a>
-                                </div>
-                                <div class="col-xs-8 col-sm-9 col-md-9 col-lg-9">
-                                    <p class="text-muted"> <?=$p['publicacion_titulo']?>  </p>
-                                    <p class="text-muted text-right"><small>- <i class="fa fa-clock-o"></i>  <?=$p['publicacion_fecha']?> </small></p>
-                                </div> -->
                             <?php endforeach ?>
                             </div>
                             <?php if (count($publicaciones)>3): ?>
+                              <p align="center">
                                 <a href="?p=publicacion" class="btn btn-info" align="right">Ver todas las publicaciones</a>
+                              </p>
                             <?php endif ?>
                         </div>
                         <?php endif ?>
