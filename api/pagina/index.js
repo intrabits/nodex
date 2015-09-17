@@ -38,7 +38,7 @@ router.get('/paquetes/',auth.isLogged,PaginaCtrl.paquetes);
 router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
 
     //  Revisamos que el usuario actual tenga permisos sobre la página
-    Pagina.owner(req.user.usuario_id,req.params.pagina_id,function (err, data) {
+    Pagina.owner(req.user.id,req.params.pagina_id,function (err, data) {
         if (err) {console.log(err);res.send(500);}
         if (data){
             pagina_id = req.params.pagina_id;
@@ -58,7 +58,7 @@ router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
                             fstream.on('close', function () {
                                 Imagen.save({
                                     imagen_titulo       :'Logotipo',
-                                    imagen_usuario_id   :req.user.usuario_id,
+                                    imagen_usuario_id   :req.user.id,
                                     imagen_pagina_id    :pagina_id,
                                     imagen_ruta         :ruta_corta
                                 },function (err, data) {
@@ -163,11 +163,11 @@ router.post('/:pagina_id/cuentas',auth.isLogged,PaginaCtrl.addCuenta);
 
 
 router.get('/:pagina_id/seguidores',auth.isLogged, function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
     async.waterfall([
         function(callback){
-            Pagina.owner(req.user.usuario_id,req.params.pagina_id,function (err,data) {
+            Pagina.owner(req.user.id,req.params.pagina_id,function (err,data) {
                 if (err) {
                     console.log(err);
                     callback(err,null);
@@ -208,7 +208,7 @@ router.get('/:pagina_id/seguidores',auth.isLogged, function (req, res){
 /*----------------------------------    Publicaciones   --------------------------------------*/
 
 router.get('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
 
 
@@ -229,7 +229,7 @@ router.get('/:pagina_id/publicacion/:publicacion_id',auth.isLogged,PaginaCtrl.pu
 router.get('/publicacion/:publicacion_id/toggle',auth.isLogged,PaginaCtrl.togglePublicacion);
 
 router.delete('/:pagina_id/publicacion/:publicacion_id',auth.isLogged, function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var publicacion_id  = req.params.publicacion_id;
 
 
@@ -246,7 +246,7 @@ router.delete('/:pagina_id/publicacion/:publicacion_id',auth.isLogged, function 
 } );
 
 router.post('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
     Pagina.owner(usuario_id, pagina_id, function (err, data) {
         if (err) {console.log(err);}
@@ -274,7 +274,7 @@ router.post('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
 } );
 
 router.put('/:pagina_id/publicacion/:publicacion_id',auth.isLogged, function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var publicacion_id  = req.params.publicacion_id;
     var pagina_id = req.params.pagina_id;
     var datos = {
@@ -318,7 +318,7 @@ router.use('/',MensajesCtrl);
 /*----------------------------------    Galerías   --------------------------------------*/
 
 router.get('/:pagina_id/galerias', function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
 
 
@@ -347,7 +347,7 @@ router.post('/:pagina_id/galeria/:galeria_id/upload', auth.isLogged,function(req
     var pagina_id = req.params.pagina_id;
     var galeria_id = req.params.galeria_id;
     var date = moment().format('YYYY-MM-DD_HH:mm:ss');
-    var name = req.user.usuario_id+"_"+ date +".png";
+    var name = req.user.id+"_"+ date +".png";
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
         var path = req.params.pagina_id+'/img/' + name;
@@ -363,7 +363,7 @@ router.post('/:pagina_id/galeria/:galeria_id/upload', auth.isLogged,function(req
                         else {
 
                             var data = {
-                                imagen_usuario_id:  req.user.usuario_id,
+                                imagen_usuario_id:  req.user.id,
                                 imagen_galeria_id:  galeria_id,
                                 imagen_url:         path
                             };
@@ -440,7 +440,7 @@ router.post('',auth.isLogged, function (req, res) {
 
         },
         function(result_pid, callback){
-            Pagina.addUsuario(req.user.usuario_id,result_pid,function (err, result) {
+            Pagina.addUsuario(req.user.id,result_pid,function (err, result) {
                     if (err)
                         callback(err,null);
                     else{
@@ -478,7 +478,7 @@ router.post('',auth.isLogged, function (req, res) {
                                 console.log(result);
 
                                 //  Creamos una aplicación -_-
-                                var home_link = '/home/intrabits/webapps/intrabits/public/websites/paginas/'+result_pid;
+                                var home_link = '/home/intrabits/webapps/nodex/nodex/public/websites/paginas/'+result_pid;
                                 webfaction.createApp({
                                     name: WEB_NAME,
                                     type: 'symlink54',

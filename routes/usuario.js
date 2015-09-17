@@ -16,7 +16,7 @@ router.get('/perfil', auth.isLogged, function(req, res){
         } else {
             res.json(data);
         }
-    })
+    });
 });
 
 
@@ -55,10 +55,10 @@ router.post('/edit',auth.isLogged,function (req, res) {
             } else {
                 console.log(data);
                 res.json('OK');
-            };
+            }
         });
     }else{
-        res.send(500);
+        res.status(500).send('Error al actualizar');
     }
 
 });
@@ -80,7 +80,7 @@ router.post('/add',function (req, res) {
                     usuario_email:       req.body.usuario_email,
                     usuario_telefono:     req.body.usuario_telefono,
                     usuario_password:     password
-                }
+                };
                 console.log(data);
 
                 Usuario.addUsuario(data,function (err, data) {
@@ -90,9 +90,9 @@ router.post('/add',function (req, res) {
                     else{
                         console.log(data);
                         res.json('OK');
-                    };
+                    }
                 });
-            };
+            }
         });
 
     }else{
@@ -109,13 +109,13 @@ router.post('/password',auth.isLogged,function (req, res) {
     if (req.body.old_password && req.body.new_password) {
         console.log("Información llegó");
 
-        Usuario.updatePass(req.body.old_password,req.body.new_password,req.user[0].user_id,function (err, data) {
+        Usuario.updatePass(req.body.old_password,req.body.new_password,req.user.id,function (err, data) {
             if (err) {
                 res.send(500);
                 console.log(err);}
             else{
                 console.log("En teoría ya están editadas"+data);
-                res.send('Contraseña actualizada')
+                res.send('Contraseña actualizada');
             }
         });
     }else{
