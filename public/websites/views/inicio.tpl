@@ -14,7 +14,7 @@
   .publicacion-holder{
     width: 100%;
     height: 250px;
-    background-image: url(http://nodex.mx/mg/holder.png)
+    background-image: url(http://nodex.mx/img/holder.png)
   }
 </style>
 
