@@ -93,18 +93,22 @@ exports.imagen = function (req,res) {
 
             // Esto es para generar el thumbnail :)
             lwip.open(ruta, function(err, image){
-                var ratio = 300 / image.width();
-                image.batch()
-                  .resize(image.width()/3,image.height()/3)
-                  .crop(0,0,230,230)
-                  .blur(1)
-                  .writeFile(path_thumb, function(err){
-                    if (err) {
-                      console.trace(err);
-                    } else {
-                      console.log('Thumbnail generado');
-                    }
-                  });
+                // var ratio = 300 / image.width();
+                // .resize(image.width()/3,image.height()/3)
+                if (image) {
+                  image.batch()
+
+                    .crop(0,0,300,300)
+                    .blur(1)
+                    .writeFile(path_thumb, function(err){
+                      if (err) {
+                        console.trace(err);
+                      } else {
+                        console.log('Thumbnail generado');
+                      }
+                    });
+                }
+
               });
 
 

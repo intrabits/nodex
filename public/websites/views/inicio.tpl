@@ -11,6 +11,11 @@
   #myCarousel .nav {
     background:#eee;
   }
+  .publicacion-holder{
+    width: 100%;
+    height: 250px;
+    background-image: url(http://nodex.mx/mg/holder.png)
+  }
 </style>
 
         <section class="wrap">
@@ -167,14 +172,17 @@
                             <div class="row">
                             <?php foreach ($publicaciones as $p): ?>
 
-                              <div class="col-md-6">
-                                <div class="well well-sm" style="min-height:200px">
+                              <div class="col-md-4">
+                                <div class="well well-sm" style="min-height:400px">
 
                                   <p class="text-muted">
                                     <a
                                       style="font-size:21px"
                                       href="?p=publicacion&id=<?=$p['publicacion_id']?>">
-                                        <img class="img-responsive" src="http://nodex.mx/thumbs/<?=$p['publicacion_id']; ?>.png">
+                                        <div class="publicacion-holder">
+                                          <img class="img-responsive" src="http://nodex.mx/thumbs/<?=$p['publicacion_id']; ?>.png">
+                                        </div>
+
                                         <?=$p['publicacion_titulo']?>
                                     </a>
                                   </p>
