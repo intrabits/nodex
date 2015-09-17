@@ -144,9 +144,6 @@ router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
     });
 });
 
-router.post('/publicacion/:publicacion_id/upload', auth.isLogged,PublicacionCtrl.imagen);
-
-
 
 //  Traer páginas del usuario logueado
 router.get('/misPaginas',auth.isLogged,PaginaCtrl.misPaginas);

@@ -76,7 +76,7 @@
 
                     </div><!-- End Carousel Inner -->
                     <?php if (count($banners)>1&&count($banners)<4): ?>
-                      <ul class="nav nav-pills nav-justified">                        
+                      <ul class="nav nav-pills nav-justified">
                       <?php $j=0;foreach ($banners as $key => $banner): ?>
                         <li style="width:25%" data-target="#myCarousel" data-slide-to="<?=$j?>" <?php if($j==0) echo 'class="active"'?>>
                           <a href="#" style="color:#333"><?php
@@ -174,7 +174,7 @@
                                     <a
                                       style="font-size:21px"
                                       href="?p=publicacion&id=<?=$p['publicacion_id']?>">
-                                        <!-- <img class="img-responsive" src="http://placehold.it/150/<?=$colores[array_rand($colores)]; ?>&text=Leer más"> -->
+                                        <img class="img-responsive" src="http://nodex.mx/thumbs/<?=$p['publicacion_id']; ?>.png">
                                         <?=$p['publicacion_titulo']?>
                                     </a>
                                   </p>

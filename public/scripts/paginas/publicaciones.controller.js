@@ -58,7 +58,7 @@
                var fd = new FormData();
                 //Take the first selected file
                 fd.append("file", files[0]);
-                $http.post('/api/pagina/publicacion/'+$routeParams.publicacion_id +'/upload', fd, {
+                $http.post('/api/publicaciones/'+$routeParams.publicacion_id +'/upload', fd, {
                     withCredentials: true,
                     headers: {'Content-Type': undefined },
                     transformRequest: angular.identity

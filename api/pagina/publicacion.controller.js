@@ -5,6 +5,7 @@ var gm      = require('gm').subClass({ imageMagick: true });
 var fs 		= require('fs');
 var moment = require('moment');
 var sanitizer = require('sanitizer');
+var lwip = require('lwip');
 
 exports.index = function (req,res) {
   var usuario_id = req.user.usuario_id;
@@ -38,13 +39,24 @@ exports.delete = function (req,res) {
 
 exports.imagen = function (req,res) {
   console.log('Subiendo imagen para una publicación'.yellow);
-  Pagina.getPublicacionPaginaAsync(req.params.publicacion_id)
+  Pagina.getPublicacionPaginaAsync(req.params.id)
     .then(function (pagina_id) {
       var fstream;
       req.pipe(req.busboy);
       req.busboy.on('file',function (fieldname, file, filename, encoding, mimetype) {
 
           console.log(mimetype);
+          var path = req.params.id; // este será el nombre del archivo
+          var path_thumb = 'public/websites/thumbs/'+req.params.id + '.png';
+          switch (mimetype) {
+            case 'image/png':
+              path+='.png';
+              break;
+            case 'image/jpeg':
+              path+='.jpg';
+              break;
+            default:
+          }
           if (mimetype=='image/png'||mimetype=='image/jpeg'){
 
           }else{
@@ -52,11 +64,11 @@ exports.imagen = function (req,res) {
             return ;
           }
 
-          var date = moment().format('YYYY-MM-DD_HH:mm:ss');
-          var name = req.user.id+"_"+ date +".png";
 
-          var ruta = 'public/websites/paginas/'+ pagina_id + '/' + name;
-          var ruta_corta = pagina_id + '/' + name;
+
+          // path_thumb += path;
+          var ruta = 'public/websites/paginas/'+ pagina_id + '/' + path;
+          var ruta_corta = pagina_id + '/' + path;
           fstream = fs.createWriteStream(ruta);
           file.pipe(fstream);
           fstream.on('close', function () {
@@ -69,7 +81,7 @@ exports.imagen = function (req,res) {
               })
               .then(function (ruta) {
                 console.log('Asignando imagen a la publicación');
-                return Pagina.imgPublicacionAsync(ruta_corta,req.params.publicacion_id);
+                return Pagina.imgPublicacionAsync(ruta_corta,req.params.id);
               })
               .then(function (data) {
                 res.json('Imagen procesada correctamente');
@@ -78,6 +90,24 @@ exports.imagen = function (req,res) {
                 console.error(err);
                 res.status(500).send('Error al subir el archivo');
               });
+
+            // Esto es para generar el thumbnail :)
+            lwip.open(ruta, function(err, image){
+                var ratio = 300 / image.width();
+                image.batch()
+                  .resize(image.width()/3,image.height()/3)
+                  .crop(0,0,230,230)
+                  .blur(1)
+                  .writeFile(path_thumb, function(err){
+                    if (err) {
+                      console.trace(err);
+                    } else {
+                      console.log('Thumbnail generado');
+                    }
+                  });
+              });
+
+
           });
 
       });
@@ -119,5 +149,5 @@ exports.update = function (req,res) {
       console.log(err);
       res.status(500).send('Error al actualizar la publicación');
     });
-  
+
 };
