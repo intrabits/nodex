@@ -87,20 +87,23 @@ exports.imagen = function (req,res) {
                 res.json('Imagen procesada correctamente');
 
                 // Esto es para generar el thumbnail :)
-                lwip.open(ruta, function(err, image){
-                    // var ratio = 300 / image.width();
-                    // .resize(image.width()/3,image.height()/3)
-                    if (err) return console.error(err);
-                    if (image) {
-                      image.batch()
-                        .crop(0,0,300,300)
-                        .blur(1)
-                        .writeFile(path_thumb, function(err){
-                          if (err) console.trace(err);
-                          else console.log('Thumbnail generado');
-                        });
-                    }
-                  });
+                console.log(ruta);
+                setTimeout(function () {
+                  lwip.open(ruta, function(err, image){
+                      // var ratio = 300 / image.width();
+                      // .resize(image.width()/3,image.height()/3)
+                      if (err) return console.error(err);
+                      if (image) {
+                        image.batch()
+                          .crop(0,0,300,300)
+                          .blur(1)
+                          .writeFile(path_thumb, function(err){
+                            if (err) console.trace(err);
+                            else console.log('Thumbnail generado');
+                          });
+                      }
+                    });
+                }, 3000);
 
 
               })
