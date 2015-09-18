@@ -47,7 +47,7 @@ exports.imagen = function (req,res) {
 
           console.log(mimetype);
           var path = req.params.id; // este será el nombre del archivo
-          var path_thumb = 'public/websites/thumbs/'+req.params.id + '.png';
+          var path_thumb = 'public/websites/thumbs/'+req.params.id;
           switch (mimetype) {
             case 'image/png':
               path+='.png';
@@ -66,7 +66,7 @@ exports.imagen = function (req,res) {
 
 
 
-          // path_thumb += path;
+          path_thumb += path;
           var ruta = 'public/websites/paginas/'+ pagina_id + '/' + path;
           var ruta_corta = pagina_id + '/' + path;
           fstream = fs.createWriteStream(ruta);
@@ -85,29 +85,28 @@ exports.imagen = function (req,res) {
               })
               .then(function (data) {
                 res.json('Imagen procesada correctamente');
+
+                // Esto es para generar el thumbnail :)
+                lwip.open(ruta, function(err, image){
+                    // var ratio = 300 / image.width();
+                    // .resize(image.width()/3,image.height()/3)
+                    if (err) return console.error(err);
+                    if (image) {
+                      image.batch()
+                        .crop(0,0,300,300)
+                        .blur(1)
+                        .writeFile(path_thumb, function(err){
+                          if (err) console.trace(err);
+                          else console.log('Thumbnail generado');
+                        });
+                    }
+                  });
+
+
               })
               .catch(function (err) {
                 console.error(err);
                 res.status(500).send('Error al subir el archivo');
-              });
-
-            // Esto es para generar el thumbnail :)
-            lwip.open(ruta, function(err, image){
-                // var ratio = 300 / image.width();
-                // .resize(image.width()/3,image.height()/3)
-                if (image) {
-                  image.batch()
-                    .crop(0,0,300,300)
-                    .blur(1)
-                    .writeFile(path_thumb, function(err){
-                      if (err) {
-                        console.trace(err);
-                      } else {
-                        console.log('Thumbnail generado');
-                      }
-                    });
-                }
-
               });
 
 
