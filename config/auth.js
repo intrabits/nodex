@@ -38,8 +38,8 @@ passport.use(new FacebookStrategy({
 
     process.nextTick(function () {
 
-      nark.log('Usuario se intenta registrar utilizando facebook ');
-      nark.log(profile);
+      console.log('Usuario se intenta loguear usando FB');
+      console.log(profile);
 
       var datos = {
         nombre : profile.name.familyName,
@@ -65,7 +65,7 @@ passport.use(new FacebookStrategy({
           }
         })
         .then(function (data) {
-          done(null,data)
+          done(null,data);
         })
         .catch(function (err) {
           console.error(err);
