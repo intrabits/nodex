@@ -51,6 +51,7 @@ exports.imagen = function (req,res) {
           switch (mimetype) {
             case 'image/png':
               path+='.png';
+              path_thumb += '.png';
               break;
             case 'image/jpeg':
               path+='.jpg';
@@ -64,9 +65,6 @@ exports.imagen = function (req,res) {
             return ;
           }
 
-
-
-          path_thumb += path;
           var ruta = 'public/websites/paginas/'+ pagina_id + '/' + path;
           var ruta_corta = pagina_id + '/' + path;
           fstream = fs.createWriteStream(ruta);
@@ -96,7 +94,7 @@ exports.imagen = function (req,res) {
                       if (image) {
                         // Primer borramos el archivo :)
                         var filePath = path_thumb ;
-                        fs.unlinkSync(filePath);
+                        
                         image.batch()
                           .crop(0,0,300,300)
                           .blur(1)
