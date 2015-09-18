@@ -94,12 +94,15 @@ exports.imagen = function (req,res) {
                       // .resize(image.width()/3,image.height()/3)
                       if (err) return console.error(err);
                       if (image) {
+                        // Primer borramos el archivo :)
+                        var filePath = path_thumb ;
+                        fs.unlinkSync(filePath);
                         image.batch()
                           .crop(0,0,300,300)
                           .blur(1)
                           .writeFile(path_thumb, function(err){
                             if (err) console.trace(err);
-                            else console.log('Thumbnail generado');
+                            else console.log('Thumbnail generado en: ' + path_thumb);
                           });
                       }
                     });
