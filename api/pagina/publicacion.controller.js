@@ -97,7 +97,6 @@ exports.imagen = function (req,res) {
                 // .resize(image.width()/3,image.height()/3)
                 if (image) {
                   image.batch()
-
                     .crop(0,0,300,300)
                     .blur(1)
                     .writeFile(path_thumb, function(err){
