@@ -1,4 +1,7 @@
 /node_modules
+/logs
+/public/websites/thumbs
+npm-debug.log
 /controllers/page.js
 /models/pagina2.js
 /respaldos/paginas.sql
