@@ -95,7 +95,7 @@ router.get('/:pagina_id/mensaje/:mensaje_id',auth.isLogged, function (req, res){
                 else{
                     res.json(data);
                 }
-            })
+            });
         }
     });
 

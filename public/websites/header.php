@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
+		<meta name="description" content="Nodex, crea tu sitio web fácilmente y lleva tu negocio al siguiente nive">
+		<meta name="keywords" content="nodex,sitio web,pagina,diseño,cuernavaca,panel">
 		<meta name="author" content="">
 		<link href="assets/img/favicon.png" rel="shortcut icon" >
 		<title>Nodex - ¡Lleva tu negocio al siguiente nivel!</title>
@@ -18,11 +18,11 @@
 		<link href="assets/css/responsive.css" rel="stylesheet">
 		<link href="assets/css/animate.min.css" rel="stylesheet">
 		<link href="assets/css/linecons.css" rel="stylesheet">
-		<link href="assets/css/social-icons.css" rel="stylesheet">		
-		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">	
+		<link href="assets/css/social-icons.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
-		<link rel="stylesheet" href="http://l-lin.github.io/font-awesome-animation/dist/font-awesome-animation.min.css">	
-		
+		<link rel="stylesheet" href="http://l-lin.github.io/font-awesome-animation/dist/font-awesome-animation.min.css">
+
 		<!-- Web Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
 
@@ -52,5 +52,5 @@
 		  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=1428911074031766&version=v2.0";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
-		
+
 	</head>

@@ -94,9 +94,9 @@ exports.imagen = function (req,res) {
                       if (image) {
                         // Primer borramos el archivo :)
                         var filePath = path_thumb ;
-                        
+
                         image.batch()
-                          .crop(0,0,300,300)
+                          .crop(0,0,150,150)
                           .blur(1)
                           .writeFile(path_thumb, function(err){
                             if (err) console.trace(err);

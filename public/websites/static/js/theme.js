@@ -9,7 +9,7 @@ $(window).load(function () {
  	    $(this).parent().parent().fadeOut();
  	    ev.stopPropagation();
  	});
-	var headerrefresh='<div class="widgetrefresh"><span><i class="fa fa-spinner fa-spin fa-2x"></i></span></div>'
+	var headerrefresh='<div class="widgetrefresh"><span><i class="fa fa-spinner fa-spin fa-2x"></i></span></div>';
     $(".header .headerrefresh").click(function(){
         $(this).parent().after(headerrefresh);
         $(".widgetrefresh").fadeOut(2000);
