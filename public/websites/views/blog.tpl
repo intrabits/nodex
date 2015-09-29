@@ -10,7 +10,7 @@
                     <?php if (isset($publicaciones)): ?>
                     <?php foreach ($publicaciones as $p): ?>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <div class="well blog">
+                        <div class="well blog" style="min-height:300px">
                             <a href="?p=publicacion&id=<?=$p['publicacion_id']?> ">
                                 <div class="date <?php echo $bootstrap_class[array_rand($bootstrap_class)]; ?>">
                                     <span class="blog-date"><?=date("M",strtotime($p['publicacion_fecha']));?> </span>

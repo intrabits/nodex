@@ -93,18 +93,22 @@ exports.imagen = function (req,res) {
                       if (err) return console.error(err);
                       if (image) {
                         // Primer borramos el archivo :)
-                        var filePath = path_thumb ;
+                        try {
+                          image.batch()
+                            .crop(0,0,150,150)
+                            .blur(1)
+                            .writeFile(path_thumb, function(err){
+                              if (err) console.trace(err);
+                              else console.log('Thumbnail generado en: ' + path_thumb);
+                            });
+                        } catch (e) {
+                          console.error(e);
+                        }        
 
-                        image.batch()
-                          .crop(0,0,150,150)
-                          .blur(1)
-                          .writeFile(path_thumb, function(err){
-                            if (err) console.trace(err);
-                            else console.log('Thumbnail generado en: ' + path_thumb);
-                          });
+
                       }
                     });
-                }, 3000);
+                }, 7000);
 
 
               })

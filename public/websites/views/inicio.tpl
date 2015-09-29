@@ -21,43 +21,6 @@
         <section class="wrap">
             <div class="container">
                 <div class="row">
-                    <!-- <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                        <a href="?p=publicacion">
-                        <div class="well text-center">
-                            <p align="center"><i class="fa fa-suitcase fa-2x text-muted"></i><br>
-                            <span class="text-muted">Ver publicaciones</span></p>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                        <a href="?p=galeria">
-                        <div class="well text-center">
-                            <p align="center"><i class="fa fa-picture-o fa-2x text-muted"></i><br>
-                            <span class="text-muted">Ver imágenes</span></p>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="hidden-xs col-sm-4 col-md-3 col-lg-3">
-                        <a href="?p=contacto">
-                        <div class="well text-center">
-                            <p align="center"><i class="fa fa-envelope fa-2x text-muted"></i><br>
-                            <span class="text-muted">Contacto </span></p>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="hidden-xs col-sm-4 col-md-3 col-lg-3">
-                        <a href="?p=contacto">
-                        <div class="well text-center">
-                            <p align="center"><i class="fa fa-facebook fa-2x text-muted"></i>
-                            <?php if (isset($pagina['pagina_facebook'])){ ?>
-                                <div class="fb-like" data-href="<?=$pagina['pagina_facebook']?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
-                            <?php }else{ ?>
-                                <div class="fb-like" data-href="http://facebook.com/intrabits.net" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
-                            <?php } ?>
-                            </p>
-                        </div>
-                        </a>
-                    </div> -->
 
                   <h1></h1>
                   <?php if (count($banners)>0): ?>
@@ -182,7 +145,7 @@
                                         <div class="publicacion-holder">
                                           <img class="img-responsive" src="http://nodex.mx/thumbs/<?=$p['publicacion_id']; ?>.png">
                                         </div>
-
+                                        <br>
                                         <?=$p['publicacion_titulo']?>
                                     </a>
                                   </p>
