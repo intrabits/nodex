@@ -25,6 +25,7 @@ exports.index = function (req,res) {
 
 exports.delete = function (req,res) {
   console.log('Eliminando publicación'.yellow);
+  //  TODO: comprobar que sea el dueño
   Pagina.deletePublicacionAsync(req.params.id)
     .then(function (data) {
       res.send('Publicación elimianda');
@@ -95,7 +96,7 @@ exports.imagen = function (req,res) {
                         // Primer borramos el archivo :)
                         try {
                           image.batch()
-                            .crop(0,0,150,150)
+                            .crop(0,0,300,300)
                             .blur(1)
                             .writeFile(path_thumb, function(err){
                               if (err) console.trace(err);
@@ -103,7 +104,7 @@ exports.imagen = function (req,res) {
                             });
                         } catch (e) {
                           console.error(e);
-                        }        
+                        }
 
 
                       }

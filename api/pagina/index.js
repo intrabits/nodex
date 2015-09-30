@@ -228,23 +228,6 @@ router.get('/:pagina_id/publicacion/:publicacion_id',auth.isLogged,PaginaCtrl.pu
 
 router.get('/publicacion/:publicacion_id/toggle',auth.isLogged,PaginaCtrl.togglePublicacion);
 
-router.delete('/:pagina_id/publicacion/:publicacion_id',auth.isLogged, function (req, res){
-    var usuario_id = req.user.id;
-    var publicacion_id  = req.params.publicacion_id;
-
-
-    Pagina.getPublicacion(publicacion_id, function( err, data){
-        if (err) {
-            // error handling code goes here
-            console.log("ERROR : ",err);
-            res.send(400,"Error al borrar la publicación");
-        } else {
-            res.json(data);
-        }
-    });
-
-} );
-
 router.post('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
     var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
@@ -272,42 +255,6 @@ router.post('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
     });
 
 } );
-
-router.put('/:pagina_id/publicacion/:publicacion_id',auth.isLogged, function (req, res){
-    var usuario_id = req.user.id;
-    var publicacion_id  = req.params.publicacion_id;
-    var pagina_id = req.params.pagina_id;
-    var datos = {
-        publicacion_titulo:   sanitizer.sanitize(req.body.publicacion_titulo),
-        publicacion_video:    sanitizer.sanitize(req.body.publicacion_video),
-        publicacion_contenido:sanitizer.sanitize(req.body.publicacion_contenido)
-    };
-
-    Pagina.owner(usuario_id,pagina_id,function (err,data) {
-        if (err) {
-          res.send(400,"Ops, error");
-          console.log(err);}
-
-        if (data){
-
-            if (data===null) {
-                console.log("No tiene permisos");
-                res.send(400,"Ops, error al guardar la publicación");
-            }else{
-                Pagina.updatePublicacion(publicacion_id,datos, function( err, data){
-                    if (err) {
-                        console.log("ERROR : ",err);
-                        res.send(400,"Ops, error al guardar la publicación");
-                    } else {
-                        res.json(data);
-                    }
-                });
-            }
-        }
-    });
-
-} );
-
 
 
 
