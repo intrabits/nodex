@@ -35,6 +35,8 @@ router.use('/banners/',BannersCtrl);
 //  Traer Paquetes de NODEX
 router.get('/paquetes/',auth.isLogged,PaginaCtrl.paquetes);
 
+
+// TODO: Arreglar esta aberración 
 router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
 
     //  Revisamos que el usuario actual tenga permisos sobre la página
@@ -122,7 +124,7 @@ router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
                                         }
 
                                     }
-                                    res.redirect('back');
+
                                 });
                             });
                             fstream.on('error', function(err) {
@@ -130,14 +132,14 @@ router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
                             });
                         }else{
                             console.log("Alguien intentó subir un archivo inválido");
-                            res.send(500);
+                            res.status(500).send('Tipo de archivo no permitido');
                         }
 
                     });
 
             } catch (e) {
                 console.log(e);
-                res.send(500);
+                res.status(500).send('Error al guardar');
             }
 
         }

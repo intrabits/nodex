@@ -7,4 +7,5 @@ npm-debug.log
 /respaldos/paginas.sql
 /config/config.json
 /public/websites/paginas
+!/public/websites/paginas/nucleo.php
 /run

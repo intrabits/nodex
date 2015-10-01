@@ -143,7 +143,7 @@
                                       style="font-size:21px"
                                       href="?p=publicacion&id=<?=$p['publicacion_id']?>">
                                         <div class="publicacion-holder">
-                                          <img class="img-responsive" src="http://nodex.mx/thumbs/<?=$p['publicacion_id']; ?>.png">
+                                          <img class="img-responsive" src="http://nodex.mx/paginas/<?=$p['publicacion_imagen']?>">
                                         </div>
                                         <br>
                                         <?=$p['publicacion_titulo']?>

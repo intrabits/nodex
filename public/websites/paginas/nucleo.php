@@ -22,6 +22,8 @@ $meta_description = $pagina['pagina_descripcion'];
 
 //	Sumar una visita :)
 $db->query("UPDATE pagina set pagina_visitas = pagina_visitas+1 WHERE pagina_id = $pagina_id");
+
+//	Cargar los banners de la página
 $banners = $db->select_sql("SELECT * FROM pagina_banner WHERE banner_pagina_id = $pagina_id ");
 
 $tpl = new TemplateEngine();
@@ -45,8 +47,9 @@ if (isset($respuesta)) {
 //	Productos de la página
 $productos 	= $db->select_sql("SELECT *,(SELECT imagen_url from pagina_producto_imagen WHERE imagen_producto_id = producto_id LIMIT 1) as producto_foto FROM pagina_producto WHERE producto_pagina_id = $pagina_id ");
 $tpl->productos = $productos;
+
 //	Publicaciones del blog
-$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
+$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha FROM pagina_publicacion,publicacion_imagen WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
 $tpl->publicaciones = $publicaciones;
 
 //	Menú estático
