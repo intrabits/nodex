@@ -23,7 +23,10 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <img ng-src="{{ main.base }}{{ FormEditPublicacion.publicacion_imagen }}" width="170px" ng-if="FormEditPublicacion.publicacion_imagen">
+                                <img
+                                  title="{{ main.base }}{{ FormEditPublicacion.publicacion_imagen }}"
+                                  ng-src="{{ main.base }}{{ FormEditPublicacion.publicacion_imagen }}"
+                                  width="170px" ng-if="FormEditPublicacion.publicacion_imagen">
                             </div>
                         </div>
 

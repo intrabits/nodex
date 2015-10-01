@@ -6,6 +6,7 @@ var fs 		= require('fs');
 var moment = require('moment');
 var sanitizer = require('sanitizer');
 var lwip = require('lwip');
+var shortid = require('shortid');
 
 exports.index = function (req,res) {
   var usuario_id = req.user.usuario_id;
@@ -47,7 +48,7 @@ exports.imagen = function (req,res) {
       req.busboy.on('file',function (fieldname, file, filename, encoding, mimetype) {
 
           console.log(mimetype);
-          var path = req.params.id; // este será el nombre del archivo
+          var path = shortid.generate(); // este será el nombre del archivo
           var path_thumb = 'public/websites/thumbs/'+req.params.id;
           switch (mimetype) {
             case 'image/png':
@@ -68,6 +69,9 @@ exports.imagen = function (req,res) {
 
           var ruta = 'public/websites/paginas/'+ pagina_id + '/' + path;
           var ruta_corta = pagina_id + '/' + path;
+
+          //fs.unlinkSync(ruta); // borramos el archivo anterior
+
           fstream = fs.createWriteStream(ruta);
           file.pipe(fstream);
           fstream.on('close', function () {
@@ -87,6 +91,8 @@ exports.imagen = function (req,res) {
 
                 // Esto es para generar el thumbnail :)
                 console.log(ruta);
+                /*
+                Ok... por ahora nada de thumbs
                 setTimeout(function () {
                   lwip.open(ruta, function(err, image){
                       // var ratio = 300 / image.width();
@@ -110,6 +116,7 @@ exports.imagen = function (req,res) {
                       }
                     });
                 }, 7000);
+                */
 
 
               })
