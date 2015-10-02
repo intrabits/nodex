@@ -18,6 +18,9 @@
     height: 250px;
     background-image: url(http://nodex.mx/img/holder.png)
   }
+  .air{
+    height: 100px
+  }
 </style>
 
         <section class="wrap">
@@ -46,7 +49,7 @@
 
                     </div><!-- End Carousel Inner -->
                     <?php if (count($banners)>1&&count($banners)<4): ?>
-                      <ul class="nav nav-pills nav-justified">
+                      <ul class="nav nav-pills nav-justified" style="background-color:rgba(255,255,255,0)">
                       <?php $j=0;foreach ($banners as $key => $banner): ?>
                         <li style="width:25%" data-target="#myCarousel" data-slide-to="<?=$j?>" <?php if($j==0) echo 'class="active"'?>>
                           <a href="#" style="color:#333"><?php
@@ -59,21 +62,6 @@
 
                   <?php endif ?>
 
-                  <?php /*
-                  <?php if ($pagina['pagina_portada']): ?>
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                      <div class="well img-holder" style="height:auto;min-height:250px;width:100%">
-                          <?php if (strpos($pagina['pagina_portada'],'http') !== false) { ?>
-                          <img src="<?=$pagina['pagina_portada']?> " width="100%">
-                          <?php }else{ ?>
-                          <img src="<?=$base.'paginas/'.$pagina['pagina_portada']?> " width="100%">
-                          <?php } ?>
-
-                          <br>
-                      </div>
-                  </div>
-                  <?php endif ?>
-                  */ ?>
 
 
 
@@ -84,54 +72,9 @@
                         </div>
                         <?php endif ?>
 
+                    <div class="air"></div>
 
-                        <div class="well no-padding hidden">
-                            <div id="cal"></div>
-                        </div>
-                        <?php if ($pagina['pagina_facebook']): ?>
-                        <div class="well">
-                            <div class="fb-like-box" data-href="<?=$pagina['pagina_facebook']?>" data-width="100%" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="true" data-show-border="false"></div>
-                        </div>
 
-                        <?php endif ?>
-                        <div class="">
-                            <div class="social-icon">
-                                <?php if (isset($pagina['pagina_facebook'] )): ?>
-                                  <?php if ($pagina['pagina_facebook']): ?>
-                                  <a href="<?=$pagina['pagina_facebook']?>" class="btn"><i class="fa fa-facebook"></i> Facebook</a>
-                                  <?php endif ?>
-                                  <?php endif ?>
-
-                                  <?php if (isset($pagina['pagina_twitter'] )): ?>
-                                  <?php if ($pagina['pagina_twitter']): ?>
-                                  <a href="<?=$pagina['pagina_twitter']?>" class="btn"><i class="fa fa-twitter"></i> Twitter</a>
-                                  <?php endif ?>
-                                  <?php endif ?>
-
-                                  <?php if (isset($pagina['pagina_google'] )): ?>
-                                  <?php if ($pagina['pagina_google']): ?>
-                                  <a href="<?=$pagina['pagina_google']?>" class="btn"><i class="fa fa-google-plus"></i> Google</a>
-                                  <?php endif ?>
-                                  <?php endif ?>
-
-                                  <?php if (isset($pagina['pagina_instagram'] )): ?>
-                                  <?php if ($pagina['pagina_instagram']): ?>
-                                  <a href="<?=$pagina['pagina_twitter']?>" class="btn"><i class="fa fa-instagram"></i> Instagram</a>
-                                  <?php endif ?>
-                                  <?php endif ?>
-
-                                  <?php if (isset($pagina['pagina_youtube'] )): ?>
-                                  <?php if ($pagina['pagina_youtube']): ?>
-                                  <a href="<?=$pagina['pagina_youtube']?>" class="btn"><i class="fa fa-youtube"></i> Youtube</a>
-                                  <?php endif ?>
-                                  <?php endif ?>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!--
-                    <h2><?php echo json_encode($publicaciones[0]) ?></h2>
-                    -->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <?php if (count($publicaciones)>0): ?>
                         <div class="">
@@ -149,20 +92,6 @@
                                         <a href="?p=publicacion&id=<?=$p['publicacion_id']?>" class="info">Leer más</a>
                                     </div>
                                 </div>
-                                <!-- <div class="well well-sm" style="min-height:400px">
-
-                                  <p class="text-muted">
-                                    <a
-                                      style="font-size:21px"
-                                      href="?p=publicacion&id=<?=$p['publicacion_id']?>">
-                                        <div class="publicacion-holder">
-                                          <img class="img-responsive" src="http://nodex.mx/paginas/<?=$p['publicacion_imagen']?>">
-                                        </div>
-                                        <br>
-                                        <?=$p['publicacion_titulo']?>
-                                    </a>
-                                  </p>
-                                </div> -->
                               </div>
 
                             <?php endforeach ?>
@@ -175,31 +104,58 @@
                         </div>
                         <?php endif ?>
 
+                        <div class="air"></div>
 
-                        <?php if (isset($productos)): ?>
-                        <div class="well hidden">
-                            <h3>Últimas publicaciones</h3>
-                            <hr>
-                            <?php foreach ($publicaciones as $p): ?>
-                            <div class="row">
 
-                                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="?p=publicacion&id=<?=$p['publicacion_id']?>">
-                                        <img class="img-responsive" src="http://placehold.it/150/<?=$colores[array_rand($colores)]; ?>&text= <?=$p['publicacion_id']?> ">
-                                    </a>
-                                </div>
-                                <div class="col-xs-8 col-sm-9 col-md-9 col-lg-9">
-                                    <p class="text-muted"> <?=strip_tags($p['publicacion_resumen'])?>  </p>
-                                    <p class="text-muted text-right"><small>- Admin | <i class="fa fa-clock-o"></i>  <?=$p['publicacion_fecha']?> </small></p>
-                                </div>
-                            </div>
-                            <hr>
-                            <?php endforeach ?>
-                        </div>
-                        <?php endif ?>
+
 
                     </div>
                 </div>
+
+
+
+
+                    <div class="social-icon">
+                        <?php if (isset($pagina['pagina_facebook'] )): ?>
+                          <?php if ($pagina['pagina_facebook']): ?>
+                          <a href="<?=$pagina['pagina_facebook']?>" class="btn"><i class="fa fa-facebook"></i> Facebook</a>
+                          <?php endif ?>
+                          <?php endif ?>
+
+                          <?php if (isset($pagina['pagina_twitter'] )): ?>
+                          <a href="<?=$pagina['pagina_twitter']?>" class="btn"><i class="fa fa-twitter"></i> Twitter</a>
+
+                          <?php endif ?>
+
+                          <?php if (isset($pagina['pagina_google'] )): ?>
+
+                          <a href="<?=$pagina['pagina_google']?>" class="btn"><i class="fa fa-google-plus"></i> Google</a>
+
+                          <?php endif ?>
+
+                          <?php if (isset($pagina['pagina_instagram'] )): ?>
+
+                          <a href="<?=$pagina['pagina_twitter']?>" class="btn"><i class="fa fa-instagram"></i> Instagram</a>
+
+                          <?php endif ?>
+
+                          <?php if (isset($pagina['pagina_youtube'] )): ?>
+
+                          <a href="<?=$pagina['pagina_youtube']?>" class="btn"><i class="fa fa-youtube"></i> Youtube</a>
+
+                          <?php endif ?>
+                    </div>
+
+
+            </div>
+
+            <!-- <?php if ($pagina['pagina_facebook']): ?>
+            <div class="well">
+                <div class="fb-like-box" data-href="<?=$pagina['pagina_facebook']?>" data-width="300px" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="true" data-show-border="false"></div>
+            </div>
+            <?php endif ?> -->
+
+            <div class="air"></div>
 
                 <footer class="text-center" style="margin-bottom:0px">
                     <div class="row">
