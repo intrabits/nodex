@@ -102,7 +102,7 @@ class database extends pdo{
 	    $sql = "SELECT $campos FROM $tabla WHERE $condicion";
 	    $this->statement = $this->pdo->prepare($sql);
 	    $this->statement->execute();
-	    if($depurar)echo "$sql<br>";
+	    if($depurar)echo "<!--$sql-->";
 	    // here you go:
 	    $arreglo=$this->statement->fetchAll();
 

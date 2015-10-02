@@ -1,3 +1,5 @@
+
+<link href="http://nodex.mx/styles/hover.css" rel="stylesheet">
 <style type="text/css">
 @media only screen and (max-device-width: 480px) {
     /* Put your iPhone 3g styles in here */
@@ -127,6 +129,9 @@
                         </div>
 
                     </div>
+                    <!--
+                    <h2><?php echo json_encode($publicaciones[0]) ?></h2>
+                    -->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <?php if (count($publicaciones)>0): ?>
                         <div class="">
@@ -136,7 +141,15 @@
                             <?php foreach ($publicaciones as $p): ?>
 
                               <div class="col-md-4">
-                                <div class="well well-sm" style="min-height:400px">
+                                <div class="view view-tenth">
+                                    <img src="http://nodex.mx/paginas/<?=$p['publicacion_imagen']?>" />
+                                    <div class="mask">
+                                        <h2><?=$p['publicacion_titulo']?></h2>
+                                        <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                                        <a href="?p=publicacion&id=<?=$p['publicacion_id']?>" class="info">Leer más</a>
+                                    </div>
+                                </div>
+                                <!-- <div class="well well-sm" style="min-height:400px">
 
                                   <p class="text-muted">
                                     <a
@@ -149,8 +162,7 @@
                                         <?=$p['publicacion_titulo']?>
                                     </a>
                                   </p>
-                                  <!-- <p class="text-muted text-right"><small>- <i class="fa fa-clock-o"></i>  <?=$p['publicacion_fecha']?> </small></p> -->
-                                </div>
+                                </div> -->
                               </div>
 
                             <?php endforeach ?>
