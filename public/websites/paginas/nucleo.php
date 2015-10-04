@@ -49,7 +49,7 @@ $productos 	= $db->select_sql("SELECT *,(SELECT imagen_url from pagina_producto_
 $tpl->productos = $productos;
 
 //	Publicaciones del blog
-$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen as imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
+$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
 $tpl->publicaciones = $publicaciones;
 
 //	Menú estático
@@ -130,8 +130,7 @@ if (isset($_GET['p'])) {
 			break;
 
 		default:
-			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
-			$tpl->publicaciones = $publicaciones;
+
 
 
 			if ($pagina['pagina_video_fondo']!='') {
