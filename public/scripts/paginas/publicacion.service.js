@@ -52,6 +52,13 @@
                             url     : '/api/publicaciones/' + publicacion_id
                         });
                   },
+                  banner:function ( publicacion_id, datos, callback) {
+                    return $http({
+                            data    :  datos,
+                            method  : 'POST',
+                            url     : '/api/publicaciones/' + publicacion_id + '/banner'
+                        });
+                  },
                   togglePublicacion:function (publicacion_id, callback) {
                       $http.get('/api/pagina/publicacion/'+publicacion_id+'/toggle').success(function (data) {
                           // return data;

@@ -1,11 +1,13 @@
 var Pagina = require('./pagina.queries');
 var Imagen 	= require('./../../models/imagen.js');
 var colors = require('colors');
-var gm      = require('gm').subClass({ imageMagick: true });
-var fs 		= require('fs');
+var gm = require('gm').subClass({ imageMagick: true });
+var fs = require('fs');
 var moment = require('moment');
 var sanitizer = require('sanitizer');
 var shortid = require('shortid');
+var Publicacion = require('./publicacion.model');
+var _ = require('lodash');
 
 exports.index = function (req,res) {
   var usuario_id = req.user.usuario_id;
@@ -135,9 +137,50 @@ exports.imagen = function (req,res) {
     });
 };
 
-exports.banner = function (req,res) {
+// jshint ignore:start
+exports.banner = async function (req,res) {
+
+
+
+  try {
+    console.log(`${req.user.nombre} esta subiendo una imagen a su publicación`);
+    let publicacion = await Publicacion.findById(req.params.id);
+    let pagina_id = publicacion.paginaId;
+
+    var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file',function (fieldname, file, filename, encoding, mimetype) {
+      console.log(mimetype);
+      let path = shortid.generate() + '_'; // este será el nombre del archivo
+      if (mimetype=='image/png'||mimetype=='image/jpeg'){
+      } else {
+        throw new Error('Archivo no válido');
+      }
+      filename = _.deburr(filename);
+      filename = _.snakeCase(filename);
+      let ruta = 'public/websites/paginas/'+ pagina_id + '/' + path + filename;
+      let ruta_corta = pagina_id + '/' + path + filename;
+
+
+      fstream = fs.createWriteStream(ruta);
+      file.pipe(fstream);
+      fstream.on('close', function () {
+        publicacion.banner = ruta_corta
+        publicacion.save();
+        console.log('Imagen guardada correctamente ',colors.green(ruta_corta));
+        res.send('Imagen guardada');
+      });
+    });
+
+
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Error al subir la imagen');
+  }
+
 
 };
+// jshint ignore:end
 
 exports.update = function (req,res) {
 

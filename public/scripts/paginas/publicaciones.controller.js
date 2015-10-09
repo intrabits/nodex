@@ -71,6 +71,21 @@
 
             };
 
+      $scope.uploadBanner = function (files) {
+        var fd = new FormData();
+         //Take the first selected file
+         fd.append("file", files[0]);
+         $http.post('/api/publicaciones/'+$routeParams.publicacion_id +'/banner', fd, {
+             withCredentials: true,
+             headers: {'Content-Type': undefined },
+             transformRequest: angular.identity
+         }).success(function (data) {
+           $scope.notify('success',data);
+         }).error(function (err) {
+           $scope.notify('danger',data);
+         });
+      };
+
       $scope.togglePublicacion = function (publicacion_id) {
         Publicacion.togglePublicacion(publicacion_id,function (err,data) {
           if (err) {

@@ -10,11 +10,11 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="well blog-post">
 
-                            <?php if ($publicacion['publicacion_imagen']!=''){ ?>
+                            <?php if ($publicacion['publicacion_banner']!=''){ ?>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="image">
-                                        <img src="<?=$base.'paginas/'.$publicacion['publicacion_imagen']?> " alt="">
+                                        <img src="<?=$base.'paginas/'.$publicacion['publicacion_banner']?> " alt="">
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                       <input type="text" class="form-control" id="nombre" name="autor">
                                       <p class="help-block"></p>
                                     </div>
-                                  </div>                                  
+                                  </div>
                                   <div class="form-group">
                                     <label for="inputEmail3" class="col-sm-12 control-label">Correo</label>
                                     <div class="col-sm-12">
