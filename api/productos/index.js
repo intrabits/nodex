@@ -13,7 +13,7 @@ var config  = require('./../../config');
 var auth    = require('./../../config/auth.js');
 
 var passport        = auth.passport;
-ensureAuthenticated = auth.ensureAuthenticated;
+var ensureAuthenticated = auth.ensureAuthenticated;
 
 //  Modelos
 var Producto = require('./producto.queries');

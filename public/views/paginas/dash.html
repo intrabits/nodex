@@ -127,8 +127,9 @@
 
             <div class="row">
                 <div class="col-sm-6">
+                  <a href="#/pagina/{{ FormEditPagina.pagina_id }}/estilo" class="notInline">
                     <div class="panel mini-box" data-step="2" data-intro="Si das click aquí podrás editar la manera en la que se ve tu página: cambiar el fondo, cambiar tu logotipo o cambiar tu foto de portada">
-                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/estilo">
+
                         <span class="box-icon bg-primary">
                             <i class="glyphicon glyphicon-tint"></i>
                         </span>
@@ -136,12 +137,14 @@
                             <p class="size-h3">Editar estilo de la página</p> <img ng-src="{{ FormEditPagina.pagina_logo }}">
                             <p class="text-muted">Cambia el fondo, los colores, la tipografía</p>
                         </div>
-                        </a>
+
                     </div>
+                  </a>
                 </div>
                 <div class="col-sm-6">
+                  <a href="#/pagina/{{ FormEditPagina.pagina_id }}/productos">
                     <div class="panel mini-box" data-step="3" data-intro="Nodex te permite promover tus productos en internet a través de tu propia tienda en línea, da click aquí para agregar productos">
-                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/productos">
+
                         <span class="box-icon bg-info">
                             <i class="fa fa-shopping-cart"></i>
                         </span>
@@ -149,14 +152,14 @@
                             <p class="size-h2">Tienda en linea</p>
                             <p class="text-muted">Vende productos a través de tu página</p>
                         </div>
-                        </a>
                     </div>
+                  </a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6">
+                  <a href="#/pagina/{{ FormEditPagina.pagina_id }}/cuentas">
                     <div class="panel mini-box" data-step="4" data-intro="Si quieres crear cuentas de correo o cuentas de acceso a NODEX para los miembros de tu equipo podrás hacerlo aqui">
-                        <a href="#/pagina/{{ FormEditPagina.pagina_id }}/cuentas">
                         <span class="box-icon bg-danger">
                             <i class="fa fa-male"></i>
                         </span>
@@ -164,8 +167,8 @@
                             <p class="size-h3">{{ FormEditPagina.pagina_cuentas_usadas }}</p>
                             <p class="text-muted">Usuarios</p>
                         </div>
-                        </a>
                     </div>
+                  </a>
                 </div>
                 <div class="col-sm-6">
                     <a href="#/pagina/{{ FormEditPagina.pagina_id }}/galerias">

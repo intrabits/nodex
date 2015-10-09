@@ -5,7 +5,6 @@ var gm      = require('gm').subClass({ imageMagick: true });
 var fs 		= require('fs');
 var moment = require('moment');
 var sanitizer = require('sanitizer');
-var lwip = require('lwip');
 var shortid = require('shortid');
 
 exports.index = function (req,res) {
@@ -134,6 +133,10 @@ exports.imagen = function (req,res) {
       console.error(err);
       res.status(500).send('Error al subir el archivo');
     });
+};
+
+exports.banner = function (req,res) {
+
 };
 
 exports.update = function (req,res) {

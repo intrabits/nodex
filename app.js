@@ -1,7 +1,8 @@
-var config 	= require('./config/config');
-var app    	= require('./config/express');
-var api 	= require('./routes/api');
-var index 	= require('./routes/index');
+require('babel/register');
+var config = require('./config/config');
+var app = require('./config/express');
+var api = require('./routes/api');
+var index = require('./routes/index');
 
 //  Sockets!!!!
 var server = require('http').Server(app.app);

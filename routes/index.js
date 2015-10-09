@@ -7,8 +7,8 @@ var path  = require('path');
 
 var ambiente        = config.ambiente;
 var passport        = auth.passport;
-ensureAuthenticated = auth.ensureAuthenticated;
-connection          = config.connection;
+var ensureAuthenticated = auth.ensureAuthenticated;
+var connection          = config.connection; // TODO ver para que sirve esto y borrarlo
 
 
 

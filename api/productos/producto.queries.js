@@ -1,5 +1,5 @@
 var config  = require('./../../config');
-connection = config.connection;
+var connection = config.connection;
 var async   = require('async');
 var Promise = require('bluebird');
 

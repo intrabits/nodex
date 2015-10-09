@@ -6,50 +6,50 @@ var auth    = require('./../config/auth.js');
 var webfaction = config.webfaction;
 
 var passport        = auth.passport;
-ensureAuthenticated = auth.ensureAuthenticated;
-ensureAdmin         = auth.ensureAdmin;
+var ensureAuthenticated = auth.ensureAuthenticated;
+var ensureAdmin         = auth.ensureAdmin;
 
 
 
-router.get('/dominios', ensureAdmin, function(req, res){ 
+router.get('/dominios', ensureAdmin, function(req, res){
 
     webfaction.login(function (result) {
         webfaction.listDomains(function(result) {
             res.json(result);
         });
     });
-    
+
 });
 
 
-router.get('/apps', ensureAdmin, function(req, res){ 
+router.get('/apps', ensureAdmin, function(req, res){
 
     webfaction.login(function (result) {
-        webfaction.listApps(function(result) {            
+        webfaction.listApps(function(result) {
             res.json(result);
           });
     });
-    
+
 });
 
-router.get('/websites', ensureAdmin, function(req, res){ 
+router.get('/websites', ensureAdmin, function(req, res){
 
     webfaction.login(function (result) {
         webfaction.listWebsites(function(result) {
             res.json(result);
           });
     });
-    
+
 });
 
-router.get('/bandwidth', ensureAdmin, function(req, res){ 
+router.get('/bandwidth', ensureAdmin, function(req, res){
 
     webfaction.login(function (result) {
         webfaction.listBandwidth(function(result) {
             res.json(result);
           });
     });
-    
+
 });
 
 router.delete('/app/:name',function (req, res) {
@@ -60,10 +60,10 @@ router.delete('/app/:name',function (req, res) {
                 webfaction.deleteApp(name,function(result) {
                     res.json(result);
                   });
-            } catch (e) { 
+            } catch (e) {
                 res.send(500);
              }
-                
+
         }else{
             res.send(500);
         }
@@ -82,15 +82,15 @@ router.delete('/website/:name',function (req, res) {
                 console.log(ops);
                 webfaction.deleteWebsite(ops,function(result) {
                     res.json('Website eliminado');
-                    
-                  });                
-            } catch (e) { 
+
+                  });
+            } catch (e) {
                 console.log(err);
                 res.send(500);
              }
-                
+
         }else{
-            
+
         }
     });
 });
@@ -102,7 +102,7 @@ router.delete('/domain/:name',function (req, res) {
     webfaction.login(function (result) {
         if (result) {
             webfaction.deleteDomain(function(result) {
-                res.json(result);                
+                res.json(result);
               });
         }else{
             res.send(500);

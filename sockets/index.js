@@ -4,7 +4,7 @@ var io = require('socket.io')(server);
 
 
 //  Modelos
-Soporte = require('./../models/soporte.js');
+var Soporte = require('./../models/soporte.js');
 
 var usernames = {};
 var numUsers = 0;
@@ -12,9 +12,9 @@ var numUsers = 0;
 var sockets = function (socket) {
   var addedUser = false;
   socket.on('prueba',function (data) {
-    console.log("nooo");    
+    console.log("nooo");
     setInterval(function() {
-      console.log("si llegó");  
+      console.log("si llegó");
     }, 1000);
   });
 
@@ -29,10 +29,10 @@ var sockets = function (socket) {
 
     var datos_mensaje = {
       chat_usuario_nombre:socket.username,
-      chat_mensaje:data      
-    }
+      chat_mensaje:data
+    };
     Soporte.addMensaje(datos_mensaje,function (err,data) {
-      if (err) {console.log(err);};
+      if (err) {console.log(err);}
     });
     // var clients = io.sockets.clients(usernames);
     // console.log(clients);
@@ -57,7 +57,7 @@ var sockets = function (socket) {
       foto: socket.foto
     });
 
-    
+
   });
 
   // when the client emits 'typing', we broadcast it to others
