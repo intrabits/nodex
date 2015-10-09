@@ -5,7 +5,9 @@
   "repository": "git@bitbucket.org:cedric_luckie/nodex.git",
   "dependencies": {
     "async": "^0.9.0",
+    "babel": "^5.8.23",
     "bcrypt": "^0.7.8",
+    "bcryptjs": "^2.3.0",
     "bluebird": "^2.10.0",
     "body-parser": "~1.0.0",
     "colors": "^0.6.2",

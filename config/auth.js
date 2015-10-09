@@ -1,5 +1,5 @@
 var config = require('./config.json');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var LocalStrategy    = require('passport-local').Strategy;
@@ -86,14 +86,12 @@ passport.use(new LocalStrategy({
     user_email = sanitizer.sanitize(user_email);
     console.log(user_password);
 
-    process.nextTick(function () {
-
-      var current = Promise.resolve();
+    process.nextTick(function () {      
 
       Usuario.find({where:{email:user_email}})
           .then(function (user) {
             if (user) {
-              current = bcrypt.compare(user_password, user.password, function(err, isPasswordMatch) {
+              bcrypt.compare(user_password, user.password, function(err, isPasswordMatch) {
                 if (isPasswordMatch) {
                   console.log('Contraseña correcta'.blue);
                   done(null,user);
