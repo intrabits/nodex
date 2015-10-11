@@ -72,6 +72,11 @@ exports.create = async function (req,res) {
         return fs.mkdirAsync(path+'img/');
       })
       .then(function () {
+        // Damos de alta el subdominio
+        console.log('Creando subdominio');
+        return webfaction.createDomainAsync('nodex.mx',subdominio);
+      })
+      .then(function () {
         // Crear aplicación :)
         console.log('Creando app de webfaction');
         let homeLink = '/home/intrabits/webapps/nodex/nodex/public/websites/paginas/' + pagina_id;
@@ -93,15 +98,10 @@ exports.create = async function (req,res) {
            });
       })
       .then(function (pid) {
-        
+
         console.log('===========>    ¡Website creado!    <==========='.green);
         res.send(String(pagina_id));
 
-      })
-      .then(function () {
-        // Damos de alta el subdominio
-        console.log('Creando subdominio');
-        webfaction.createDomainAsync('nodex.mx',subdominio);
       })
       .catch(function (err) {
         console.error(err);
