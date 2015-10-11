@@ -18,7 +18,7 @@
         }
       });
 
-  }]).controller('PaginaCtrl',['$scope','$modal','$window','Pagina','$routeParams','$http',function($scope,$modal,$window,Pagina,$routeParams,$http){
+  }]).controller('PaginaCtrl',['$scope','$window','Pagina','$routeParams','$http',function($scope,$window,Pagina,$routeParams,$http){
 
     var pagina_id = $routeParams.pagina_id;
     $scope.hoy = Date();
@@ -81,8 +81,8 @@
           $scope.FormAddPagina.pagina_facebook = $('#facebookID').val();
           // $scope.FormAddPagina.pagina_subdominio = data.name+"."+$scope.main.dominio;
           $scope.subdominio(data.name);
-        }).error(function () {
-          console.log("error");
+        }).error(function (err) {
+          console.log(err);
           $scope.notify('danger','La URL ingresada no es válida');
         });
       }else{
@@ -133,16 +133,20 @@
         $scope.crearPagina = function() {
           var datos = $scope.FormAddPagina;
           if (datos.pagina_dominio&&datos.pagina_nombre) {
-          Pagina.create(datos,function (err, data) {
-            if (err) {console.log(alert);} else{
-              $scope.notify('success','Página creada correctamente');
-              console.log(data);
+            Pagina.create(datos)
+              .success(function (data) {
+                $scope.notify('success','Página creada correctamente');
+                console.log(data);
 
                 $window.location.href= "#/pagina/"+data;
+              })
+              .error(function (err) {
+                console.error(err);
+                $scope.notify('warning',err);
+              });
 
-
-            }
-          });
+          } else {
+            alert('Información incompleta');
           }
 
         };

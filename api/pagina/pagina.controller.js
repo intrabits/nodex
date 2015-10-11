@@ -1,6 +1,128 @@
 var Pagina = require('./pagina.queries');
 var Lib     = require('./../../lib/index.js');
 var sanitizer = require('sanitizer');
+var Promise = require('bluebird');
+var webfaction = require('./../../config').webfaction;
+var colors = require('colors');
+var moment = require('moment');
+var fs = require('fs');
+var _ = require('lodash');
+
+// Agregar promesas
+Promise.promisifyAll(webfaction);
+Promise.promisifyAll(fs);
+
+// jshint ignore:start
+exports.create = async function (req,res) {
+  console.log('-------------------------'.yellow);
+  console.log('  Creando nueva página   '.yellow);
+  console.log('-------------------------'.yellow);
+
+  let logo,hoy = new Date();
+  if (req.body.pagina_facebook_id) {
+      logo = "http://graph.facebook.com/"+sanitizer.sanitize(req.body.pagina_facebook);
+  }
+  var datos = {
+      pagina_nombre:      sanitizer.sanitize(req.body.pagina_nombre),
+      pagina_dominio:     sanitizer.sanitize(req.body.pagina_dominio),
+      pagina_logo:        logo,
+      pagina_portada:     sanitizer.sanitize(req.body.pagina_portada),
+      pagina_descripcion: sanitizer.sanitize(req.body.pagina_descripcion),
+      // pagina_color:       sanitizer.sanitize(req.body.pagina_color),
+      pagina_tipo_id:     sanitizer.sanitize(req.body.pagina_tipo_id),
+      pagina_email:       sanitizer.sanitize(req.body.pagina_email),
+      pagina_direccion:   sanitizer.sanitize(req.body.pagina_direccion),
+      pagina_telefono:    sanitizer.sanitize(req.body.pagina_telefono),
+      pagina_facebook:    sanitizer.sanitize(req.body.pagina_facebook),
+      pagina_vencimiento: moment(hoy).format()
+  };
+  console.log(datos);
+  try {
+    // La función retorna el ID de la página creada
+    // Asignamos la página creada al usuario actual
+    let pagina_id = await Pagina.addPaginaAsync(datos);
+    console.log('El ID de la página creada será: ',colors.green(pagina_id));
+    let usarioPagina = await Pagina.addUsuarioAsync(req.user.id,pagina_id);
+
+
+    // Iniciamos sesión en webfaction para usar su API para la creación de la página
+    let algo = await webfaction.loginAsync();
+
+    // preparamos el dominio que vamos a usar: remover símbolos raros y espacios
+    let webName = _.snakeCase(_.deburr(req.body.pagina_nombre));
+
+    // Evitar subdominios repetidos
+
+    let subdominio,path;
+
+    Pagina.subdominioAsync(webName,pagina_id)
+      .then(function (sd) {
+        subdominio = sd;
+        console.log('Subdominio elegido ',colors.green(subdominio));
+        path = 'public/websites/paginas/' + pagina_id;
+        console.log('Creando directorio');
+        return fs.mkdirAsync(path);
+      })
+      .then(function () {
+        // Creamos carpeta de la aplicación
+        console.log('Creando archivos de la página');
+        return fs.writeFileAsync(path + "/index.php", "<?php $pagina_id = " + pagina_id + "; require '../nucleo.php';?>");
+      })
+      .then(function () {
+        // Creamos carpeta de las imagenes
+        console.log('Creando carpeta de imagenes');
+        return fs.mkdirAsync(path+'img/');
+      })
+      .then(function () {
+        // Crear aplicación :)
+        console.log('Creando app de webfaction');
+        let homeLink = '/home/intrabits/webapps/nodex/nodex/public/websites/paginas/' + pagina_id;
+        return webfaction.createAppAsync({
+            name: subdominio,
+            type: 'symlink54',
+            extra_info: homeLink
+          });
+      })
+      .then(function () {
+        // crear el website, en webfaction es el elemento que relaciona una aplicación con un dominio
+        console.log('Creando website de webfaction');
+        return webfaction.createWebsiteAsync({
+             website_name : subdominio,
+             ip: '75.126.173.142',
+             https: false,
+             subdomains: [subdominio + '.nodex.mx'],
+             site_apps: [ [subdominio,'/'] ]
+           });
+
+        return pagina_id;
+      })
+      .then(function (pid) {
+
+        console.log('Website creado'.green);
+        res.send(String(pid));
+
+      })
+      .then(function () {
+        // Damos de alta el subdominio
+        console.log('Creando subdominio');
+        webfaction.createDomainAsync('nodex.mx',subdominio);
+      })
+      .catch(function (err) {
+        console.error(err);
+        res.status(500).send('Error al crear la página');
+      });
+
+
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error al crear la página');
+  }
+
+
+};
+
+// jshint ignore:end
 
 exports.paquetes = function (req,res) {
   Pagina.getPaquetes(function( err, data){

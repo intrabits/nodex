@@ -1,0 +1,7 @@
+{
+  "es6":true,
+  "env": {
+    "browser": true,    
+    "node": true
+  },
+}

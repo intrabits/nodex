@@ -21,16 +21,11 @@ angular.module('app.pagina.service',  ['ngRoute'])
                      });
                 },
                 create:function (datos, callback) {
-                    $http({
+                    return $http({
                           data    :  datos,
                           method  : 'POST',
                           url     : '/api/pagina'
-                      })
-                        .success(function(data) {
-                            callback(null,data);
-                        }).error(function(err){
-                            callback('Hubo un error',null);
-                        });
+                      });
                 },
                 update:function (pagina_id, datos, callback) {
                     $http({

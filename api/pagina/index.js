@@ -36,7 +36,7 @@ router.use('/banners/',BannersCtrl);
 router.get('/paquetes/',auth.isLogged,PaginaCtrl.paquetes);
 
 
-// TODO: Arreglar esta aberración 
+// TODO: Arreglar esta aberración
 router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
 
     //  Revisamos que el usuario actual tenga permisos sobre la página
@@ -340,9 +340,9 @@ router.put('/imagen/:imagen_id',auth.isLogged,GaleriaCtrl.updateImagen);
 
 router.delete('/imagen/:imagen_id',auth.isLogged,GaleriaCtrl.deleteImagen);
 
+router.post('/',auth.isLogged,PaginaCtrl.create);
 
-
-router.post('',auth.isLogged, function (req, res) {
+router.post('/create',auth.isLogged, function (req, res) {
 
 
     async.waterfall([

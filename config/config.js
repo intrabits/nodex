@@ -13,7 +13,11 @@ var connection = mysql.createConnection(config.db);
 connection.query('USE ' + config.db.database);
 
 var Webfaction = require('./../lib/webfaction');
-var webfaction = new Webfaction(config.webfaction.user,config.webfaction.password);
+var webfaction = new Webfaction({
+  user : config.webfaction.user,
+  password : config.webfaction.password,
+  debug: config.webfaction.debug
+});
 
 
 exports.connection = connection;

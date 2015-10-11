@@ -46,36 +46,42 @@ Pagina.getPaginas = function(usuario_id,callback){
 
 Pagina.subdominio = function (subdominio,id, callback) {
 	var buscar_subdominio = subdominio;
+	var nuevo;
 	db.query("SELECT pagina_subdominio FROM pagina WHERE pagina_subdominio = ? LIMIT 1",[buscar_subdominio], function(err, rows){
-        if (err)
-            callback(err,null);
-        else{
-        		console.log(rows);
-        		var nuevo;
-        		if (rows[0]===undefined) {
-
-        			nuevo = subdominio;
-        		}else{
-        			nuevo = rows[0].pagina_subdominio +'2';
-        		}
-
-        		db.query("UPDATE pagina set pagina_subdominio = ? where pagina_id = ?",[nuevo,id],function (err, rows) {
-        			if (err) {
-        				console.log(err);
-        			} else{
-						callback(null,nuevo);
-        			}
-        		});
+      if (err) return callback(err,null);
 
 
+  		if (rows[0] === undefined) {
+  			nuevo = subdominio;
+  		} else {
+				// concatenamos su ID para evitar repetidos :)
+  			nuevo = rows[0].pagina_subdominio + id;
+  		}
+
+			db.query("UPDATE pagina set pagina_subdominio = ? where pagina_id = ?",[nuevo,id],function (err, rows) {
+				if (err) {
+  				callback(err);
+  			} else {
+					callback(null,nuevo);
+  			}
+  		});
+
+    });
+};
 
 
+Pagina.addPagina = function (datos, callback) {
+	db.query('INSERT INTO pagina SET ?',datos, function(err, result){
+        if (err) {
+					callback(err);
+				} else {
+					callback(null,result.insertId);
         }
 
     });
 };
 
-Pagina.addPagina = function (datos, callback) {
+Pagina.addPaginaLegacy = function (datos, callback) {
 	db.query('INSERT INTO pagina SET ?',datos, function(err, result){
         if (err) {console.log(err);}
 
@@ -329,7 +335,7 @@ Pagina.addPublicacion = function (data, callback) {
 Pagina.imgPublicacion = function (data, id, callback) {
 
 	db.query('UPDATE pagina_publicacion SET publicacion_imagen = ? WHERE publicacion_id = ?  LIMIT 1',[data, id], function(err, result){
-		if (err) callback(err,null); 
+		if (err) callback(err,null);
 		else callback(null,result);
     });
 };
