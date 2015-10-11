@@ -14,9 +14,7 @@ Promise.promisifyAll(fs);
 
 // jshint ignore:start
 exports.create = async function (req,res) {
-  console.log('-------------------------'.yellow);
-  console.log('  Creando nueva página   '.yellow);
-  console.log('-------------------------'.yellow);
+  console.log('===========>  Creando nueva página  <==========='.yellow);
 
   let logo,hoy = new Date();
   if (req.body.pagina_facebook_id) {
@@ -93,13 +91,11 @@ exports.create = async function (req,res) {
              subdomains: [subdominio + '.nodex.mx'],
              site_apps: [ [subdominio,'/'] ]
            });
-
-        return pagina_id;
       })
       .then(function (pid) {
-
-        console.log('Website creado'.green);
-        res.send(String(pid));
+        
+        console.log('===========>    ¡Website creado!    <==========='.green);
+        res.send(String(pagina_id));
 
       })
       .then(function () {
@@ -112,13 +108,10 @@ exports.create = async function (req,res) {
         res.status(500).send('Error al crear la página');
       });
 
-
-
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al crear la página');
   }
-
 
 };
 
