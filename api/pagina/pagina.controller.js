@@ -69,7 +69,7 @@ exports.create = async function (req,res) {
       .then(function () {
         // Creamos carpeta de las imagenes
         console.log('Creando carpeta de imagenes');
-        return fs.mkdirAsync(path+'img/');
+        return fs.mkdirAsync(path+'/img/');
       })
       .then(function () {
         // Damos de alta el subdominio
