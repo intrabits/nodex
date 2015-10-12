@@ -70,46 +70,52 @@
                         <div class="well">
                              <?=$pagina['pagina_descripcion_larga']?>
                         </div>
-                        <?php endif ?>
-
-                    <div class="air"></div>
-
-
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <?php if (count($publicaciones)>0): ?>
-                        <div class="">
-                            <h3 align="center">Últimas publicaciones</h3>
-                            <hr>
-                            <div class="row">
-                            <?php foreach ($publicaciones as $p): ?>
-
-                              <div class="col-md-4">
-                                <div class="view view-tenth">
-                                    <img src="http://nodex.mx/paginas/<?=$p['publicacion_imagen']?>" />
-                                    <div class="mask">
-                                        <h2><?=$p['publicacion_titulo']?></h2>
-                                        <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
-                                        <a href="?p=publicacion&id=<?=$p['publicacion_id']?>" class="info">Leer más</a>
-                                    </div>
-                                </div>
-                              </div>
-
-                            <?php endforeach ?>
-                            </div>
-                            <?php if (count($publicaciones)>3): ?>
-                              <p align="center">
-                                <a href="?p=publicacion" class="btn btn-info" align="right">Ver todas las publicaciones</a>
-                              </p>
-                            <?php endif ?>
-                        </div>
-                        <?php endif ?>
-
                         <div class="air"></div>
-
-
-
-
+                        <?php endif ?>
                     </div>
+
+
+
+
+                    <?php if (count($publicaciones)>0): ?>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well">
+                        <h3 align="center">Últimas publicaciones</h3>
+                        <hr>
+                        <div class="row">
+                        <?php foreach ($publicaciones as $p): ?>
+
+                          <div class="col-md-4">
+                            <div class="view view-tenth">
+                                <img src="http://nodex.mx/paginas/<?=$p['publicacion_imagen']?>" />
+                                <div class="mask">
+                                    <h2><?=$p['publicacion_titulo']?></h2>
+                                    <!-- <div style="width:100px;">
+                                      <p style="max-width:100px!important;">
+                                        <?=$p['resumen']?>...</p>
+                                    </div> -->
+                                      <br>
+                                    <a href="?p=publicacion&id=<?=$p['publicacion_id']?>" class="info">Leer más</a>
+                                </div>
+                            </div>
+                          </div>
+
+                        <?php endforeach ?>
+                        </div>
+                        <?php if (count($publicaciones)>3): ?>
+                          <p align="center">
+                            <a href="?p=publicacion" class="btn btn-info" align="right">Ver todas las publicaciones</a>
+                          </p>
+                        <?php endif ?>
+                    </div>
+                    <div class="air"></div>
+                    <?php endif ?>
+
+
+
+
+
+
+
                 </div>
 
 
@@ -199,12 +205,12 @@
             </div>
         </section>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
+
         <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
         <script src="<?=$base?>static/js/leftmenu.js"></script>
         <script src="<?=$base?>static/js/theme.js"></script>
-
-        <script>index();</script>
+        <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
+        
         <script charset="utf-8">
           $(document).ready( function() {
               $('#myCarousel').carousel({

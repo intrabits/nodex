@@ -24,7 +24,7 @@
 		<link rel="stylesheet" href="http://l-lin.github.io/font-awesome-animation/dist/font-awesome-animation.min.css">
 
 		<!-- Web Fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+		<link href='//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet'>
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
