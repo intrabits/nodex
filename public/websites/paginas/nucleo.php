@@ -49,7 +49,7 @@ $productos 	= $db->select_sql("SELECT *,(SELECT imagen_url from pagina_producto_
 $tpl->productos = $productos;
 
 //	Publicaciones del blog
-$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 80) AS resumen, publicacion_fecha,publicacion_imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
+$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 80) AS resumen, publicacion_fecha,publicacion_imagen,publicacion_banner FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 4");
 foreach ($publicaciones as $key => $publicacion) {
 	$publicacion['resumen'] = htmlentities($publicacion['resumen'], ENT_QUOTES | ENT_HTML401, 'UTF-8');
 }
@@ -94,7 +94,7 @@ if (isset($_GET['p'])) {
 				$tpl->publicacion = $publicacion[0];
 
 				$tpl->meta_description = strip_tags(substr($publicacion[0]['publicacion_titulo'].$publicacion[0]['publicacion_contenido']	, 0, 140));
-				$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen,publicacion_comentarios FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 5");
+				$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen,publicacion_comentarios,publicacion_banner FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC LIMIT 5");
 				$tpl->publicaciones = $publicaciones;
 				$tpl->fetch('post.tpl');
 			}
