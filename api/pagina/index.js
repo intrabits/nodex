@@ -41,9 +41,12 @@ router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
 
     //  Revisamos que el usuario actual tenga permisos sobre la página
     Pagina.owner(req.user.id,req.params.pagina_id,function (err, data) {
-        if (err) {console.log(err);res.send(500);}
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error al subir la imagen');
+        }
         if (data){
-            pagina_id = req.params.pagina_id;
+            var pagina_id = req.params.pagina_id;
             var fstream;
             var date = moment().format('YYYY-MM-DD_HH:mm:ss');
             req.pipe(req.busboy);

@@ -81,13 +81,14 @@
         <meta name="google-translate-customization" content="a0ff6a15b4ab7d5d-c8f9f9c94c707408-ge69522e7e7831ebe-8"></meta>
     </head>
     <body class="left" id="app" data-ng-app="app">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="<?=$base?>static/js/jquery.cookie.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+        <!-- <script src="<?=$base?>static/js/jquery.cookie.js"></script> -->
         <script>
-                if($.cookie("css")) {
-                    $("link.nav").attr("href",$.cookie("css"));
-                    $("body").attr("class",$.cookie("id"));
-                }
+                // if($.cookie("css")) {
+                //     $("link.nav").attr("href",$.cookie("css"));
+                //     $("body").attr("class",$.cookie("id"));
+                // }
             $(document).ready(function() {
                 $("#navorin li a").click(function() {
                     $("link.nav").attr("href",$(this).attr('rel'));

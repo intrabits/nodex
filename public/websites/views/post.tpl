@@ -30,7 +30,7 @@
                                         <hr />
                                         <?=$publicacion['publicacion_contenido']?>
                                         <div class="media">
-                                            <?php if ($publicacion['publicacion_video']): ?>
+                                            <?php if (count($publicacion['publicacion_video'])>6): ?>
                                                 <iframe width="560" height="315" src="//www.youtube.com/embed/<?=$publicacion['publicacion_video']?>" frameborder="0" allowfullscreen></iframe>
                                             <?php endif ?>
                                         </div>
@@ -127,15 +127,14 @@
 
                 </div>
             </div>
-        </section>
-        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+        </section>        
         <script src="<?=$base?>static/js/bootstrap.min.js"></script>
-        <script src="<?=$base?>static/js/jquery.colorbox.js"></script>
-        <script src="<?=$base?>static/js/jquery.photoset-grid.min.js"></script>
+        <!-- <script src="<?=$base?>static/js/jquery.colorbox.js"></script>
+        <script src="<?=$base?>static/js/jquery.photoset-grid.min.js"></script> -->
         <script src="<?=$base?>static/js/leftmenu.js"></script>
         <script src="<?=$base?>static/js/theme.js"></script>
         <!-- <script src="<?=$base?>static/js/script.js"></script> -->
         <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
-        <script>blogpost();</script>
+
     </body>
 </html>
