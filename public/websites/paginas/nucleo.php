@@ -90,7 +90,7 @@ if (isset($_GET['p'])) {
 			$id = get('id');
 			if ($id!='') {
 				$db->query("UPDATE pagina_publicacion set publicacion_visitas = publicacion_visitas+1 WHERE publicacion_id = $id");
-				$publicacion = $db->select('pagina_publicacion',"publicacion_id=$id",'publicacion_id,publicacion_titulo,publicacion_contenido,publicacion_fecha,publicacion_video,publicacion_imagen');
+				$publicacion = $db->select('pagina_publicacion',"publicacion_id=$id",'publicacion_id,publicacion_titulo,publicacion_contenido,publicacion_fecha,publicacion_video,publicacion_imagen,publicacion_banner');
 				$tpl->publicacion = $publicacion[0];
 
 				$tpl->meta_description = strip_tags(substr($publicacion[0]['publicacion_titulo'].$publicacion[0]['publicacion_contenido']	, 0, 140));
@@ -102,7 +102,7 @@ if (isset($_GET['p'])) {
 			break;
 
 		case 'blog':
-			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC");
+			$publicaciones 	= $db->select_sql("SELECT publicacion_id, publicacion_titulo,LEFT(publicacion_contenido, 140) AS publicacion_resumen, publicacion_fecha,publicacion_imagen,publicacion_banner FROM pagina_publicacion WHERE publicacion_pagina_id = $pagina_id ORDER BY publicacion_fecha DESC");
 			$tpl->publicaciones = $publicaciones;
 			$tpl->fetch('blog.tpl');
 			break;

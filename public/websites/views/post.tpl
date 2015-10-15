@@ -10,13 +10,15 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="well blog-post">
 
-                            <?php if ($publicacion['publicacion_banner']!=''){ ?>
+                            <?php if (isset($publicacion['publicacion_banner'])){ ?>
                             <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <div class="image">
-                                        <img src="<?=$base.'paginas/'.$publicacion['publicacion_banner']?> " alt="">
-                                    </div>
+                              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="image">
+                                  <img
+                                    src="<?=$base.'paginas/'.$publicacion['publicacion_banner']?> "
+                                    alt="">
                                 </div>
+                              </div>
                             </div>
                             <?php }?>
                             <div class="row">
@@ -126,7 +128,6 @@
                 </div>
             </div>
         </section>
-        <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
         <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
         <script src="<?=$base?>static/js/bootstrap.min.js"></script>
         <script src="<?=$base?>static/js/jquery.colorbox.js"></script>
@@ -134,6 +135,7 @@
         <script src="<?=$base?>static/js/leftmenu.js"></script>
         <script src="<?=$base?>static/js/theme.js"></script>
         <script src="<?=$base?>static/js/script.js"></script>
+        <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
         <script>blogpost();</script>
     </body>
 </html>
