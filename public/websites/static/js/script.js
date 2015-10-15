@@ -30,23 +30,23 @@
      $('#reject').click(function () {
          $.reject({
              reject: {
-                 safari: true, // Apple Safari  
-                 chrome: true, // Google Chrome  
-                 firefox: true, // Mozilla Firefox  
-                 msie: true, // Microsoft Internet Explorer  
-                 opera: true, // Opera  
-                 konqueror: true, // Konqueror (Linux)  
-                 unknown: true // Everything else  
+                 safari: true, // Apple Safari
+                 chrome: true, // Google Chrome
+                 firefox: true, // Mozilla Firefox
+                 msie: true, // Microsoft Internet Explorer
+                 opera: true, // Opera
+                 konqueror: true, // Konqueror (Linux)
+                 unknown: true // Everything else
              },
              imagePath: 'assets/jreject/images/'
-         }); // Customized Browsers  
+         }); // Customized Browsers
 
          return false;
      });
  }
 
  function flotcharts() {
-    
+
 
      // We use an inline data source in the example, usually data would
      // be fetched from a server
@@ -61,205 +61,27 @@
 
  function xcharts() {
 
-     
+
  }
 
  function othercharts() {
-     
+
  }
 
  function chosen() {
-     $("#chosen-select").chosen();
-     $("#chosen-select2").chosen();
-     $("#chosen-select3").chosen();
-     $("#chosen-select4").chosen();
-     $("#chosen-select5").chosen({
-         disable_search_threshold: 10
-     });
-     $("#chosen-select6").chosen({
-         no_results_text: "Oops, nothing found!"
-     });
-     $("#chosen-select7").chosen({
-         allow_single_deselect: true
-     });
-     $("#chosen-select8").chosen();
-     $("#chosen-select9").chosen();
-     $("#chosen-select10").chosen({
-         no_results_text: "Oops, nothing found!"
-     });
-     $("#chosen-select11").chosen();
-     $("#chosen-select12").chosen();
-     $("#chosen-select13").chosen();
-     $("#chosen-select14").chosen();
+
  }
 
  function bootstrapmultiselect() {
-     $('#multiselect').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect2').multiselect({
-         buttonClass: 'btn btn-primary'
-     });
-     $('#multiselect3').multiselect({
-         buttonClass: 'btn btn-info'
-     });
-     $('#multiselect4').multiselect({
-         buttonClass: 'btn btn-success'
-     });
-     $('#multiselect5').multiselect({
-         buttonClass: 'btn btn-warning'
-     });
-     $('#multiselect6').multiselect({
-         buttonClass: 'btn btn-danger'
-     });
-     $('#multiselect7').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect8').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect9').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect10').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect11').multiselect({
-         buttonClass: 'btn btn-default btn-sm'
-     });
-     $('#multiselect12').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect13').multiselect({
-         buttonClass: 'btn btn-default',
-         buttonWidth: '100%',
-         onChange: function (element, checked) {
-             $.pnotify({
-                 title: 'Change Alert',
-                 text: 'This is done with pines notify'
-             });
-         }
-     });
-     $('#multiselect14').multiselect({
-         buttonClass: 'btn btn-default',
-         maxHeight: 200
-     });
-     $('#multiselect15').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect16').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect17').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect18').multiselect({
-         buttonClass: 'btn btn-default'
-     });
 
-     $('#multiselect20').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect20-disable').on('click', function () {
-         $('#multiselect20').multiselect('disable');
-     });
-     $('#multiselect21').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $('#multiselect19').multiselect({
-         buttonClass: 'btn btn-default'
-     });
-     $("#multiselect19-toggle").click(function (e) {
-         e.preventDefault();
-         multiselect_toggle($("#multiselect19"), $(this));
-     });
-
-     function multiselect_selected($el) {
-         var ret = true;
-         $('option', $el).each(function (element) {
-             if ( !! !$(this).prop('selected')) {
-                 ret = false;
-             }
-         });
-         return ret;
-     }
-
-     function multiselect_selectAll($el) {
-         $('option', $el).each(function (element) {
-             $el.multiselect('select', $(this).val());
-         });
-     }
-
-     function multiselect_deselectAll($el) {
-         $('option', $el).each(function (element) {
-             $el.multiselect('deselect', $(this).val());
-         });
-     }
-
-     function multiselect_toggle($el, $btn) {
-         if (multiselect_selected($el)) {
-             multiselect_deselectAll($el);
-             $btn.text("Select All");
-         } else {
-             multiselect_selectAll($el);
-             $btn.text("Deselect All");
-         }
-     }
-     var firstConfigurationSet = {
-         includeSelectAllOption: false,
-         enableFiltering: false,
-         enableCasInsensitiveFiltering: false
-     };
-     var secondConfigurationSet = {
-         includeSelectAllOption: true,
-         enableFiltering: true,
-         enableCasInsensitiveFiltering: true
-     };
-
-     var set = 1;
-     $('#example33').multiselect(firstConfigurationSet);
-
-     function rebuildMultiselect(options) {
-         $('#example33').multiselect('setOptions', options);
-         $('#example33').multiselect('rebuild');
-     }
-
-     $('#example33-configuration-set').on('click', function (event) {
-         switch (set) {
-         case 2:
-             rebuildMultiselect(firstConfigurationSet);
-
-             $(this).text('Configuration Set 2');
-             set = 1;
-             break;
-         case 1:
-         default:
-             rebuildMultiselect(secondConfigurationSet);
-
-             $(this).text('Configuration Set 1');
-             set = 2;
-             break;
-         }
-     });
  }
 
  function blogpost() {
-     $("textarea").fseditor();
+
  }
 
  function biccal() {
-     mesos = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-     dias = ["M", "T", "W", "T", "F", "S", "S"];
-
-     $('#cal').bic_calendar({
-         nombresMes: mesos,
-         dias: dias,
-         req_ajax: {
-             type: 'get',
-             url: 'http://bic.cat/bic_calendar/index.php'
-         }
-     });
  }
 
  function gallery() {
@@ -369,328 +191,11 @@
  }
 
  function bootstrapalerts() {
-     $('.alert .close.effect-1').click(function (ev) {
-         $(this).parent().fadeOut();
-         ev.stopPropagation();
-     });
-     $('.alert .close.effect-2').click(function (ev) {
-         $(this).parent().slideUp();
-         ev.stopPropagation();
-     });
-     $("#warn-me").click(function () {
-         $(document).trigger("add-alerts", [{
-             'message': "This is a warning.",
-             'priority': 'warning'
-         }]);
-     });
+
  }
 
  function datatables() {
-     $('#managed-table').dataTable();
-     $('.selectpicker').selectBoxIt();
-     $(window).resize(function () {
-         $("#jqGrid01").jqGrid('setGridWidth', $(".jqgrid").width(), true);
 
-     });
-     // Set data
-     var mydata = [{
-         id: "1",
-         invdate: "2010-05-24",
-         name: "test",
-         note: "note",
-         tax: "10.00",
-         total: "2111.00"
-     }, {
-         id: "2",
-         invdate: "2010-05-25",
-         name: "test2",
-         note: "note2",
-         tax: "20.00",
-         total: "320.00"
-     }, {
-         id: "3",
-         invdate: "2007-09-01",
-         name: "test3",
-         note: "note3",
-         tax: "30.00",
-         total: "430.00"
-     }, {
-         id: "4",
-         invdate: "2007-10-04",
-         name: "test",
-         note: "note",
-         tax: "10.00",
-         total: "210.00"
-     }, {
-         id: "5",
-         invdate: "2007-10-05",
-         name: "test2",
-         note: "note2",
-         tax: "20.00",
-         total: "320.00"
-     }, {
-         id: "6",
-         invdate: "2007-09-06",
-         name: "test3",
-         note: "note3",
-         tax: "30.00",
-         total: "430.00"
-     }, {
-         id: "7",
-         invdate: "2007-10-04",
-         name: "test",
-         note: "note",
-         tax: "10.00",
-         total: "210.00"
-     }, {
-         id: "8",
-         invdate: "2007-10-03",
-         name: "test2",
-         note: "note2",
-         amount: "300.00",
-         tax: "21.00",
-         total: "320.00"
-     }, {
-         id: "9",
-         invdate: "2007-09-01",
-         name: "test3",
-         note: "note3",
-         amount: "400.00",
-         tax: "30.00",
-         total: "430.00"
-     }, {
-         id: "11",
-         invdate: "2007-10-01",
-         name: "test",
-         note: "note",
-         amount: "200.00",
-         tax: "10.00",
-         total: "210.00"
-     }, {
-         id: "12",
-         invdate: "2007-10-02",
-         name: "test2",
-         note: "note2",
-         amount: "300.00",
-         tax: "20.00",
-         total: "320.00"
-     }, {
-         id: "13",
-         invdate: "2007-09-01",
-         name: "test3",
-         note: "note3",
-         amount: "400.00",
-         tax: "30.00",
-         total: "430.00"
-     }, {
-         id: "14",
-         invdate: "2007-10-04",
-         name: "test",
-         note: "note",
-         amount: "200.00",
-         tax: "10.00",
-         total: "210.00"
-     }, {
-         id: "15",
-         invdate: "2007-10-05",
-         name: "test2",
-         note: "note2",
-         amount: "300.00",
-         tax: "20.00",
-         total: "320.00"
-     }, {
-         id: "16",
-         invdate: "2007-09-06",
-         name: "test3",
-         note: "note3",
-         amount: "400.00",
-         tax: "30.00",
-         total: "430.00"
-     }, {
-         id: "17",
-         invdate: "2007-10-04",
-         name: "test",
-         note: "note",
-         amount: "200.00",
-         tax: "10.00",
-         total: "210.00"
-     }, {
-         id: "18",
-         invdate: "2007-10-03",
-         name: "test2",
-         note: "note2",
-         amount: "300.00",
-         tax: "20.00",
-         total: "320.00"
-     }, {
-         id: "19",
-         invdate: "2007-09-01",
-         name: "test3",
-         note: "note3",
-         amount: "400.00",
-         tax: "30.00",
-         total: "430.00"
-     }, {
-         id: "21",
-         invdate: "2007-10-01",
-         name: "test",
-         note: "note",
-         amount: "200.00",
-         tax: "10.00",
-         total: "210.00"
-     }, {
-         id: "22",
-         invdate: "2007-10-02",
-         name: "test2",
-         note: "note2",
-         amount: "300.00",
-         tax: "20.00",
-         total: "320.00"
-     }, {
-         id: "23",
-         invdate: "2007-09-01",
-         name: "test3",
-         note: "note3",
-         amount: "400.00",
-         tax: "30.00",
-         total: "430.00"
-     }, {
-         id: "24",
-         invdate: "2007-10-04",
-         name: "test",
-         note: "note",
-         amount: "200.00",
-         tax: "10.00",
-         total: "210.00"
-     }, {
-         id: "25",
-         invdate: "2007-10-05",
-         name: "test2",
-         note: "note2",
-         amount: "300.00",
-         tax: "20.00",
-         total: "320.00"
-     }, {
-         id: "26",
-         invdate: "2007-09-06",
-         name: "test3",
-         note: "note3",
-         amount: "400.00",
-         tax: "30.00",
-         total: "430.00"
-     }, {
-         id: "27",
-         invdate: "2007-10-04",
-         name: "test",
-         note: "note",
-         amount: "200.00",
-         tax: "10.00",
-         total: "210.00"
-     }, {
-         id: "28",
-         invdate: "2007-10-03",
-         name: "test2",
-         note: "note2",
-         amount: "300.00",
-         tax: "20.00",
-         total: "320.00"
-     }, {
-         id: "29",
-         invdate: "2007-09-01",
-         name: "test3",
-         note: "note3",
-         amount: "400.00",
-         tax: "30.00",
-         total: "430.00"
-     }];
-
-     // Setup grid
-     jQuery("#jqGrid01").jqGrid({
-         data: mydata,
-         datatype: "local",
-         height: 200,
-         rowNum: 10,
-         rowList: [10, 20, 30],
-         colNames: ['Inv No', 'Date', 'Client', 'Amount', 'Tax', 'Total', 'Notes'],
-         colModel: [{
-             name: 'id',
-             index: 'id',
-             editable: true,
-             width: 60,
-             sorttype: "int",
-             search: true
-         }, {
-             name: 'invdate',
-             index: 'invdate',
-             editable: true,
-             width: 90,
-             sorttype: "date",
-             formatter: "date"
-         }, {
-             name: 'name',
-             index: 'name',
-             editable: true,
-             width: 100
-         }, {
-             name: 'amount',
-             index: 'amount',
-             editable: true,
-             width: 80,
-             align: "right",
-             sorttype: "float",
-             formatter: "number"
-         }, {
-             name: 'tax',
-             index: 'tax',
-             editable: true,
-             width: 80,
-             align: "right",
-             sorttype: "float"
-         }, {
-             name: 'total',
-             index: 'total',
-             editable: true,
-             width: 80,
-             align: "right",
-             sorttype: "float"
-         }, {
-             name: 'note',
-             index: 'note',
-             editable: true,
-             width: 100,
-             sortable: false
-         }],
-         pager: "#jqGridPager01",
-         viewrecords: true,
-         add: true,
-         edit: true,
-         addtext: 'Add',
-         edittext: 'Edit',
-         caption: "Data",
-         hidegrid: false
-     });
-
-     // Setup buttons
-     jQuery("#jqGrid01").jqGrid('navGrid', '#jqGridPager01', {
-         edit: true,
-         add: true,
-         del: true,
-         search: true
-     }, {
-         height: 200,
-         reloadAfterSubmit: true
-     });
-
-     // Setup filters
-     jQuery("#jqGrid01").jqGrid('filterToolbar', {
-         defaultSearch: true,
-         stringResult: true
-     });
-
-     $("#jqGrid01").jqGrid('setGridWidth', $(".jqgrid").width(), true);
-
-     // Bootstrap customization
-     $(".ui-pg-input").attr('class', 'form-control');
  }
 
  function comingsoon() {
@@ -707,1089 +212,69 @@
  }
 
  function colorpicker() {
-     $('.my-colorpicker-control').colorpicker();
-     $('#cp1').colorpicker();
-     $('#cp2').colorpicker();
-     $(".rgb-demo").ColorPickerSliders({
-         flat: true,
-         swatches: false,
-         order: {
-             rgb: 1,
-             opacity: 2
-         },
-         labels: {
-             rgbred: 'Red',
-             rgbgreen: 'Green',
-             rgbblue: 'Blue'
-         }
-     });
-     $(".cielch-demo").ColorPickerSliders({
-         flat: true,
-         customswatches: "different-swatches-groupname",
-         swatches: ["rgb(174, 156, 227)", "rgb(29, 179, 229)", "rgb(54, 185, 163)", "rgb(144, 176, 105)", "rgb(224, 148, 110)", "rgb(233, 137, 168)"],
-         order: {
-             cie: 1,
-             preview: 2
-         }
-     });
-     var options = {
-         colors: [
-             ['#000000', '#424242', '#636363', '#9C9C94', '#CEC6CE', '#EFEFEF', '#EFF7F7', '#FFFFFF']
-         ]
-     }
-     $('#colorpalette4').colorPalette(options)
-         .on('selectColor', function (e) {
-             $('#selected-color3').val(e.color);
-         });
-     $('#colorpalette2').colorPalette()
-         .on('selectColor', function (e) {
-             $('#selected-color2 i').css('color', e.color);
-         });
-     $('#colorpalette3').colorPalette()
-         .on('selectColor', function (e) {
-             $('#selected-color2').css('background-color', e.color);
-         });
-     $('#colorpalette1').colorPalette()
-         .on('selectColor', function (e) {
-             $('#selected-color1').val(e.color);
-         });
+
  }
 
  function components() {
-     $('[rel=popover]').popover();
-     $('[rel=tooltip]').tooltip();
-     $('.dynamic .demo').click(function () {
-         var tmpl = [
-             // tabindex is required for focus
-             '<div class="modal hide fade" tabindex="-1">',
-             '<div class="modal-header">',
-             '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>',
-             '<h4 class="modal-title">Modal header</h4>',
-             '</div>',
-             '<div class="modal-body">',
-             '<p>Test</p>',
-             '</div>',
-             '<div class="modal-footer">',
-             '<a href="#" data-dismiss="modal" class="btn btn-default">Close</a>',
-             '<a href="#" class="btn btn-primary">Save changes</a>',
-             '</div>',
-             '</div>'
-         ].join('');
-
-         $(tmpl).modal();
-     });
-     var $modal = $('#ajax-modal');
-
-     $('.ajaxmodal').on('click', function () {
-         // create the backdrop and wait for next modal to be triggered
-         $('body').modalmanager('loading');
-
-         setTimeout(function () {
-             $modal.load('assets/bootstrapmodal/modalajax.html', '', function () {
-                 $modal.modal();
-             });
-         }, 1000);
-     });
-
-     $modal.on('click', '.update', function () {
-         $modal.modal('loading');
-         setTimeout(function () {
-             $modal
-                 .modal('loading')
-                 .find('.modal-body')
-                 .prepend('<div class="alert alert-info fade in">' +
-                     'Updated!<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                     '</div>');
-         }, 1000);
-     });
 
  }
 
  function contact() {
-     new GMaps({
-         div: '#map',
-         lat: -12.043333,
-         lng: -77.028333
-     });
-     $('textarea').autosize();
+
  }
 
  function creativebuttons() {
-     var buttons7Click = Array.prototype.slice.call(document.querySelectorAll('#cbtn-click button')),
-         buttons9Click = Array.prototype.slice.call(document.querySelectorAll('button.cbtn-8g')),
-         totalButtons7Click = buttons7Click.length,
-         totalButtons9Click = buttons9Click.length;
 
-     buttons7Click.forEach(function (el, i) {
-         el.addEventListener('click', activate, false);
-     });
-     buttons9Click.forEach(function (el, i) {
-         el.addEventListener('click', activate, false);
-     });
-
-     function activate() {
-         var self = this,
-             activatedClass = 'cbtn-activated';
-
-         if (classie.has(this, 'cbtn-7h')) {
-             // if it is the first of the two cbtn-7h then activatedClass = 'cbtn-error';
-             // if it is the second then activatedClass = 'cbtn-success'
-             activatedClass = buttons7Click.indexOf(this) === totalButtons7Click - 2 ? 'cbtn-error' : 'cbtn-success';
-         } else if (classie.has(this, 'cbtn-8g')) {
-             // if it is the first of the two cbtn-8g then activatedClass = 'cbtn-success3d';
-             // if it is the second then activatedClass = 'cbtn-error3d'
-             activatedClass = buttons9Click.indexOf(this) === totalButtons9Click - 2 ? 'cbtn-success3d' : 'cbtn-error3d';
-         }
-
-         if (!classie.has(this, activatedClass)) {
-             classie.add(this, activatedClass);
-             setTimeout(function () {
-                 classie.remove(self, activatedClass)
-             }, 1000);
-         }
-     }
  }
 
  function daterangepicker() {
-     $("#form_datetime").datetimepicker({
-         format: 'yyyy-mm-dd hh:ii'
-     });
-     $("#form_datetime2").datetimepicker({
-         format: "dd MM yyyy - hh:ii"
-     });
-     $('#t3').clockface({
-         format: 'H:mm'
-     }).clockface('show', '14:30');
-     $('#t1').clockface();
-     $('#t2').clockface({
-         format: 'HH:mm',
-         trigger: 'manual'
-     });
 
-     $('#toggle-btn').click(function (e) {
-         e.stopPropagation();
-         $('#t2').clockface('toggle');
-     });
-     $('#reservationtime').daterangepicker({
-         timePicker: true,
-         timePickerIncrement: 30,
-         format: 'MM/DD/YYYY h:mm A'
-     });
-     $('#reservation').daterangepicker();
-     $('#reportrange').daterangepicker({
-             startDate: moment().subtract('days', 29),
-             endDate: moment(),
-             minDate: '01/01/2012',
-             maxDate: '12/31/2014',
-             dateLimit: {
-                 days: 60
-             },
-             showDropdowns: true,
-             showWeekNumbers: true,
-             timePicker: false,
-             timePickerIncrement: 1,
-             timePicker12Hour: true,
-             ranges: {
-                 'Today': [moment(), moment()],
-                 'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                 'Last 7 Days': [moment().subtract('days', 6), moment()],
-                 'Last 30 Days': [moment().subtract('days', 29), moment()],
-                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                 'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-             },
-             opens: 'left',
-             buttonClasses: ['btn btn-default'],
-             applyClass: 'btn-small btn-primary',
-             cancelClass: 'btn-small',
-             format: 'MM/DD/YYYY',
-             separator: ' to ',
-             locale: {
-                 applyLabel: 'Submit',
-                 fromLabel: 'From',
-                 toLabel: 'To',
-                 customRangeLabel: 'Custom Range',
-                 daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'Julio', 'August', 'September', 'October', 'November', 'December'],
-                 firstDay: 1
-             }
-         },
-         function (start, end) {
-             console.log("Callback has been called!");
-             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-         }
-     );
-     //Set the initial state of the picker label
-     $('#reportrange span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
  }
 
  function dragwidgets() {
-     $(".column").sortable({
-         connectWith: ".column"
-     });
 
-     $(".column").disableSelection();
-     $("#sortable1, #sortable2").sortable({
-         connectWith: ".connectedSortable"
-     }).disableSelection();
-     $("#owl-example").owlCarousel({
-         items: 2
-     });
-     $('.dd').nestable();
-     $("#sortable").sortable();
-     $("#sortable").disableSelection();
  }
 
  function fueluxwizard() {
-     $('#MyWizard').on('change', function (e, data) {
-         console.log('change');
-         if (data.step === 3 && data.direction === 'next') {
-             // return e.preventDefault();
-         }
-     });
-     $('#MyWizard').on('changed', function (e, data) {
-         console.log('changed');
-     });
-     $('#MyWizard').on('finished', function (e, data) {
-         console.log('finished');
-     });
-     $('#btnWizardPrev').on('click', function () {
-         $('#MyWizard').wizard('previous');
-     });
-     $('#btnWizardNext').on('click', function () {
-         $('#MyWizard').wizard('next', 'foo');
-     });
-     $('#btnWizardStep').on('click', function () {
-         var item = $('#MyWizard').wizard('selectedItem');
-         console.log(item.step);
-     });
-     $('#MyWizard').on('stepclick', function (e, data) {
-         console.log('step' + data.step + ' clicked');
-         if (data.step === 1) {
-             // return e.preventDefault();
-         }
-     });
 
-     // optionally navigate back to 2nd step
-     $('#btnStep2').on('click', function (e, data) {
-         $('[data-target=#step2]').trigger("click");
-     });
 
  }
 
  function fullcalendar() {
-     $('#external-events div.external-event').each(function () {
 
-         // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-         // it doesn't need to have a start or end
-         var eventObject = {
-             title: $.trim($(this).text()) // use the element's text as the event title
-         };
-
-         // store the Event Object in the DOM element so we can get to it later
-         $(this).data('eventObject', eventObject);
-
-         // make the event draggable using jQuery UI
-         $(this).draggable({
-             zIndex: 999,
-             revert: true, // will cause the event to go back to its
-             revertDuration: 0 //  original position after the drag
-         });
-
-     });
-
-
-     /* initialize the calendar
-		-----------------------------------------------------------------*/
-
-     $('#calendar').fullCalendar({
-         header: {
-             left: 'prev,next today',
-             center: 'title',
-             right: 'month,agendaWeek,agendaDay'
-         },
-         editable: true,
-         droppable: true, // this allows things to be dropped onto the calendar !!!
-         drop: function (date, allDay) { // this function is called when something is dropped
-
-             // retrieve the dropped element's stored Event Object
-             var originalEventObject = $(this).data('eventObject');
-
-             // we need to copy it, so that multiple events don't have a reference to the same object
-             var copiedEventObject = $.extend({}, originalEventObject);
-
-             // assign it the date that was reported
-             copiedEventObject.start = date;
-             copiedEventObject.allDay = allDay;
-
-             // render the event on the calendar
-             // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-             $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-             // is the "remove after drop" checkbox checked?
-             if ($('#drop-remove').is(':checked')) {
-                 // if so, remove the element from the "Draggable Events" list
-                 $(this).remove();
-             }
-
-         }
-     });
 
  }
 
  function googlemaps() {
-     new GMaps({
-         div: '#map',
-         lat: -12.043333,
-         lng: -77.028333
-     });
 
-     url = GMaps.staticMapURL({
-         size: [610, 300],
-         lat: -12.043333,
-         lng: -77.028333
-     });
-
-     $('<img/>').attr('src', url)
-         .appendTo('#static');
-
-     map = new GMaps({
-         div: '#route',
-         lat: -12.043333,
-         lng: -77.028333
-     });
-     $('#start_travel').click(function (e) {
-         e.preventDefault();
-         map.travelRoute({
-             origin: [-12.044012922866312, -77.02470665341184],
-             destination: [-12.090814532191756, -77.02271108990476],
-             travelMode: 'driving',
-             step: function (e) {
-                 $('#instructions').append('<li>' + e.instructions + '</li>');
-                 $('#instructions li:eq(' + e.step_number + ')').delay(450 * e.step_number).fadeIn(200, function () {
-                     map.setCenter(e.end_location.lat(), e.end_location.lng());
-                     map.drawPolyline({
-                         path: e.path,
-                         strokeColor: '#131540',
-                         strokeOpacity: 0.6,
-                         strokeWeight: 6
-                     });
-                 });
-             }
-         });
-     });
-
-     var addresspicker = $("#addresspicker").addresspicker();
-     var addresspickerMap = $("#addresspicker_map").addresspicker({
-         regionBias: "de",
-         map: "#map_canvas",
-         typeaheaddelay: 1000,
-         mapOptions: {
-             zoom: 16,
-             center: new google.maps.LatLng(52.5122, 13.4194)
-         }
-
-     });
-
-     addresspickerMap.on("addressChanged", function (evt, address) {
-         console.dir(address);
-     });
-     addresspickerMap.on("positionChanged", function (evt, markerPosition) {
-         markerPosition.getAddress(function (address) {
-             if (address) {
-                 $("#addresspicker_map").val(address.formatted_address);
-             }
-         })
-     });
  }
 
  function humanealerts() {
-     $('#boldlight').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-boldlight'
-         })
-         notify.log('Bold Light')
-     });
-     $('#boldlighterror').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-boldlight',
-             addnCls: 'humane-boldlight-error'
-         })
-         notify.log('Bold Light Error')
-     });
-     $('#boldlightinfo').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-boldlight',
-             addnCls: 'humane-boldlight-info'
-         })
-         notify.log('Bold Light Info')
-     });
-     $('#boldlightsuccess').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-boldlight',
-             addnCls: 'humane-boldlight-success'
-         })
-         notify.log('Bold Light Success')
-     });
-     $('#bigbox').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-bigbox'
-         })
-         notify.log('Big Box')
-     });
-     $('#bigboxerror').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-bigbox',
-             addnCls: 'humane-bigbox-error'
-         })
-         notify.log('Big Box Error')
-     });
-     $('#bigboxinfo').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-bigbox',
-             addnCls: 'humane-bigbox-info'
-         })
-         notify.log('Big Box Info')
-     });
-     $('#bigboxsuccess').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-bigbox',
-             addnCls: 'humane-bigbox-success'
-         })
-         notify.log('Big Box Success')
-     });
-     $('#libnotify').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-libnotify'
-         })
-         notify.log('Libnotify')
-     });
-     $('#libnotifyerror').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-libnotify',
-             addnCls: 'humane-libnotify-error'
-         })
-         notify.log('Libnotify Error')
-     });
-     $('#libnotifyinfo').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-libnotify',
-             addnCls: 'humane-libnotify-info'
-         })
-         notify.log('Libnotify Info')
-     });
-     $('#libnotifysuccess').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-libnotify',
-             addnCls: 'humane-libnotify-success'
-         })
-         notify.log('Libnotify Success')
-     });
-     $('#jackedup').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-jackedup'
-         })
-         notify.log('Jacked Up')
-     });
-     $('#jackeduperror').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-jackedup',
-             addnCls: 'humane-jackedup-error'
-         })
-         notify.log('Jacked Up Error')
-     });
-     $('#jackedupinfo').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-jackedup',
-             addnCls: 'humane-jackedup-info'
-         })
-         notify.log('Jacked Up Info')
-     });
-     $('#jackedupsuccess').click(function () {
-         var notify = humane.create({
-             timeout: 4000,
-             baseCls: 'humane-jackedup',
-             addnCls: 'humane-jackedup-success'
-         })
-         notify.log('Jacked Up Success')
-     });
+
  }
 
  function icheck() {
-     $('.colors li').click(function () {
-         var self = $(this);
 
-         if (!self.hasClass('active')) {
-             self.siblings().removeClass('active');
-
-             var skin = self.closest('.skin'),
-                 color = self.attr('class') ? '-' + self.attr('class') : '',
-                 checkbox = skin.data('icheckbox'),
-                 radio = skin.data('iradio'),
-                 checkbox_default = 'icheckbox_minimal',
-                 radio_default = 'iradio_minimal';
-
-             if (skin.hasClass('skin-square')) {
-                 checkbox_default = 'icheckbox_square', radio_default = 'iradio_square';
-                 checkbox == undefined && (checkbox = 'icheckbox_square-green', radio = 'iradio_square-green');
-             };
-
-             if (skin.hasClass('skin-flat')) {
-                 checkbox_default = 'icheckbox_flat', radio_default = 'iradio_flat';
-                 checkbox == undefined && (checkbox = 'icheckbox_flat-red', radio = 'iradio_flat-red');
-             };
-
-             if (skin.hasClass('skin-line')) {
-                 checkbox_default = 'icheckbox_line', radio_default = 'iradio_line';
-                 checkbox == undefined && (checkbox = 'icheckbox_line-blue', radio = 'iradio_line-blue');
-             };
-
-             checkbox == undefined && (checkbox = checkbox_default, radio = radio_default);
-
-             skin.find('input, .skin-states .state').each(function () {
-                 var element = $(this).hasClass('state') ? $(this) : $(this).parent(),
-                     element_class = element.attr('class').replace(checkbox, checkbox_default + color).replace(radio, radio_default + color);
-
-                 element.attr('class', element_class);
-             });
-
-             skin.data('icheckbox', checkbox_default + color);
-             skin.data('iradio', radio_default + color);
-             self.addClass('active');
-         };
-     });
-     $('.skin-minimal input').iCheck({
-         checkboxClass: 'icheckbox_minimal',
-         radioClass: 'iradio_minimal',
-         increaseArea: '20%'
-     });
-     $('.skin-square input').iCheck({
-         checkboxClass: 'icheckbox_square-green',
-         radioClass: 'iradio_square-green',
-         increaseArea: '20%'
-     });
-     $('.skin-flat input').iCheck({
-         checkboxClass: 'icheckbox_flat-red',
-         radioClass: 'iradio_flat-red'
-     });
-     $('.skin-line input').each(function () {
-         var self = $(this),
-             label = self.next(),
-             label_text = label.text();
-
-         label.remove();
-         self.iCheck({
-             checkboxClass: 'icheckbox_line-blue',
-             radioClass: 'iradio_line-blue',
-             insert: '<div class="icheck_line-icon"></div>' + label_text
-         });
-     });
-     $('.skin-polaris input').iCheck({
-         checkboxClass: 'icheckbox_polaris',
-         radioClass: 'iradio_polaris',
-         increaseArea: '-10%'
-     });
-     $('.skin-futurico input').iCheck({
-         checkboxClass: 'icheckbox_futurico',
-         radioClass: 'iradio_futurico',
-         increaseArea: '20%'
-     });
  }
 
  function inbox() {
-     $('[rel=tooltip]').tooltip();
 
-     function inbox_size() {
-         $('.message-summary, .messagecon').height($(window).height() - 180);
-         if ($(window).height() <= 450) {
-             $('.message-summary, .messagecon').height(400);
-         }
-     }
-     inbox_size();
-     window.onresize = function () {
-         $('.message-summary, .messagecon').height($(window).height() - 180);
-         if ($(window).height() <= 450) {
-             $('.message-summary, .messagecon').height(400);
-         }
-     }
  }
 
  function ionsounds() {
-     $.ionSound({
-         sounds: [
-             "beer_can_opening",
-             "bell_ring",
-             "branch_break",
-             "button_click",
-             "button_click_on",
-             "button_push",
-             "button_tiny",
-             "camera_flashing",
-             "camera_flashing_2",
-             "cd_tray",
-             "computer_error",
-             "door_bell",
-             "door_bump",
-             "glass",
-             "keyboard_desk",
-             "light_bulb_breaking",
-             "metal_plate",
-             "metal_plate_2",
-             "pop_cork",
-             "snap",
-             "staple_gun",
-             "tap",
-             "water_droplet",
-             "water_droplet_2",
-             "water_droplet_3"
-         ],
-         path: "assets/ionsound/sounds/", // set path to sounds
-         multiPlay: false, // playing only 1 sound at once
-         volume: "0.3"
-     });
-     $('#beer_can_opening').click(function () {
-         $.ionSound.play('beer_can_opening');
-     });
-     $('#bell_ring').click(function () {
-         $.ionSound.play('bell_ring');
-     });
-     $('#branch_break').click(function () {
-         $.ionSound.play('branch_break');
-     });
-     $('#button_click').click(function () {
-         $.ionSound.play('button_click');
-     });
-     $('#button_click_on').click(function () {
-         $.ionSound.play('button_click_on');
-     });
-     $('#button_push').click(function () {
-         $.ionSound.play('button_push');
-     });
-     $('#button_tiny').click(function () {
-         $.ionSound.play('button_tiny');
-     });
-     $('#camera_flashing').click(function () {
-         $.ionSound.play('camera_flashing');
-     });
-     $('#camera_flashing_2').click(function () {
-         $.ionSound.play('camera_flashing_2');
-     });
-     $('#cd_tray').click(function () {
-         $.ionSound.play('cd_tray');
-     });
-     $('#computer_error').click(function () {
-         $.ionSound.play('computer_error');
-     });
-     $('#door_bell').click(function () {
-         $.ionSound.play('door_bell');
-     });
-     $('#door_bump').click(function () {
-         $.ionSound.play('door_bump');
-     });
-     $('#glass').click(function () {
-         $.ionSound.play('glass');
-     });
-     $('#keyboard_desk').click(function () {
-         $.ionSound.play('keyboard_desk');
-     });
-     $('#light_bulb_breaking').click(function () {
-         $.ionSound.play('light_bulb_breaking');
-     });
-     $('#metal_plate').click(function () {
-         $.ionSound.play('metal_plate');
-     });
-     $('#metal_plate_2').click(function () {
-         $.ionSound.play('metal_plate_2');
-     });
-     $('#pop_cork').click(function () {
-         $.ionSound.play('pop_cork');
-     });
-     $('#snap').click(function () {
-         $.ionSound.play('snap');
-     });
-     $('#staple_gun').click(function () {
-         $.ionSound.play('staple_gun');
-     });
-     $('#tap').click(function () {
-         $.ionSound.play('tap');
-     });
-     $('#water_droplet').click(function () {
-         $.ionSound.play('water_droplet');
-     });
-     $('#water_droplet_2').click(function () {
-         $.ionSound.play('water_droplet_2');
-     });
-     $('#water_droplet_3').click(function () {
-         $.ionSound.play('water_droplet_3');
-     });
+
  }
 
  function jqrangesliders() {
-     $("#slider").rangeSlider();
-     $("#slider2").dateRangeSlider();
-     $("#slider3").editRangeSlider();
-     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-     $("#slider5").dateRangeSlider({
-         bounds: {
-             min: new Date(2012, 0, 1),
-             max: new Date(2012, 11, 31, 12, 59, 59)
-         },
-         defaultValues: {
-             min: new Date(2012, 1, 10),
-             max: new Date(2012, 4, 22)
-         },
-         scales: [{
-             first: function (value) {
-                 return value;
-             },
-             end: function (value) {
-                 return value;
-             },
-             next: function (value) {
-                 var next = new Date(value);
-                 return new Date(next.setMonth(value.getMonth() + 1));
-             },
-             label: function (value) {
-                 return months[value.getMonth()];
-             },
-             format: function (tickContainer, tickStart, tickEnd) {
-                 tickContainer.addClass("myCustomClass");
-             }
-         }]
-     });
-     $("#slider4").rangeSlider({
-         scales: [
-             // Primary scale
-             {
-                 first: function (val) {
-                     return val;
-                 },
-                 next: function (val) {
-                     return val + 10;
-                 },
-                 stop: function (val) {
-                     return false;
-                 },
-                 label: function (val) {
-                     return val;
-                 },
-                 format: function (tickContainer, tickStart, tickEnd) {
-                     tickContainer.addClass("myCustomClass");
-                 }
-             },
-             // Secondary scale
-             {
-                 first: function (val) {
-                     return val;
-                 },
-                 next: function (val) {
-                     if (val % 10 === 9) {
-                         return val + 2;
-                     }
-                     return val + 1;
-                 },
-                 stop: function (val) {
-                     return false;
-                 },
-                 label: function () {
-                     return null;
-                 }
-             }
-         ]
-     });
+
  }
 
  function jqueryui() {
-     var spinner = $("#spinner").spinner();
 
-     $("#disable").click(function () {
-         if (spinner.spinner("option", "disabled")) {
-             spinner.spinner("enable");
-         } else {
-             spinner.spinner("disable");
-         }
-     });
-     $("#destroy").click(function () {
-         if (spinner.data("ui-spinner")) {
-             spinner.spinner("destroy");
-         } else {
-             spinner.spinner();
-         }
-     });
-     $("#getvalue").click(function () {
-         alert(spinner.spinner("value"));
-     });
-     $("#setvalue").click(function () {
-         spinner.spinner("value", 5);
-     });
-
-     $("#progress-bar-1").progressbar({
-         value: 1,
-         create: function () {
-             $("#progress-bar-1 > .ui-progressbar-value").animate({
-                 width: "79%"
-             }, {
-                 duration: 49000,
-                 step: function (now) {
-                     $(".progress-bar-result-1").html(parseInt(now));
-                 }
-             })
-         }
-     });
-     $("#progress-bar-2").progressbar({
-         value: 1,
-         create: function () {
-             $("#progress-bar-2 > .ui-progressbar-value").animate({
-                 width: "100%"
-             }, {
-                 duration: 70000,
-                 step: function (now) {
-                     $(".progress-bar-result-2").html(parseInt(now));
-                 }
-             })
-         }
-     });
-     $("#progress-bar-3").progressbar({
-         value: 1,
-         create: function () {
-             $("#progress-bar-3 > .ui-progressbar-value").animate({
-                 width: "100%"
-             }, {
-                 duration: 19000,
-                 step: function (now) {
-                     $(".progress-bar-result-3").html(parseInt(now * .78));
-                 }
-             })
-         }
-     });
-     $("#slider").slider({
-         animate: true,
-         range: "min",
-         value: 22,
-         min: 0,
-         max: 100,
-
-         //this gets a live reading of the value and prints it on the page
-         slide: function (event, ui) {
-             $(".slider-result").html(ui.value);
-         }
-     });
-     $("#slider2").slider({
-         animate: true,
-         range: "min",
-         value: 170,
-         min: 0,
-         max: 500,
-
-         //this gets a live reading of the value and prints it on the page
-         slide: function (event, ui) {
-             $(".slider-result-2").html(ui.value);
-         }
-     });
-     $("#slider3").slider({
-         animate: true,
-         range: "max",
-         value: 332,
-         min: 0,
-         max: 500,
-
-         //this gets a live reading of the value and prints it on the page
-         slide: function (event, ui) {
-             $(".slider-result-3").html(ui.value);
-         }
-     });
-     $("#slider4").slider({
-         animate: true,
-         range: "min",
-         value: 20,
-         min: 0,
-         max: 100,
-         step: 10,
-
-         //this gets a live reading of the value and prints it on the page
-         slide: function (event, ui) {
-             $(".slider-result-4").html(ui.value);
-         }
-     });
-     $("#slider5").slider({
-         animate: true,
-         range: true,
-         min: 0,
-         max: 500,
-         values: [163, 354],
-         slide: function (event, ui) {
-             $(".slider-result-5").html("$" + ui.values[0] + " - $" + ui.values[1]);
-         }
-     });
-     $('#dialog_link').click(function () {
-         $('#dialog_simple').dialog('open');
-         return false;
-     });
-
-     // Modal Link
-     $('#modal_link').click(function () {
-         $('#dialog-message').dialog('open');
-         return false;
-     });
-
-     // Dialog Simple
-     $('#dialog_simple').dialog({
-         autoOpen: false,
-         width: 600,
-         modal: true,
-         buttons: {
-             "Ok": function () {
-                 $(this).dialog("close");
-             },
-             "Cancel": function () {
-                 $(this).dialog("close");
-             }
-         }
-     });
-
-     // Dialog message
-     $("#dialog-message").dialog({
-         autoOpen: false,
-         modal: true,
-         buttons: {
-             Ok: function () {
-                 $(this).dialog("close");
-             }
-         }
-     });
-     $('#datepicker').datepicker({
-         inline: true
-     });
-     var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme"];
-
-     $("#tags").autocomplete({
-         source: availableTags
-     });
  }
 
  function jqueryuislider() {
-     $("#slider-vertical-1").slider({
-         animate: true,
-         value: 12,
-         min: 0,
-         max: 100,
-         range: "min",
-         orientation: "vertical"
-     });
-     $("#slider-vertical-2").slider({
-         animate: true,
-         value: 22,
-         min: 0,
-         max: 100,
-         range: "min",
-         orientation: "vertical"
-     });
-     $("#slider-vertical-3").slider({
-         animate: true,
-         value: 82,
-         min: 0,
-         max: 100,
-         range: "max",
-         orientation: "vertical"
-     });
-     $("#slider-vertical-4").slider({
-         animate: true,
-         value: 32,
-         min: 0,
-         max: 100,
-         range: "min",
-         orientation: "vertical"
-     });
-     $("#slider-vertical-5").slider({
-         animate: true,
-         value: 42,
-         min: 0,
-         max: 100,
-         range: "max",
-         orientation: "vertical"
-     });
-     $("#slider-vertical-6").slider({
-         animate: true,
-         value: 62,
-         min: 0,
-         max: 100,
-         range: "min",
-         orientation: "vertical"
-     });
 
-     $("#slider").slider({
-         animate: true,
-         range: "min",
-         value: 22,
-         min: 0,
-         max: 100,
-
-         //this gets a live reading of the value and prints it on the page
-         slide: function (event, ui) {
-             $(".slider-result").html(ui.value);
-         }
-     });
-     $("#slider2").slider({
-         animate: true,
-         range: "min",
-         value: 170,
-         min: 0,
-         max: 500,
-
-         //this gets a live reading of the value and prints it on the page
-         slide: function (event, ui) {
-             $(".slider-result-2").html(ui.value);
-         }
-     });
-     $("#slider3").slider({
-         animate: true,
-         range: "max",
-         value: 332,
-         min: 0,
-         max: 500,
-
-         //this gets a live reading of the value and prints it on the page
-         slide: function (event, ui) {
-             $(".slider-result-3").html(ui.value);
-         }
-     });
-     $("#slider4").slider({
-         animate: true,
-         range: "min",
-         value: 20,
-         min: 0,
-         max: 100,
-         step: 10,
-
-         //this gets a live reading of the value and prints it on the page
-         slide: function (event, ui) {
-             $(".slider-result-4").html(ui.value);
-         }
-     });
-     $("#slider5").slider({
-         animate: true,
-         range: true,
-         min: 0,
-         max: 500,
-         values: [163, 354],
-         slide: function (event, ui) {
-             $(".slider-result-5").html("$" + ui.values[0] + " - $" + ui.values[1]);
-         }
-     });
  }
 
  function jwizard() {
@@ -1797,34 +282,7 @@
  }
 
  function laddabootstrap() {
-     Ladda.bind('div:not(.progress-demo) button', {
-         timeout: 2000
-     });
 
-     Ladda.bind('.progress-demo button', {
-         callback: function (instance) {
-             var progress = 0;
-             var interval = setInterval(function () {
-                 progress = Math.min(progress + Math.random() * 0.1, 1);
-                 instance.setProgress(progress);
-
-                 if (progress === 1) {
-                     instance.stop();
-                     clearInterval(interval);
-                 }
-             }, 200);
-         }
-     });
-
-     // You can control loading explicitly using the JavaScript API
-     // as outlined below:
-
-     // var l = Ladda.create( document.querySelector( 'button' ) );
-     // l.start();
-     // l.stop();
-     // l.toggle();
-     // l.isLoading();
-     // l.setProgress( 0-1 );
  }
 
  function lightbox() {
@@ -1836,19 +294,7 @@
  }
 
  function lockscreen() {
-     $(".lockscreen").fadeIn()
 
-     function demo() {
-         var engine = new RainyDay('canvas', 'background', window.innerWidth, window.innerHeight);
-         engine.gravity = engine.GRAVITY_NON_LINEAR;
-         engine.trail = engine.TRAIL_DROPS;
-         engine.VARIABLE_GRAVITY_ANGLE = Math.PI / 8;
-         engine.rain([
-             engine.preset(0, 2, 0.5),
-             engine.preset(4, 4, 1)
-         ], 50);
-     }
-     demo();
  }
 
  function login() {
@@ -1857,66 +303,11 @@
  }
 
  function markdown() {
-     $("#markdown").markdown({
-         additionalButtons: [
-             [{
-                 name: "groupCustom",
-                 data: [{
-                     name: "cmdBeer",
-                     toggle: true, // this param only take effect if you load bootstrap.js
-                     title: "Beer",
-                     icon: "fa fa-glass",
-                     callback: function (e) {
-                         // Replace selection with some drinks
-                         var chunk, cursor,
-                             selected = e.getSelection(),
-                             content = e.getContent(),
-                             drinks = ["Heinekken", "Budweiser",
-                                 "Iron City", "Amstel Light",
-                                 "Red Stripe", "Smithwicks",
-                                 "Westvleteren", "Sierra Nevada",
-                                 "Guinness", "Corona", "Calsberg"
-                             ],
-                             index = Math.floor((Math.random() * 10) + 1)
 
-
-                             // Give random drink
-                             chunk = drinks[index]
-
-                             // transform selection and set the cursor into chunked text
-                             e.replaceSelection(chunk)
-                             cursor = selected.start
-
-                             // Set the cursor
-                             e.setSelection(cursor, cursor + chunk.length)
-                     }
-                 }]
-             }]
-         ]
-     });
  }
 
  function medium() {
-     new Medium({
-         element: document.getElementById('title'),
-         mode: 'inline',
-         maxLength: 25,
-         placeholder: 'Your Title',
-         tags: {
-             paragraph: 'p',
-             outerLevel: ['pre', 'blockquote', 'figure', 'hr'],
-             innerLevel: ['a', 'b', 'u', 'i', 'img', 'strong']
-         }
-     });
-     new Medium({
-         element: document.getElementById('article'),
-         mode: 'rich',
-         tags: {
-             paragraph: 'p',
-             outerLevel: ['pre', 'blockquote', 'figure', 'hr'],
-             innerLevel: ['a', 'b', 'u', 'i', 'img', 'strong']
-         }
-     });
+
  }
 
  function messengeralerts() {
@@ -2102,7 +493,7 @@
              start: [30, 50],
              connect: true,
              serialization: {
-                 // define a name for a new input field, 
+                 // define a name for a new input field,
                  // and pass a jQuery object with another.
                  to: ["val1", inp2],
                  // round to 0 decimals
@@ -3041,7 +1432,7 @@
          $('#user .editable').editable('toggleDisabled');
      });
 
-     //editables 
+     //editables
      $('#username').editable({
          url: '/post',
          type: 'text',
@@ -3442,17 +1833,17 @@
      });
 
  }
- 
+
  function index() {
-    
-       
+
+
      function clock() {
          var now = new Date();
          var outStr = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
          document.getElementById('clock').innerHTML = outStr;
          setTimeout('clock()', 1000);
      }
-     clock();     
+     clock();
      mesos = ["January", "February", "March", "April", "May", "June", "Julio", "August", "September", "October", "November", "December"];
 
      dias = ["L", "M", "Mi", "J", "V", "S", "D"];

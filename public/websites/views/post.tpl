@@ -134,7 +134,7 @@
         <script src="<?=$base?>static/js/jquery.photoset-grid.min.js"></script>
         <script src="<?=$base?>static/js/leftmenu.js"></script>
         <script src="<?=$base?>static/js/theme.js"></script>
-        <script src="<?=$base?>static/js/script.js"></script>
+        <!-- <script src="<?=$base?>static/js/script.js"></script> -->
         <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
         <script>blogpost();</script>
     </body>
