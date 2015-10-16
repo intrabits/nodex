@@ -142,7 +142,7 @@ exports.upload = function (req,res) {
 
                 // arreglo con los datos para crear la imagen
                 var imagenArr = {
-                    imagen_titulo       :'Logotipo',
+                    imagen_titulo       :tipo,
                     imagen_usuario_id   :req.user.id,
                     imagen_pagina_id    :pagina_id,
                     imagen_ruta         :ruta_corta
