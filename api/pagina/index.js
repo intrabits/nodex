@@ -35,9 +35,10 @@ router.use('/banners/',BannersCtrl);
 //  Traer Paquetes de NODEX
 router.get('/paquetes/',auth.isLogged,PaginaCtrl.paquetes);
 
+router.post('/:pagina_id/upload/:tipo',auth.isLogged,PaginaCtrl.upload);
 
 // TODO: Arreglar esta aberración
-router.post('/:pagina_id/upload/:tipo', auth.isLogged,function(req, res) {
+router.post('/:pagina_id/uploads/:tipo', auth.isLogged,function(req, res) {
 
     //  Revisamos que el usuario actual tenga permisos sobre la página
     Pagina.owner(req.user.id,req.params.pagina_id,function (err, data) {

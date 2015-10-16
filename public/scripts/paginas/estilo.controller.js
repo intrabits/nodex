@@ -10,7 +10,7 @@
           Pagina.getOne(pagina_id,function (err, data) {
               if (err) {
                 console.log(err);
-                $scope.notify('dange','Error al cargar la página');
+                $scope.notify('dange',err);
               }
               else{
                 $scope.estilo = data;
@@ -21,6 +21,8 @@
         getEstilo();
 
           $scope.upImg = function(files, tipo) {
+
+            console.log('Subiendo imagen');
                var fd = new FormData();
                 //Take the first selected file
                 fd.append("file", files[0]);
@@ -29,11 +31,11 @@
                     withCredentials: true,
                     headers: {'Content-Type': undefined },
                     transformRequest: angular.identity
-                }).success(function () {
-                  $scope.notify('success','Listo');
+                }).success(function (data) {
+                  $scope.notify('success',data);
                   getEstilo();
                 }).error(function (err) {
-                  $scope.notify('danger','Algo salió mal');
+                  $scope.notify('danger',err);
                 });
 
             };

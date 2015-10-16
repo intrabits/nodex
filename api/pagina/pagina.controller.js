@@ -7,6 +7,8 @@ var colors = require('colors');
 var moment = require('moment');
 var fs = require('fs');
 var _ = require('lodash');
+var shortId = require('shortid');
+var Imagen 	= require('./../../models/imagen.js');
 
 // Agregar promesas
 Promise.promisifyAll(webfaction);
@@ -116,6 +118,76 @@ exports.create = async function (req,res) {
 };
 
 // jshint ignore:end
+
+exports.upload = function (req,res) {
+
+  var pagina_id = req.params.pagina_id;
+  console.log(req.user.nombre, ': subiendo imagen');
+  // Primero revisamos que sea el dueño de la página :)
+  Pagina.ownerAsync(req.user.id,pagina_id)
+    .then(function (data) {
+      var fstream;
+      req.pipe(req.busboy);
+      req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+          console.log('mimetype: ',mimetype);
+          var name = shortId.generate() + '_' + filename;
+          if (mimetype=='image/png'||mimetype=='image/jpeg') {
+              var ruta = 'public/websites/paginas/'+ pagina_id + '/img/' + name;
+              var ruta_corta = pagina_id + '/img/' + name;
+              var tipo = req.params.tipo;
+              console.log('Tipo de imagen: ',tipo);
+              fstream = fs.createWriteStream(ruta);
+              file.pipe(fstream);
+              fstream.on('close', function () {
+
+                // arreglo con los datos para crear la imagen
+                var imagenArr = {
+                    imagen_titulo       :'Logotipo',
+                    imagen_usuario_id   :req.user.id,
+                    imagen_pagina_id    :pagina_id,
+                    imagen_ruta         :ruta_corta
+                };
+
+                Imagen.saveAsync(imagenArr)
+                  .then(function () {
+                    if (tipo === 'logo') {
+                      return Imagen.logoAsync(ruta_corta,pagina_id);
+                    }
+                    if (tipo === 'portada') {
+                      return Imagen.portadaAsync(ruta_corta,pagina_id);
+                    }
+                    if (tipo === 'fondo') {
+                      return Imagen.fondoAsync(ruta_corta,pagina_id);
+                    }
+                  })
+                  .then(function (data) {
+                    console.log(req.user.nombre,' subió una imagen correctamente'.green);
+                    res.send('Archivo guardado correctamente');
+                  })
+                  .catch(function (err) {
+                    console.trace(err);
+                    throw err;
+                  });
+
+              });
+
+              fstream.on('error', function(err) {
+                console.trace(err);
+                throw err;
+              });
+          }else{
+              console.log("Alguien intentó subir un archivo inválido");
+              res.status(500).send('Tipo de archivo no permitido');
+          }
+
+      });
+
+    })
+    .catch(function (err) {
+      console.trace(err);
+      res.status(500).send('Error al subir la imagen');
+    });
+};
 
 exports.paquetes = function (req,res) {
   Pagina.getPaquetes(function( err, data){

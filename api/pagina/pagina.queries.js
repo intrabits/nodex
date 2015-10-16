@@ -122,13 +122,13 @@ Pagina.addPaginaLegacy = function (datos, callback) {
 Pagina.owner = function (usuario_id, pagina_id, callback) {
 	db.query("SELECT id from usuario_pagina where usuario_id = ? and pagina_id = ?",[usuario_id,pagina_id], function(err, rows){
         if (err)
-            callback(err,null);
+            callback(err);
         else{
         	if (rows[0]===undefined) {
-				callback('No es el dueño',null);
-			}else{
-				callback(null,rows[0]);
-           }
+						callback('No es el dueño');
+					}else{
+						callback(null,rows[0]);
+		           }
         }
 
     });
