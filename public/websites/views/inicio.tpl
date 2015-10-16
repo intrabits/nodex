@@ -87,12 +87,12 @@
                           <div class="col-md-4">
                             <div class="view view-tenth">
                                 <img src="http://nodex.mx/paginas/<?=$p['publicacion_imagen']?>" />
-                                <div class="mask" onclick="window.location='?p=publicacion&id=<?=$p['publicacion_id']?>'>
+                                <div class="mask" onclick="window.location='?p=publicacion&id=<?=$p['publicacion_id']?>'">
                                     <h2><?=$p['publicacion_titulo']?><br></h2>
 
 
-                                    <!-- <a href="/?p=publicacion&id=<?=$p['publicacion_id']?>" " class="info">Leer más</a> -->
-                                    <a href="/?p=publicacion&id=<?=$p['publicacion_id']?>"  class="btn btn-default">Leer más</a>
+                                    <a href="/?p=publicacion&id=<?=$p['publicacion_id']?>"  class="info">Leer más</a>
+                                    <!-- <a href="/?p=publicacion&id=<?=$p['publicacion_id']?>"  class="btn btn-default">Leer más</a> -->
                                 </div>
                             </div>
                           </div>

@@ -51,13 +51,12 @@ passport.use(new FacebookStrategy({
       datos.raw = JSON.stringify(profile);
 
       console.log(datos.email);
-      Usuario.find({
+      Usuario.findOne({
         where:{
           email:datos.email
         }
       })
-        .then(function (user) {
-          console.log(user);
+        .then(function (user) {          
           if (user) {
             return user;
           }else{
@@ -86,7 +85,7 @@ passport.use(new LocalStrategy({
     user_email = sanitizer.sanitize(user_email);
     console.log(user_password);
 
-    process.nextTick(function () {      
+    process.nextTick(function () {
 
       Usuario.find({where:{email:user_email}})
           .then(function (user) {
