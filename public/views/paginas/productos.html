@@ -2,9 +2,9 @@
     <div class="row">
         <section class="panel panel-default">
         <div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Tus tienda en linea</div>
-        <div class="panel-body" data-ng-controller="TabsDemoCtrl">    
+        <div class="panel-body" >    
 
-                                 
+
                     <tabset justified="true" class="ui-tab">
                         <tab heading="Tus productos">
                             <div class="row">
@@ -13,19 +13,19 @@
                                         <div class="panel-left panel-item" >
                                             <div class="img-holder" style="height:150px">
                                                 <img ng-src="websites/paginas/{{ producto.producto_foto }}" width="100%">
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div class="panel-right panel-item bg-reverse">
                                             <p class="size-h1 no-margin">{{ producto.producto_precio }}</p>
                                             <p class="text-muted no-margin">{{ producto.producto_nombre }}</p>
-                                            <a href="#/pagina/{{ producto.producto_pagina_id }}/producto/{{ producto.producto_id }}" class="btn btn-info">Editar</a>                                            
+                                            <a href="#/pagina/{{ producto.producto_pagina_id }}/producto/{{ producto.producto_id }}" class="btn btn-info">Editar</a>
                                         </div>
                                     </section>
                                 </div>
                             </div>
-                                
-                                
-                            
+
+
+
                         </tab>
                         <tab heading="Agregar producto">
                             <div class="alert alert-info">Agrega un nuevo producto a tu tienda</div>
@@ -33,40 +33,40 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Nombre del producto</label>
                                 <div class="col-sm-8">
-                                  <input type="text" class="form-control" ng-model="FormAddProducto.producto_nombre" required>                          
+                                  <input type="text" class="form-control" ng-model="FormAddProducto.producto_nombre" required>
                                 </div>
-                              </div>                      
+                              </div>
                               <div class="form-group">
                                 <label class="col-sm-4 control-label">Descripción del producto</label>
                                 <div class="col-sm-8">
                                   <div text-angular ng-model="FormAddProducto.producto_descripcion" class="ui-editor" style="width:100%;"></div>
                                 </div>
-                              </div>                 
+                              </div>
                               <div class="form-group">
                                 <label class="col-sm-4 control-label">Precio del producto</label>
                                 <div class="col-sm-8">
-                                  <input type="number" class="form-control" ng-model="FormAddProducto.producto_precio">                      
+                                  <input type="number" class="form-control" ng-model="FormAddProducto.producto_precio">
                                 </div>
-                              </div>                              
+                              </div>
                               <div class="form-group">
                                 <label class="col-sm-4 control-label">Categoría</label>
                                 <div class="col-sm-8">
                                 <select ng-model="FormAddProducto.categoria" ng-options="item as item.categoria_nombre for item  in categorias">
                                     <option value="">Seleccion un categoría</option>
-                                </select>                          
+                                </select>
                                 </div>
-                              </div>  
+                              </div>
                               <input type="submit" value="Agregar" class="btn btn-primary pull-right">
                             </form>
 
                         </tab>
                         <tab heading="Configuración">Long Labeled Justified content</tab>
-                    </tabset>                                        
+                    </tabset>
 
-              
+
 
         </div>
     </section>
-        
+
     </div>
 </div>

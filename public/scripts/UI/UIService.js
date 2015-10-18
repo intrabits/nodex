@@ -16,13 +16,13 @@
           log: function(message) {
             logIt(message, 'info');
           },
-          logWarning: function(message) {
+          warning: function(message) {
             logIt(message, 'warning');
           },
-          logSuccess: function(message) {
+          success: function(message) {
             logIt(message, 'success');
           },
-          logError: function(message) {
+          error: function(message) {
             logIt(message, 'error');
           }
         };
