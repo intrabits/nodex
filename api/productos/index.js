@@ -29,18 +29,12 @@ router.delete('/:id',ProductoCtrl.delete);
 router.get('/pagina/:pagina_id',function (req, res){
     var usuario_id = req.user.usuario_id;
     var pagina_id  = req.params.pagina_id;
-    Pagina.owner(usuario_id,pagina_id,function (err,data) {
-        if (err||!data) {
-            console.log(err);
-            res.send(500);
-        }
-    });
+
     Producto.misProductos(pagina_id,function( err, data){
         if (err) {
-            // error handling code goes here
-            console.log("ERROR : ",err);
+            console.error(err);
+            res.status(500).send('Error al cargar los productos');
         } else {
-            // code to execute on data retrieval
             res.json(data);
         }
     });
@@ -62,12 +56,11 @@ router.get('/categorias',function (req, res){
 router.get('/:producto_id',function (req, res){
     Producto.getProducto(req.params.producto_id,function( err, data){
         if (err) {
-            // error handling code goes here
-            console.log("ERROR : ",err);
-        } else {
-            // code to execute on data retrieval
-            res.json(data);
+          res.status(500).send('Error al cargar el producto');
+          console.error(err);
         }
+
+        res.json(data);
     });
 });
 
@@ -79,23 +72,22 @@ router.put('/:producto_id',function (req, res){
     };
     Producto.update(data,req.params.producto_id,function( err, data){
         if (err) {
-            // error handling code goes here
-            console.log("ERROR : ",err);
-        } else {
-            // code to execute on data retrieval
-            res.json(data);
+            console.error(err);
+            res.status(500).send('Error al actualizar el producto');
         }
+
+        res.json(data);
     });
 });
 
 router.delete('/:producto_id',ensureAuthenticated,function  (req,res) {
     Producto.delete( req.params.producto_id,req.user.user_id,function  (err,data) {
         if (err) {
-            console.log(err);
-            res.send(500);
-        } else{
-            res.json(data);
+            console.error(err);
+            res.status(500).send('Ocurrió un error al eliminar el producto');
         }
+
+        res.json(data);
     });
 });
 

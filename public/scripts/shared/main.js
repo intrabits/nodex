@@ -31,31 +31,31 @@
           case 'info':
             return logger.log(msg);
           case 'success':
-            return logger.logSuccess(msg);
+            return logger.success(msg);
           case 'warning':
-            return logger.logWarning(msg);
+            return logger.warning(msg);
           case 'error':
-            return logger.logError(msg);
+            return logger.error(msg);
         }
       };
 
 
-      var app = $('#app');
-      $$('.page').swipeRight(function() {
-          // affects "span" children/grandchildren
-
-
-              app.removeClass('nav-min');
-              $('#app').toggleClass('on-canvas');
-          } );
-
-      $$('.page').swipeLeft(function() {
-          // affects "span" children/grandchildren
-
-              app.addClass('nav-min');
-              $('#app').toggleClass('on-canvas');
-
-      });
+      // var app = $('#app');
+      // $$('.page').swipeRight(function() {
+      //     // affects "span" children/grandchildren
+      //
+      //
+      //         app.removeClass('nav-min');
+      //         $('#app').toggleClass('on-canvas');
+      //     } );
+      //
+      // $$('.page').swipeLeft(function() {
+      //     // affects "span" children/grandchildren
+      //
+      //         app.addClass('nav-min');
+      //         $('#app').toggleClass('on-canvas');
+      //
+      // });
 
 
 
