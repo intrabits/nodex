@@ -127,8 +127,9 @@
 
                 </div>
             </div>
-        </section>        
+        </section>
         <script src="<?=$base?>static/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
         <!-- <script src="<?=$base?>static/js/jquery.colorbox.js"></script>
         <script src="<?=$base?>static/js/jquery.photoset-grid.min.js"></script> -->
         <script src="<?=$base?>static/js/leftmenu.js"></script>
