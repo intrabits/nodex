@@ -292,53 +292,9 @@ router.get('/:pagina_id/galeria/:galeria_id',auth.isLogged,GaleriaCtrl.show);
 
 router.put('/:pagina_id/galeria/:galeria_id',auth.isLogged,GaleriaCtrl.update);
 
-router.get('/:pagina_id/galeria/:galeria_id/imagenes',auth.isLogged,GaleriaCtrl.imagenes );
+router.get('/:pagina_id/galeria/:galeria_id/imagenes',auth.isLogged,GaleriaCtrl.imagenes);
 
-router.post('/:pagina_id/galeria/:galeria_id/upload', auth.isLogged,function(req, res) {
-    var fstream;
-    var base = "public/websites/paginas/";
-    var pagina_id = req.params.pagina_id;
-    var galeria_id = req.params.galeria_id;
-    var date = moment().format('YYYY-MM-DD_HH:mm:ss');
-    var name = req.user.id+"_"+ date +".png";
-    req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename) {
-        var path = req.params.pagina_id+'/img/' + name;
-        console.log("Uploading: " + filename);
-        try {
-            fstream = fs.createWriteStream(base + path);
-                file.pipe(fstream);
-                fstream.on('close', function () {
-                    gm(base+path)
-                      .gravity('Center')
-                      .write(base+ path, function (error) {
-                        if (error) console.log('Error - ', error);
-                        else {
-
-                            var data = {
-                                imagen_usuario_id:  req.user.id,
-                                imagen_galeria_id:  galeria_id,
-                                imagen_url:         path
-                            };
-                            Pagina.addImagen(data,function (err, data) {
-                                if (err) {console.log(err);}
-                                else{
-                                    console.log("imagen recortada y guardada");
-                                }
-                            });
-                        }
-                      });
-
-
-                    res.redirect('back');
-                });
-        } catch (e) {
-            console.log(e);
-            res.send(500);
-        }
-
-    });
-});
+router.post('/:pagina_id/galeria/:galeria_id/upload', auth.isLogged,GaleriaCtrl.upload);
 
 router.put('/imagen/:imagen_id',auth.isLogged,GaleriaCtrl.updateImagen);
 

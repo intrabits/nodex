@@ -23,8 +23,10 @@
 
       function getGaleria() {
         Pagina.getGaleria(pagina_id,galeria_id,function (err, data) {
-          if (err) {console.log(err);}
-          else{
+          if (err) {
+            console.log(err);
+            $scope.notify('error',err);
+          } else{
             $scope.FormEditGaleria = data;
           }
         });
@@ -42,7 +44,7 @@
         var pagina_id = $routeParams.pagina_id;
         Pagina.addGaleria($scope.FormAddGaleria,pagina_id,function (err, data) {
           if (err) {
-            $scope.notify('danger','Algo salió mal');
+            $scope.notify('danger',err);
           } else{
             getGalerias();
             $scope.notify('success','Galería agregada exitosamente');
@@ -55,7 +57,7 @@
         var pagina_id = $routeParams.pagina_id;
         Pagina.updateGaleria(pagina_id,galeria_id,$scope.FormEditGaleria,function (err, data) {
           if (err) {
-            $scope.notify('danger','Algo salió mal');
+            $scope.notify('danger',err);
           } else{
             getGalerias();
             $scope.notify('success','Galería editada exitosamente');

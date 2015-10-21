@@ -11,7 +11,7 @@ gulp.task('default', function () {
   nodemon({
     script: 'app.js',
     ext: 'js',
-    ignore: ['public'],
+    ignore: ['public','node_modules'],
     env: { 'NODE_ENV': 'production' }
   });
   var files = [
