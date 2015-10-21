@@ -3,7 +3,7 @@ var colors = require('colors');
 
 exports.delete = function (req,res) {
   console.log('Eliminando producto'.yellow);
-  Producto.deleteAsync(req.params.id,req.user.usuario_id)
+  Producto.deleteAsync(req.params.producto_id,req.user.usuario_id)
     .then(function (data) {
       res.send('Producto eliminado correctamente');
     })
