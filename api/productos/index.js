@@ -27,7 +27,7 @@ var sanitizer = require('sanitizer');
 router.delete('/:id',ProductoCtrl.delete);
 
 router.get('/pagina/:pagina_id',function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
 
     Producto.misProductos(pagina_id,function( err, data){
@@ -137,7 +137,7 @@ router.post('/:producto_id/upload', ensureAuthenticated,function(req, res) {
                 req.pipe(req.busboy);
                 req.busboy.on('file',function (fieldname, file, filename) {
                     var date = moment().format('YYYY-MM-DD_HH:mm:ss');
-                    var name = req.user.usuario_id+"_"+ date +".png";
+                    var name = req.user.id+"_"+ date +".png";
 
                     var ruta = 'public/websites/paginas/'+ pagina_id + '/' + name;
                     var ruta_corta = pagina_id + '/' + name;
@@ -180,7 +180,7 @@ router.post('/:producto_id/upload', ensureAuthenticated,function(req, res) {
 
 
 router.post('/pagina/:pagina_id/add',ensureAuthenticated, function (req, res){
-    var usuario_id = req.user.usuario_id;
+    var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
     var datos = {
         producto_nombre:      sanitizer.sanitize(req.body.producto_nombre),
@@ -196,7 +196,7 @@ router.post('/pagina/:pagina_id/add',ensureAuthenticated, function (req, res){
             //  Revisamos que el usuario sea el dueño de la página
             Pagina.owner(usuario_id,pagina_id,function (err, data) {
                 if (err) {
-                    callback(err,null);
+                    callback(err);
                 } else{
                     if (data) {
                         callback(null,data);
@@ -214,7 +214,7 @@ router.post('/pagina/:pagina_id/add',ensureAuthenticated, function (req, res){
                 console.log(datos);
                 Producto.save(datos, function (err, data) {
                     if (err) {
-                        callback(err,null);
+                        callback(err);
                     } else{
                         callback(null,data);
                     }
@@ -224,7 +224,7 @@ router.post('/pagina/:pagina_id/add',ensureAuthenticated, function (req, res){
     ], function (err, result) {
         if (err) {
             console.log(err);
-            res.send(500);
+            res.status(500).send('Error al agregar el producto');
         }else{
             console.log("Prooducto agregado");
             console.log(result);
