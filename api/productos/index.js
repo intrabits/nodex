@@ -1,4 +1,4 @@
-
+// TODO: Sequelize Model
 var express = require('express');
 var router  = express.Router();
 var fs      = require('fs');
@@ -18,8 +18,13 @@ var gm      = require('gm').subClass({ imageMagick: true });
 var moment = require('moment');
 var sanitizer = require('sanitizer');
 
+// detalles de un producto
+router.get('/:id',ProductoCtrl.show);
+
+// eliminar producto
 router.delete('/:id',ProductoCtrl.delete);
 
+// TODO: mandar esto a páginas: api/paginas/123/productos
 router.get('/pagina/:pagina_id',function (req, res){
     var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
@@ -48,17 +53,6 @@ router.get('/categorias',function (req, res){
 });
 
 
-router.get('/:producto_id',function (req, res){
-    Producto.getProducto(req.params.producto_id,function( err, data){
-        if (err) {
-          res.status(500).send('Error al cargar el producto');
-          console.error(err);
-        }
-
-        res.json(data);
-    });
-});
-
 router.put('/:producto_id',function (req, res){
     var data = {
         producto_nombre :      sanitizer.sanitize(req.body.producto_nombre),
@@ -75,16 +69,6 @@ router.put('/:producto_id',function (req, res){
     });
 });
 
-router.delete('/:producto_id',auth.isLogged,function  (req,res) {
-    Producto.delete( req.params.producto_id,req.user.user_id,function  (err,data) {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Ocurrió un error al eliminar el producto');
-        }
-
-        res.json(data);
-    });
-});
 
 router.delete('/imagen/:imagen_id',auth.isLogged,function  (req,res) {
 
@@ -222,8 +206,7 @@ router.post('/pagina/:pagina_id/add',auth.isLogged, function (req, res){
             console.log(err);
             res.status(500).send('Error al agregar el producto');
         }else{
-            console.log("Prooducto agregado");
-            console.log(result);
+            console.log('Prooducto agregado');            
             res.send(result);
         }
     });

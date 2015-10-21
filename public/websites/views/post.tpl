@@ -128,14 +128,14 @@
                 </div>
             </div>
         </section>
-        <script src="<?=$base?>static/js/bootstrap.min.js"></script>
-        <!-- <script src="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
         <!-- <script src="<?=$base?>static/js/jquery.colorbox.js"></script>
         <script src="<?=$base?>static/js/jquery.photoset-grid.min.js"></script> -->
         <script src="<?=$base?>static/js/leftmenu.js"></script>
         <script src="<?=$base?>static/js/theme.js"></script>
         <script src="<?=$base?>static/js/script.js"></script>
-        <!-- <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script> -->
+        <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
 
     </body>
 </html>
