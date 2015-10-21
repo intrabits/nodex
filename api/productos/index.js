@@ -1,9 +1,4 @@
 
-var ProductoCtrl = require('./producto.controller');
-
-
-
-
 var express = require('express');
 var router  = express.Router();
 var fs      = require('fs');
@@ -12,8 +7,7 @@ var busboy  = require('connect-busboy');
 var config  = require('./../../config');
 var auth    = require('./../../config/auth.js');
 
-var passport        = auth.passport;
-var ensureAuthenticated = auth.ensureAuthenticated;
+var ProductoCtrl = require('./producto.controller');
 
 //  Modelos
 var Producto = require('./producto.queries');
@@ -44,7 +38,8 @@ router.get('/categorias',function (req, res){
     Producto.getCategorias(function( err, data){
         if (err) {
             // error handling code goes here
-            console.log("ERROR : ",err);
+            console.error(err);
+            res.status(500).send('Error al cargar categorías');
         } else {
             // code to execute on data retrieval
             res.json(data);
@@ -80,7 +75,7 @@ router.put('/:producto_id',function (req, res){
     });
 });
 
-router.delete('/:producto_id',ensureAuthenticated,function  (req,res) {
+router.delete('/:producto_id',auth.isLogged,function  (req,res) {
     Producto.delete( req.params.producto_id,req.user.user_id,function  (err,data) {
         if (err) {
             console.error(err);
@@ -91,12 +86,12 @@ router.delete('/:producto_id',ensureAuthenticated,function  (req,res) {
     });
 });
 
-router.delete('/imagen/:imagen_id',ensureAuthenticated,function  (req,res) {
+router.delete('/imagen/:imagen_id',auth.isLogged,function  (req,res) {
 
-    Producto.deleteImagen( req.params.imagen_id,req.user.usuario_id,function  (err,data) {
+    Producto.deleteImagen( req.params.imagen_id,req.user.id,function  (err,data) {
         if (err) {
-            console.log(err);
-            res.send(500);
+            console.error(err);
+            res.status(500).send('Error al eliminar');
         } else{
             console.log(req.params.imagen_id);
             console.log("Borrando imagen");
@@ -109,7 +104,8 @@ router.get('/:producto_id/imagenes',function (req, res){
     Producto.getImagenes(req.params.producto_id,function( err, data){
         if (err) {
             // error handling code goes here
-            console.log("ERROR : ",err);
+            console.error(err);
+            res.status(500).send('Error al cargar las imágenes');
         } else {
             // code to execute on data retrieval
             res.json(data);
@@ -117,10 +113,10 @@ router.get('/:producto_id/imagenes',function (req, res){
     });
 });
 
-router.post('/:producto_id/upload', ensureAuthenticated,function(req, res) {
+router.post('/:producto_id/upload', auth.isLogged,function(req, res) {
     async.waterfall([
         function (callback) {
-            Producto.owner(req.user.usuario_id,req.params.producto_id,function (err,data) {
+            Producto.owner(req.user.id,req.params.producto_id,function (err,data) {
                 if (err) {
                     callback(err, null);
                 } else{
@@ -136,8 +132,8 @@ router.post('/:producto_id/upload', ensureAuthenticated,function(req, res) {
             try {
                 req.pipe(req.busboy);
                 req.busboy.on('file',function (fieldname, file, filename) {
-                    var date = moment().format('YYYY-MM-DD_HH:mm:ss');
-                    var name = req.user.id+"_"+ date +".png";
+                    var date = moment().format('YYYY-MM-DD_HH-mm-ss');
+                    var name = date + '_' + filename;
 
                     var ruta = 'public/websites/paginas/'+ pagina_id + '/' + name;
                     var ruta_corta = pagina_id + '/' + name;
@@ -145,7 +141,7 @@ router.post('/:producto_id/upload', ensureAuthenticated,function(req, res) {
                     file.pipe(fstream);
                     fstream.on('close', function () {
                         Producto.imagen({
-                            imagen_usuario_id   :req.user.usuario_id,
+                            imagen_usuario_id   :req.user.id,
                             imagen_url         :ruta_corta,
                             imagen_producto_id  :producto_id
                         },function (err, data) {
@@ -168,9 +164,9 @@ router.post('/:producto_id/upload', ensureAuthenticated,function(req, res) {
     ], function (err, result) {
        if (err) {
         console.log(err);
-        res.send(500);
+        res.status(500).send('Error al subir la imagen');
        } else{
-        console.log("TOdo bien"+result);
+        console.log('Todo bien ' + result);
         res.json('ok');
        }
     });
@@ -179,7 +175,7 @@ router.post('/:producto_id/upload', ensureAuthenticated,function(req, res) {
 
 
 
-router.post('/pagina/:pagina_id/add',ensureAuthenticated, function (req, res){
+router.post('/pagina/:pagina_id/add',auth.isLogged, function (req, res){
     var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
     var datos = {
