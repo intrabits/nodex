@@ -119,7 +119,7 @@ exports.updateImagen = function (req, res){
 };
 
 exports.deleteImagen = function (req,res) {
-  Pagina.deleteImagen(req.params.imagen_id,req.user.usuario_id,function (err,data) {
+  Pagina.deleteImagen(req.params.imagen_id,req.user.id,function (err,data) {
     if (err) {
       console.error(err);
       res.status(500).send('Error al eliminarl la imagen');
