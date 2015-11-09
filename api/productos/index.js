@@ -18,26 +18,18 @@ var gm      = require('gm').subClass({ imageMagick: true });
 var moment = require('moment');
 var sanitizer = require('sanitizer');
 
+
+// Agregar un nuevo producto :)
+router.post('/',ProductoCtrl.create);
+
 // detalles de un producto
 router.get('/:id',ProductoCtrl.show);
 
 // eliminar producto
-router.delete('/:id',ProductoCtrl.delete);
+router.delete('/:id',auth.isLogged,ProductoCtrl.delete);
 
 // TODO: mandar esto a páginas: api/paginas/123/productos
-router.get('/pagina/:pagina_id',function (req, res){
-    var usuario_id = req.user.id;
-    var pagina_id  = req.params.pagina_id;
-
-    Producto.misProductos(pagina_id,function( err, data){
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error al cargar los productos');
-        } else {
-            res.json(data);
-        }
-    });
-});
+router.get('/pagina/:pagina_id',ProductoCtrl.pagina);
 
 router.get('/categorias',function (req, res){
     Producto.getCategorias(function( err, data){
@@ -52,22 +44,8 @@ router.get('/categorias',function (req, res){
     });
 });
 
-
-router.put('/:producto_id',function (req, res){
-    var data = {
-        producto_nombre :      sanitizer.sanitize(req.body.producto_nombre),
-        producto_descripcion:  sanitizer.sanitize(req.body.producto_descripcion),
-        producto_precio:       sanitizer.sanitize(req.body.producto_precio)
-    };
-    Producto.update(data,req.params.producto_id,function( err, data){
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error al actualizar el producto');
-        }
-
-        res.json(data);
-    });
-});
+// actualizar un producto
+router.put('/:producto_id',auth.isLogged,ProductoCtrl.update);
 
 
 router.delete('/imagen/:imagen_id',auth.isLogged,function  (req,res) {
@@ -156,64 +134,6 @@ router.post('/:producto_id/upload', auth.isLogged,function(req, res) {
     });
 
 });
-
-
-
-router.post('/pagina/:pagina_id/add',auth.isLogged, function (req, res){
-    var usuario_id = req.user.id;
-    var pagina_id  = req.params.pagina_id;
-    var datos = {
-        producto_nombre:      sanitizer.sanitize(req.body.producto_nombre),
-        producto_descripcion: sanitizer.sanitize(req.body.producto_descripcion),
-        producto_precio:      sanitizer.sanitize(req.body.producto_precio),
-        producto_usuario_id:usuario_id,
-        producto_pagina_id: req.params.pagina_id,
-        producto_categoria_id:   sanitizer.sanitize(req.body.categoria.categoria_id)
-    };
-    console.log(req.body.categoria);
-    async.waterfall([
-        function(callback){
-            //  Revisamos que el usuario sea el dueño de la página
-            Pagina.owner(usuario_id,pagina_id,function (err, data) {
-                if (err) {
-                    callback(err);
-                } else{
-                    if (data) {
-                        callback(null,data);
-                    } else{
-                        callback('No eres el dueño ¬¬',null);
-                    }
-
-                }
-            });
-        },
-        function(data, callback){
-            if (data) {
-                //  Si el usuario es el dueño entonces insertamos el producto... yeah!
-
-                console.log(datos);
-                Producto.save(datos, function (err, data) {
-                    if (err) {
-                        callback(err);
-                    } else{
-                        callback(null,data);
-                    }
-                });
-            }
-        }
-    ], function (err, result) {
-        if (err) {
-            console.log(err);
-            res.status(500).send('Error al agregar el producto');
-        }else{
-            console.log('Prooducto agregado');            
-            res.send(result);
-        }
-    });
-
-} );
-
-
 
 
 module.exports = router;

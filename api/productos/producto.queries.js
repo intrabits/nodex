@@ -6,16 +6,12 @@ var Promise = require('bluebird');
 var Producto = {};
 
 //  Agregar producto
-Producto.save = function(datos,callback){
-    connection.query('INSERT INTO pagina_producto SET ?', datos,
-        function (err, result) {
-            if (err)
-                callback(err,null);
-            else
-                callback(null,datos.insertId);
+Producto.save = function(datos,done){
+    connection.query('INSERT INTO pagina_producto SET ?', datos, function (err, result) {
+            if (err) return done(err);
 
-        }
-    );
+            done(null,result.insertId);
+    });
 };
 
 Producto.update = function(datos,id,callback){
@@ -49,16 +45,13 @@ Producto.getProducto = function (id,callback) {
     );
 };
 
-Producto.misProductos = function(pagina_id,callback){
-    connection.query('SELECT *,(SELECT imagen_url from pagina_producto_imagen WHERE imagen_producto_id = producto_id LIMIT 1) as producto_foto from pagina_producto WHERE producto_pagina_id =  ?',pagina_id , function(err, rows){
-        if (err)
-            callback(err,null);
-        else
-            if (rows[0]===undefined) {
-                callback(null,null);
-            }else{
-                callback(null,rows);
-            }
+Producto.pagina = function(pagina_id,done){
+    connection.query('SELECT *,(SELECT imagen_url from pagina_producto_imagen WHERE imagen_producto_id = producto_id LIMIT 1) as producto_foto from pagina_producto WHERE producto_pagina_id =  ?',pagina_id,function (err,data) {
+      if (err) {
+        return done(err);
+      }
+
+      done(null,data);
     });
 };
 

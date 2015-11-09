@@ -25,17 +25,22 @@ var BannersCtrl        = require('./../../routes/banner.js');
 var PaginaCtrl = require('./pagina.controller');
 var GaleriaCtrl = require('./galeria.controller');
 var PublicacionCtrl = require('./publicacion.controller');
-
+var ProductoCtrl = require('./../productos/producto.controller');
 
 
 /*----------------------------------    Banners    --------------------------------------*/
 
+// TODO: podríamos poner esta ruta en  pagina/:id/banners
 router.use('/banners/',BannersCtrl);
 
+// TODO: podríamos quitar esta ruta de aqui
 //  Traer Paquetes de NODEX
 router.get('/paquetes/',auth.isLogged,PaginaCtrl.paquetes);
 
 router.post('/:pagina_id/upload/:tipo',auth.isLogged,PaginaCtrl.upload);
+
+// cargar los productos de una página
+router.get('/:pagina_id/productos',ProductoCtrl.pagina);
 
 // TODO: Arreglar esta aberración
 router.post('/:pagina_id/uploads/:tipo', auth.isLogged,function(req, res) {
@@ -167,7 +172,7 @@ router.get('/:pagina_id/cuentas',auth.isLogged, PaginaCtrl.cuentas );
 
 router.post('/:pagina_id/cuentas',auth.isLogged,PaginaCtrl.addCuenta);
 
-
+// TODO: migrar esto a un controlador
 router.get('/:pagina_id/seguidores',auth.isLogged, function (req, res){
     var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
@@ -212,7 +217,7 @@ router.get('/:pagina_id/seguidores',auth.isLogged, function (req, res){
 
 
 /*----------------------------------    Publicaciones   --------------------------------------*/
-
+// TODO: migrar esto a un controlador
 router.get('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
     var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
@@ -234,6 +239,7 @@ router.get('/:pagina_id/publicacion/:publicacion_id',auth.isLogged,PaginaCtrl.pu
 
 router.get('/publicacion/:publicacion_id/toggle',auth.isLogged,PaginaCtrl.togglePublicacion);
 
+// TODO: migrar esto a un controlador
 router.post('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
     var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;
@@ -269,7 +275,7 @@ router.post('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
 router.use('/',MensajesCtrl);
 
 /*----------------------------------    Galerías   --------------------------------------*/
-
+// TODO: migrar esto a un controlador
 router.get('/:pagina_id/galerias', function (req, res){
     var usuario_id = req.user.id;
     var pagina_id  = req.params.pagina_id;

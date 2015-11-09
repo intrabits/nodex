@@ -8,10 +8,10 @@
                     <tabset justified="true" class="ui-tab">
                         <tab heading="Tus productos">
                             <div class="row">
-                                <div class="col-xs-6" ng-repeat="producto in misProductos" ng-if="misProductos">
+                                <div class="col-xs-6" ng-repeat="producto in misProductos track by $index" ng-if="misProductos">
                                     <section class="panel panel-box info-box">
                                         <div class="panel-left panel-item" >
-                                            <div class="img-holder" style="height:150px">
+                                            <div class="img-holder" style="height:150px;background-image:url(images/holder.png);background-size:100% auto">
                                                 <img ng-src="websites/paginas/{{ producto.producto_foto }}" width="100%">
                                             </div>
                                         </div>
@@ -48,14 +48,14 @@
                                   <input type="number" class="form-control" ng-model="FormAddProducto.producto_precio">
                                 </div>
                               </div>
-                              <div class="form-group">
+                              <!-- <div class="form-group">
                                 <label class="col-sm-4 control-label">Categoría</label>
                                 <div class="col-sm-8">
                                 <select ng-model="FormAddProducto.categoria" ng-options="item as item.categoria_nombre for item  in categorias">
                                     <option value="">Seleccion un categoría</option>
                                 </select>
                                 </div>
-                              </div>
+                              </div> -->
                               <input type="submit" value="Agregar" class="btn btn-primary pull-right">
                             </form>
 

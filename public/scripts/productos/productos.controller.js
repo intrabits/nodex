@@ -3,7 +3,7 @@
   angular.module('app.producto', [
     'app.producto.service'
   ])
-    .controller('ProductoCtrl',['$scope','$modal','Producto','$routeParams',function($scope,$modal,Producto,$routeParams){
+    .controller('ProductoCtrl',['$scope','$modal','Producto','$routeParams','$window',function($scope,$modal,Producto,$routeParams,$window){
 
       $scope.FormAddProducto = {};
       $scope.misProductos = {};
@@ -16,31 +16,28 @@
 
       $scope.addProducto = function () {
         var datos = $scope.FormAddProducto;
-        Producto.create(datos,$routeParams.pagina_id,function (err,data) {
-          if (err) {alert(err);} else{
-            $scope.notify('success',"Producto agregado a tu tienda");
-            $scope.FormAddProducto = {};
-            getProductos();
-          }
-        });
+        datos.pagina_id = $routeParams.pagina_id;
+        Producto.create(datos)
+          .success(function (data) {
+            $scope.notify('success',data.result);
+            $window.location = '#/pagina/' + datos.pagina_id + '/producto/' + data.id;
+          })
+          .error(function (err) {
+            $scope.notify('warning',err);
+          });
       };
 
       var getProductos = function () {
         var pagina_id = $routeParams.pagina_id;
-        Producto.misProductos(pagina_id,function (err,data) {
-          if (err) {
-            console.log(err);
-            $scope.notify('danger','Algo salió mal');
-          }
-          else{
-            if (data!==null) {
-              $scope.misProductos = data;
-            }else{
-              $scope.notify('danger','Aún no hay productos');
-            }
-
-          }
-        });
+        console.log(pagina_id);
+        Producto.misProductos(pagina_id)
+          .success(function (data) {
+            console.log(data);
+            $scope.misProductos = data;
+          })
+          .error(function (err) {
+            $scope.notify('warning',err);
+          });
       };
 
       if ($routeParams.pagina_id) {

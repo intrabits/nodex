@@ -134,6 +134,13 @@ Pagina.owner = function (usuario_id, pagina_id, callback) {
     });
 };
 
+Pagina.isOwner = function (data,done) {
+	db.query('SELECT id FROM usuario_pagina WHERE usuario_id = ? and pagina_id = ?',[data.usuario_id,data.pagina_id],function (err,data) {
+		if (err) done(err);
+		else done(null,err);
+	});
+};
+
 /*
 Suscriptores :)
 */

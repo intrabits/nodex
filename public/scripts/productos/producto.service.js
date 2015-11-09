@@ -1,17 +1,13 @@
 (function () {
   'use strict';
 
-  /* Modelo Producto */
-
   angular
     .module('app.producto.service',  ['ngRoute'])
-          //esto se queda, pero solo como adorno para futuras referencias
+
           .factory ('Producto', ['$http',function ($http) {
 
               return {
-                  test:function (nada) {
-                    alert('holaaa');
-                  },
+
                   all:function (callback) {
                     $http.get('/api/pagina/misPaginas').success(function (data) {
                           // return data;
@@ -44,12 +40,9 @@
                             callback("EROR",null);
                        });
                   },
-                  misProductos:function (pagina_id,callback) {
-                    $http.get('/api/producto/pagina/'+pagina_id).success(function (data) {
-                            callback(null,data);
-                       }).error(function (data) {
-                            callback(data,null);
-                       });
+                  misProductos:function (pagina_id) {
+                    return $http.get('/api/pagina/'+pagina_id + '/productos');
+
                   },
                   deleteImagen:function (id,callback) {
                     $http.delete('/api/producto/imagen/'+id).success(function (data) {
@@ -65,17 +58,12 @@
                             callback(data,null);
                        });
                   },
-                  create:function (datos,pagina_id, callback) {
-                      $http({
+                  create:function (datos) {
+                      return $http({
                             data    :  datos,
                             method  : 'POST',
-                            url     : '/api/producto/pagina/'+pagina_id+"/add"
-                        })
-                          .success(function(data) {
-                              callback(null,data);
-                          }).error(function(err){
-                              callback('Hubo un error',null);
-                          });
+                            url     : '/api/producto/'
+                        });
                   },
 
                   update:function ( datos, id, callback) {
