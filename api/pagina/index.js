@@ -275,26 +275,14 @@ router.post('/:pagina_id/publicaciones',auth.isLogged, function (req, res){
 router.use('/',MensajesCtrl);
 
 /*----------------------------------    Galerías   --------------------------------------*/
-// TODO: migrar esto a un controlador
-router.get('/:pagina_id/galerias', function (req, res){
-    var usuario_id = req.user.id;
-    var pagina_id  = req.params.pagina_id;
-
-
-    Pagina.getGalerias(pagina_id, function( err, data){
-        if (err) {
-            console.log("ERROR : ",err);
-            res.json('error');
-        } else {
-            res.json(data);
-        }
-    });
-
-} );
+router.get('/:pagina_id/galerias',GaleriaCtrl.list);
 
 router.post('/:pagina_id/galerias',auth.isLogged,GaleriaCtrl.create);
 
 router.get('/:pagina_id/galeria/:galeria_id',auth.isLogged,GaleriaCtrl.show);
+
+// Eliminar una galería
+router.delete('/:pagina_id/galeria/:galeria_id',auth.isLogged,GaleriaCtrl.delete);
 
 router.put('/:pagina_id/galeria/:galeria_id',auth.isLogged,GaleriaCtrl.update);
 

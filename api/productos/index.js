@@ -47,33 +47,10 @@ router.get('/categorias',function (req, res){
 // actualizar un producto
 router.put('/:producto_id',auth.isLogged,ProductoCtrl.update);
 
+// Eliminar una imágen de la gelería interna del producto
+router.delete('/imagen/:imagen_id',auth.isLogged,ProductoCtrl.deleteImagen);
 
-router.delete('/imagen/:imagen_id',auth.isLogged,function  (req,res) {
-
-    Producto.deleteImagen( req.params.imagen_id,req.user.id,function  (err,data) {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error al eliminar');
-        } else{
-            console.log(req.params.imagen_id);
-            console.log("Borrando imagen");
-            res.json('Imagen eliminada');
-        }
-    });
-});
-
-router.get('/:producto_id/imagenes',function (req, res){
-    Producto.getImagenes(req.params.producto_id,function( err, data){
-        if (err) {
-            // error handling code goes here
-            console.error(err);
-            res.status(500).send('Error al cargar las imágenes');
-        } else {
-            // code to execute on data retrieval
-            res.json(data);
-        }
-    });
-});
+router.get('/:producto_id/imagenes',ProductoCtrl.imagenes);
 
 router.post('/:producto_id/upload', auth.isLogged,function(req, res) {
     async.waterfall([

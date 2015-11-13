@@ -12,7 +12,7 @@ gulp.task('default', function () {
     script: 'app.js',
     ext: 'js',
     ignore: ['public','node_modules'],
-    env: { 'NODE_ENV': 'production' }
+    env: { 'NODE_ENV': 'dev' }
   });
   var files = [
     'public/css/*.css',

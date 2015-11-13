@@ -82,10 +82,36 @@ exports.pagina = function (req, res){
 
     Producto.paginaAsync(pagina_id)
       .then(function (data) {
-        res.json(data);        
+        res.json(data);
       })
       .catch(function (err) {
         console.error(err);
         res.status(500).send('Error al cargar los productos');
       });
+};
+
+exports.imagenes = function (req, res){
+    Producto.getImagenes(req.params.producto_id,function( err, data){
+        if (err) {
+            // error handling code goes here
+            console.error(err);
+            res.status(500).send('Error al cargar las imágenes');
+        } else {
+            // code to execute on data retrieval
+            res.json(data);
+        }
+    });
+};
+
+exports.deleteImagen = function (req,res) {
+  Producto.deleteImagen( req.params.imagen_id,req.user.id,function  (err,data) {
+      if (err) {
+          console.error(err);
+          res.status(500).send('Error al eliminar');
+      } else{
+          console.log(req.params.imagen_id);
+          console.log("Borrando imagen");
+          res.json('Imagen eliminada');
+      }
+  });
 };

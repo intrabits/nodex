@@ -66,6 +66,20 @@
         });
       };
 
+      $scope.deleteGaleria = function () {        
+        var confirmar = confirm('¿Realmente deseas eliminar esta galería?');
+
+        if (confirmar) {
+          Pagina.deleteGaler(galeria_id)
+            .success(function (data) {
+              $scope.notify('success',data);
+            })
+            .error(function (err) {
+              $scope.notify('danger',err);
+            });
+        }
+      };
+
 
       $scope.FormGaleria = function () {
         $('#vista1').hide('explode');

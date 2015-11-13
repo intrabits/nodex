@@ -11,6 +11,17 @@ var gm      = require('gm').subClass({ imageMagick: true });
 
 Pagina = Promise.promisifyAll(Pagina);
 
+exports.list = function (req,res) {
+  Pagina.getGalerias(req.params.pagina_id)
+    .then(function (data) {
+      res.json(data);
+    })
+    .catch(function (err) {
+      console.error(err);
+      res.status(500).send('Error al cargar las galerías de la página');
+    });
+};
+
 
 exports.create = function (req,res) {
   var usuario_id = req.user.id;
@@ -116,6 +127,11 @@ exports.updateImagen = function (req, res){
             res.json(data);
         }
     });
+};
+
+// TODO eliminar galería
+exports.delete = function (req,res) {
+
 };
 
 exports.deleteImagen = function (req,res) {
